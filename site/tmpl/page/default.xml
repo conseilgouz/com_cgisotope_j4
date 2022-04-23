@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_CGISOTOPE_TITLE_LIST_VIEW_PAGE" option="View">
+        <message>
+                        <![CDATA[COM_CGISOTOPE_TITLE_LIST_VIEW_PAGE_DESC]]>
+        </message>
+	</layout>
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request"
+			addfieldprefix="ConseilGouz\Component\CGIsotope\Administrator\Field"
+		>
+			<field 
+				name="id" type="pages" label="COM_CGISOTOPE_SELECT_PAGE"
+				description="COM_CGISOTOPE_SELECT_PAGE_DESC"
+				required="true"	select="true" new="true" edit="true" clear="true"
+			/>
+		</fieldset>
+	</fields>
+	
+</metadata>

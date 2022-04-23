@@ -1,0 +1,80 @@
+/**
+ * Changelog
+ *
+ * CG Isotope Component  - Joomla 4.0.0 Component 
+ * Version			: 2.2.0
+ * Package			: CG ISotope
+ * copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
+ * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+ * From              : isotope.metafizzy.co
+ */
+/**
+ * + Addition
+ * ! Removal
+ * ^ Change
+ * # Fix
+ */
+
+06-April-2022 : 2.2.0
+ # use choicesjs and field-fancy-select for lists
+ + load init.min.js or init.js depending on debug mode
+ + use webassetmanager to load css and script files
+
+25-March-2022 : 2.1.3
+ # admin : K2 SQL error if K2 not installed
+
+04-January-2022 : 2.1.2
+ # admin : suppress pages notice
+ # admin : fix css
+ # admin : copy pages error
+
+20-December-2021 : 2.1.1
+ # Phoca collapse compatibility
+
+16-December-2021 : 2.1.0
+ # replace boostrap tab by uitab
+
+29-November-2021 : 2.0.13
+ # set created default value</item>
+ # datetime defaults</item>
+ # drop cgisotope_page table</item>
+
+26-November-2021 : 2.0.11
+ # SEF URL
+
+01-October-2021 : 2.0.10
+ # php error : array undefined
+
+30-September-2021 : 2.0.9
+ # suppress PHP 8 notice
+
+28-September-2021 : 2.0.8
+ # php 8 strpos error
+
+15-September-2021 : v2.0.7
+ # php 8 error 
+ # replace JModelLegacy in CGHelper
+
+30-August-2021 : v2.0.5
+ # page Publish/unpublish error
+
+29-August-2021 : v2.0.4
+ # Weblinks 4.0
+ # Yes/No buttons in config.
+
+04-July-20121 : v2.0.3
+ # show unpublished items, if user is authorized
+
+03-july-2021 : v2.0.2
+ + onCGIsotopeBefore,onCGIsotopeFilter, onCGIsotopeRender events
+ + add Javascript Customization
+
+28-June-2021 : v2.0.1
+ + Changelog file
+ ^ update script.php
+
+21-June-2021 : v2.0.0
+ + Joomla 4.0 RC compatible
+
+01-Oct-2018 : v1.0.1
+ + First version

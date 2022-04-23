@@ -1,0 +1,29 @@
+/**
+* CG Isotope Component  - Joomla 4.0.0 Component 
+* Version			: 2.2.0
+* Package			: CG ISotope
+* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* From              : isotope.metafizzy.co
+*/
+#attrib-layout .subform-repeatable-group .control-group:nth-of-type(1){
+	float:left; width:25%;
+}
+#attrib-layout .subform-repeatable-group .control-group:nth-of-type(2){
+	float:left; width:25%;
+}
+#attrib-layout .subform-repeatable-group .control-group:nth-of-type(3){
+	float:left; width:25%;
+}
+#attrib-layout .subform-repeatable-group .control-group:nth-of-type(4){
+	float:left; width:25%;
+}
+/*#attrib-layout .controls select {width:50%}*/
+#attrib-layout .controls input {width:30%}
+#attrib-layout .control-label {width:50%}
+#attrib-layout .controls {
+	margin-left: 0
+}
+#attrib-layout .subform-repeatable-group .control-group:nth-of-type(1) .control-label {
+	display:none;
+}

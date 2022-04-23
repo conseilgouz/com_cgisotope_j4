@@ -1,0 +1,1 @@
+ALTER TABLE `#__cgisotope_page` ADD COLUMN `fieldslinks` text NOT NULL AFTER `sections`;

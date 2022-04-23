@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+     <fieldset name="section">
+		<field name="div" type="list" label="CG_ISO_DIV" description="CG_ISO_DIV_DESC" required="true">
+			<option value="">CG_ISO_DIV_SELECT</option>
+			<option value="search">CG_ISO_DIV_SEARCH</option>
+			<option value="sort">CG_ISO_DIV_SORT</option>
+			<option value="cat">CG_ISO_DIV_CAT</option>
+			<option value="tag">CG_ISO_DIV_TAG</option>
+			<option value="field">CG_ISO_DIV_FIELDS</option>
+			<option value="lang">CG_ISO_DIV_LANG</option>
+			<option value="range">CG_ISO_DIV_RANGE</option>
+			<option value="alpha">CG_ISO_DIV_ALPHA</option>
+			<option value="calendar">CG_ISO_DIV_CALENDAR</option>
+			<option value="iso">CG_ISO_DIV_ISO</option>
+		</field>
+  		<field name="div_line" type="number" value="" min="1" max="5"  label="CG_ISO_DIV_LINE" description="CG_ISO_DIV_LINE_DESC" length="1" maxlength="1"  required="true" />
+  		<field name="div_pos" type="number" value="" min="1" max="5"  label="CG_ISO_DIV_POS" description="CG_ISO_DIV_POS_DESC" length="1" maxlength="1"  required="true"/>
+  		<field name="div_width" type="number" value="" min="1" max="12"  label="CG_ISO_DIV_WIDTH" description="CG_ISO_DIV_WIDTH_DESC" length="2" maxlength="2"  required="true"/>
+		<field showon="div!:iso" name="div_align" type="radio" class="btn-group btn-group-yesno"	default=""  label="CG_ISO_DIV_ALIGN" description="CG_ISO_DIV_ALIGN_DESC">
+			<option value="">CG_ISO_DIV_NONE</option>
+			<option value="fg-row fg-start">CG_ISO_DIV_LEFT</option>
+			<option value="fg-row fg-center">CG_ISO_DIV_CENTER</option>
+			<option value="fg-row fg-end">CG_ISO_DIV_RIGHT</option>
+			<option value="fg-row fg-around">CG_ISO_DIV_AROUND</option>
+			<option value="fg-row fg-between">CG_ISO_DIV_BETWEEN</option>
+		</field>
+</fieldset>
+</form>

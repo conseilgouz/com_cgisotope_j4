@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="gene_tab" label="CG_ISO_GENE_TAB">
+		<field name="id" type="hidden" default="0"
+			readonly="true" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
+		<field name="title" type="text"
+			label="CG_ISO_TITLE" 
+			description ="CG_ISO_TITLE_DESC" 
+			required="true"  />
+		<field	name="state" type="list" label="JSTATUS"
+			description="CG_ISO_STATE_DESC" class="chzn-color-state"
+			size="1" default="1">
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		<field	name="language"	type="contentlanguage"
+			label="JFIELD_LANGUAGE_LABEL" description="CG_ISO_LANGUAGE_DESC"	>
+			<option value="*">JALL</option>
+		</field>
+		<field name="intro" type="editor" label="CG_ISO_INTRO" description="CG_ISO_INTRO_DESC" cols="400" rows="4" filter="safehtml" 
+			default=""/>	
+		<field name="bottom" type="editor" label="CG_ISO_BOTTOM" description="CG_ISO_BOTTOM_DESC" cols="400" rows="4" filter="safehtml" 
+			default=""/>	
+		</fieldset>
+		<fieldset name="iso_tab" label="CG_ISO_ISOTOPE_TAB" addfieldpath="/administrator/components/com_k2/elements/"
+		addfieldprefix="ConseilGouz\Component\CGIsotope\Administrator\Field">
+<field	name="notegeneralinfo"	type="note" label="CG_ISO_GENERALINFONOTE" class="alert-success"/>
+			<field	name="iso_entree" type="radio"	default="articles"	class="btn-group"
+				label="CG_ISO_ENTREE" description="CG_ISO_ENTREEDESC" >
+				<option value="articles">CG_ISO_ENTREEARTICLES</option> 
+				<option value="webLinks">CG_ISO_ENTREEWEBLINKS</option> 
+			</field>
+			<field showon="iso_entree:articles"
+				name="categories" type="category"	multiple="true"	extension="com_content" 
+				label="CG_ISO_CAT" description="CG_ISO_CATDESC" />
+			<field showon="iso_entree:webLinks"
+				name="wl_categories" type="category" 
+				multiple="true"	extension="com_weblinks" 
+				label="CG_ISO_CAT" description="CG_ISO_WLCATDESC"	/>
+			<field showon="iso_entree:k2"
+				name="categories_k2" type="categoriesmultiple" default=""
+				label="ISO_K2_SELECT_CATEGORIES" description="ISO_K2_SELECT_CATEGORIES_DESC"/>
+<field	name="notesortinfo"	type="note" label="CG_ISO_SORTINFONOTE" class="alert-success"/>
+			<field	name="displaysort"
+				type="radio" class="btn-group btn-group-yesno"	default="show"
+				label="CG_ISO_DISPLAYSORT"	description="CG_ISO_DISPLAYSORTDESC" >
+				<option value="show">JYES</option> 
+				<option value="hide">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btndate"
+				type="radio" class="btn-group " default="true"
+				label="CG_ISO_DISPLAYBTNDATE" description="CG_ISO_DISPLAYBTNDATEDESC" >
+				<option value="true">CG_ISO_ASC</option> 
+				<option value="DESC">CG_ISO_DESC</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btncat"
+				type="radio" class="btn-group " default="true"
+				label="CG_ISO_DISPLAYBTNCAT" 	description="CG_ISO_DISPLAYBTNCATDESC" >
+				<option value="true">CG_ISO_ASC</option> 
+				<option value="DESC">CG_ISO_DESC</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btnalpha"
+				type="radio" class="btn-group " default="true"
+				label="CG_ISO_DISPLAYBTNALPHA" description="CG_ISO_DISPLAYBTNALPHADESC" >
+				<option value="true">CG_ISO_ASC</option> 
+				<option value="DESC">CG_ISO_DESC</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btnvisit"
+				type="radio" class="btn-group "	default="true"
+				label="CG_ISO_DISPLAYBTNVISIT" description="CG_ISO_DISPLAYBTNVISITDESC" >
+				<option value="true">CG_ISO_ASC</option> 
+				<option value="DESC">CG_ISO_DESC</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btnrating"
+				type="radio" class="btn-group " default="true"
+				label="CG_ISO_DISPLAYBTNRATING" description="CG_ISO_DISPLAYBTNRATINGDESC" >
+				<option value="true">CG_ISO_ASC</option> 
+				<option value="DESC">CG_ISO_DESC</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btnid"
+				type="radio" class="btn-group " default="false"
+				label="CG_ISO_DISPLAYBTNID" description="CG_ISO_DISPLAYBTNIDDESC" >
+				<option value="true">CG_ISO_ASC</option> 
+				<option value="DESC">CG_ISO_DESC</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="displaysort:show" name="btnrandom"
+				type="radio" class="btn-group " default="false"
+				label="CG_ISO_DISPLAYBTNRANDOM" description="CG_ISO_DISPLAYBTNRANDOMDESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	showon="iso_entree:articles,webLinks" name="btnfeature"
+				type="radio" class="btn-group " default="false"
+				label="CG_ISO_DISPLAYBTNFEATURED" description="CG_ISO_DISPLAYBTNFEATUREDDESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field name="defaultdisplay" 
+				type="list" default="date_desc"
+				label="CG_ISO_DEFDISPLAY"	description="CG_ISO_DEFDISPLAYDESC">				
+				<option value="date_asc">CG_ISO_DEFDISPLAYOLDERDATE</option> 
+				<option value="date_desc">CG_ISO_DEFDISPLAYRECENTDATE</option> 
+				<option value="cat_asc">CG_ISO_DEFDISPLAYCAT</option> 
+				<option value="cat_desc">CG_ISO_DEFDISPLAYCATREV</option> 
+				<option value="alpha_asc">CG_ISO_DEFDISPLAYALPHA</option> 
+				<option value="alpha_desc">CG_ISO_DEFDISPLAYALPHAREV</option> 
+				<option value="click_asc">CG_ISO_DEFDISPLAYCLICK</option> 
+				<option value="click_desc">CG_ISO_DEFDISPLAYCLICKREV</option> 
+				<option value="id_asc">CG_ISO_DEFDISPLAYID</option> 
+				<option value="id_desc">CG_ISO_DEFDISPLAYIDREV</option> 
+				<option value="random">CG_ISO_DEFDISPLAYRANDOM</option> 
+			</field>
+			<field	showon="iso_entree:articles"
+				name="choixdate" type="sql" default="created"	class="btn-group"
+				query="select f.id as id, f.title as value from #__fields f where f.context like 'com_content%' and f.state > 0 and type like 'calendar'"
+				key_field="id"	value_field="value"				
+				label="CG_ISO_DATECHOICE" description="CG_ISO_DATECHOICEDESC" >
+				<option value="created">CG_ISO_DATECHOICECREATE</option> 
+				<option value="publish_up">CG_ISO_DATECHOICEPUBLISH</option> 
+				<option value="modified">CG_ISO_DATECHOICEMODIF</option> 
+			</field>
+			
+<field	name="notefilterinfo"	type="note" label="CG_ISO_FILTERINFONOTE" class="alert-success"/>
+			<field name="cat_or_tag" 
+				type="radio" class="btn-group"
+				label="CG_ISO_CAT_TAGS" description="CG_ISO_CAT_TAGS_DESC"
+				default="cat">
+				<option value="cat">CG_ISO_CAT_TAGS_CAT</option>
+				<option value="tags">CG_ISO_CAT_TAGS_TAGS</option>
+				<option value="cattags">CG_ISO_CAT_TAGS_CAT_TAGS</option>
+				<option value="fields" >CG_ISO_CAT_TAGS_FIELDS</option>
+				<option value="catfields" >CG_ISO_CAT_FIELDS</option>
+				<option value="tagsfields" >CG_ISO_TAGS_FIELDS</option>
+				<option value="cattagsfields" >CG_ISO_CAT_TAGS_ALL</option>
+			</field>
+			<field name="note24" type="note" class="alert alert-error" 
+				label="ISO_ERRINCCOMPATIBLITY" description="ISO_ERRINCCOMPATIBLITY_DESC" 
+				showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:webLinks,k2" />		
+			<field	name="empty"
+				type="radio" class="btn-group btn-group-yesno" default="false"
+				label="CG_ISO_DISPLAYEMPTY" description="CG_ISO_DISPLAYEMPTYDESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+<field	name="notefiltercatinfo"	type="note" label="CG_ISO_FILTERCATINFONOTE" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success"/>
+			<field name="default_cat" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles"
+					type="category" multiple="false" extension="com_content" 
+					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" 
+					default="">
+					<option value="">CG_ISO_LIBALL</option>
+					<option value="none">CG_ISO_LIBNONE</option>
+			</field>
+			<field name="default_cat_wl" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:webLinks"
+				type="category" multiple="false" extension="com_weblinks" default=""
+				label="CG_ISO_DEFAULT_CAT" 	description="CG_ISO_DEFAULT_CATDESC" >
+				<option value="">CG_ISO_LIBALL</option>
+				<option value="none">CG_ISO_LIBNONE</option>
+			</field>
+				<field name="default_cat_k2"	
+					showon="cat_or_tag:cat,cattags[AND]iso_entree:k2"
+					type="sqlnoerr" 
+					query="SELECT id,name FROM #__k2_categories WHERE trash = 0 ORDER BY parent, ordering"
+					key_field="id" value_field="name"
+					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" 
+					default="">
+					<option value="">CG_ISO_LIBALL</option>
+					<option value="none">CG_ISO_LIBNONE</option>
+			</field>
+			<field	name="displayfiltercat"	showon="cat_or_tag:cat,cattags,cattagsfields"
+				type="radio" default="button" class="btn-group"
+				label="CG_ISO_DISPLAYFILTERCAT" description="CG_ISO_DISPLAYFILTERCATDESC" 	>
+				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
+				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
+				<option value="multiex">CG_ISO_DISPLAYFILTERMULTIEXCLUSIVEBUTTON</option> 
+				<option value="list">CG_ISO_DISPLAYFILTERLIST</option> 
+				<option value="listmulti">CG_ISO_DISPLAYMUTLIPLEFILTERLIST</option> 
+				<option value="hide">CG_ISO_DISPLAYFILTERHIDE</option>
+			</field>
+			<field showon="cat_or_tag:cattags,cat,catfields,cattagsfields" 	name="catfilteralias"
+				type="radio" class="btn-group" default="false" 
+				label="CG_ISO_CATFILTERALIAS" description="CG_ISO_CATFILTERALIASDESC"	>
+				<option value="true">CG_ISO_ALIAS</option>
+				<option value="false">CG_ISO_ALPHA</option>
+				<option value="order">CG_ISO_KEEP</option>
+			</field>
+			<field	showon="cat_or_tag:cattags,cat,catfields,cattagsfields" 	name="catsfilterimg"
+				type="radio" class="btn-group btn-group-yesno" default="false" 
+				label="CG_ISO_CATSFILTERIMG" description="CG_ISO_CATSFILTERIMGDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+<field	name="notefiltertagsinfo"	type="note" label="CG_ISO_FILTERTAGSINFONOTE" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success"/>
+			<field name="tags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
+					type="tag" label="CG_ISO_TAGS" description="CG_ISO_TAGSDESC" 
+					mode="nested" multiple="true" custom="deny" layout="joomla.form.field.list"/>	
+			<field name="default_tag"	showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
+				type="tag" 	mode="nested" custom="deny"	default=""
+				label="CG_ISO_DEFAULT_TAG" 	description="CG_ISO_DEFAULT_TAGDESC" layout="joomla.form.field.list">
+					<option value="">CG_ISO_LIBALL</option>
+					<option value="none">CG_ISO_LIBNONE</option>
+			</field>
+			<field name="default_tag_k2"	
+					showon="cat_or_tag:tags,cattags[AND]iso_entree:k2"
+					type="sqlnoerr" 
+					query="SELECT id,name FROM #__k2_tags WHERE published = 1 order by name"
+					key_field="id" value_field="name"
+					label="CG_ISO_DEFAULT_TAG" description="CG_ISO_DEFAULT_TAGDESC" 
+					default="">
+					<option value="">CG_ISO_LIBALL</option>
+					<option value="none">CG_ISO_LIBNONE</option>
+			</field>
+			<field showon="cat_or_tag:tags,cattags[AND]iso_entree:k2"
+				name="tags_k2" type="k2tags" label="ISO_K2_TAGS" description="ISO_K2_TAGS_DESC"/>
+			<field	name="displayfiltertags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields"
+				type="radio" default="button" class="btn-group"
+				label="CG_ISO_DISPLAYFILTER"	description="CG_ISO_DISPLAYFILTERDESC" 	>
+				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
+				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
+				<option value="multiex">CG_ISO_DISPLAYFILTERMULTIEXCLUSIVEBUTTON</option> 
+				<option value="list">CG_ISO_DISPLAYFILTERLIST</option> 
+				<option value="listmulti">CG_ISO_DISPLAYMUTLIPLEFILTERLIST</option> 
+				<option value="hide">CG_ISO_DISPLAYFILTERHIDE</option>
+			</field>
+			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" name="tagsfilterparent"
+				type="radio" class="btn-group btn-group-yesno" default="false" 
+				label="CG_ISO_TAGSFILTERPARENT" description="CG_ISO_TAGSFILTERPARENTDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" name="tagsfilterparentlabel"
+				type="radio" class="btn-group btn-group-yesno" default="false" 
+				label="CG_ISO_TAGSFILTERPARENTLABEL" description="CG_ISO_TAGSFILTERPARENTLABELDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields" name="tagsfilterorder"
+				type="radio" class="btn-group btn-group-yesno" default="false" 
+				label="CG_ISO_TAGSFILTERORDER" description="CG_ISO_TAGSFILTERORDERDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+			<field showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields" name="tagsfilterimg"
+				type="radio" class="btn-group btn-group-yesno" default="false" 
+				label="CG_ISO_TAGSFILTERIMG" 
+				description="CG_ISO_TAGSFILTERIMGDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+<field	name="notefilterfieldsinfo"	type="note" label="CG_ISO_FILTERFIELDSINFONOTE" showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles" class="alert-success"/>
+
+			<field showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles"
+				name="displayfields" type="sql"	multiple="true"
+				query="select f.id as id, f.title as value from #__fields f where f.context like 'com_content%' and f.state > 0"
+				key_field="id"	value_field="value"
+				label="CG_ISO_FIELDS" description="CG_ISO_FIELDSDESC"	
+				layout="joomla.form.field.list"/>
+			<field	name="displayfilterfields"	
+			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields"
+				type="radio" default="button" class="btn-group"
+				label="CG_ISO_DISPLAYFILTERFIELDS"	description="CG_ISO_DISPLAYFILTERFIELDSDESC" 	>
+				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
+				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
+				<option value="multiex">CG_ISO_DISPLAYFILTERMULTIEXCLUSIVEBUTTON</option> 
+				<option value="list">CG_ISO_DISPLAYFILTERLIST</option> 
+				<option value="listex">CG_ISO_DISPLAYEXCLUSIVEFILTERLIST</option> 
+				<option value="listmulti">CG_ISO_DISPLAYMUTLIPLEFILTERLIST</option> 
+				<option value="hide">CG_ISO_DISPLAYFILTERHIDE</option>
+			</field>
+			<field	name="displayfiltersplitfields"	showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields"
+				type="radio" default="false" class="btn-group"
+				label="CG_ISO_DISPLAYFILTERSPLITFIELDS" description="CG_ISO_DISPLAYFILTERSPLITFIELDSDESC" 	>
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+			<field	name="splitfieldscolumn"	
+			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]displayfiltersplitfields:true"
+				type="radio" default="false" class="btn-group"
+				label="CG_ISO_SPLITFIELDSCOLUMN"	description="CG_ISO_SPLITFIELDSCOLUMNDESC" 	>
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+			<field	name="splitfieldstitle"	
+			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]displayfiltersplitfields:true"
+				type="radio" default="false" class="btn-group"
+				label="CG_ISO_SPLITFIELDSTITLE"	description="CG_ISO_SPLITFIELDSTITLEDESC" 	>
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+<field	name="noteotherfilterinfo"	type="note" label="CG_ISO_DISPLAYOTHERFILTERNOTE" class="alert-success"/>
+   			<field name="language_filter"
+				type="radio" class="btn-group"
+				label="CG_ISO_LANGUAGE_FILTER" description="CG_ISO_LANGUAGE_FILTER_DESC"
+				default="false">
+				<option value="false">JNO</option> 
+				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
+				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
+			</field>
+			<field	name="displayrange"
+				showon="iso_entree:articles"
+				type="radio" class="btn-group btn-group-yesno" default="false"
+				label="CG_ISO_DISPLAYRANGE" description="CG_ISO_DISPLAYRANGEDESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	name="rangefields" showon="iso_entree:articles[AND]displayrange:true"
+				type="sql"	multiple="false"
+				query="select f.id as id, f.title as value from #__fields f where f.context like 'com_content%' and f.state > 0"
+				key_field="id"	value_field="value"
+				label="CG_ISO_RANGEFIELDS" description="CG_ISO_RANGEFIELDSDESC">
+			</field>
+			<field name="rangestep" showon="iso_entree:articles[AND]displayrange:true"
+				type="radio" class="btn-group" default="auto" 
+				label="CG_ISO_RANGESTEP" description="CG_ISO_RANGESTEPDESC"	>
+				<option value="auto">CG_ISO_AUTO</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+				<option value="200">200</option>
+				<option value="500">500</option>
+				<option value="1000">1000</option>
+			</field>
+			<field	name="displayalpha"
+				type="radio" class="btn-group" default="false"
+				label="CG_ISO_DISPLAYALPHA" description="CG_ISO_DISPLAYALPHADESC" >
+				<option value="false">JNO</option> 
+				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
+				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
+			</field>
+<field	name="notedisplayinfo"	type="note" label="CG_ISO_DISPLAYINFONOTE" class="alert-success"/>
+			<field	name="displaysearch"
+				type="radio" class="btn-group btn-group-yesno" default="false"
+				label="CG_ISO_DISPLAYSEARCH" description="CG_ISO_DISPLAYSEARCHDESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field name="bootstrapbutton"
+				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				label="CG_ISO_BOOTSTRAP" description="CG_ISO_BOOTSTRAPDESC" >
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+   			<field name="iso_count" showon="iso_entree:articles,k2"
+				type="number" default="0" min="0" max="200" 
+				label="CG_ISO_COUNT" description="CG_ISO_COUNTDESC" />
+  			<field name="limit_items" showon="iso_entree:articles,webLinks"
+				type="number" default="0" min="0" step="10" 
+				label="CG_ISO_LIMIT_ITEMS" description="CG_ISO_LIMIT_ITEMS_DESC"/>
+   			<field name="pagination" showon="iso_entree:articles"
+				type="radio" class="btn-group btn-group-yesno"
+				label="CG_ISO_PAGINATION" description="CG_ISO_PAGINATION_DESC"
+				default="false">
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field name="page_count" showon="iso_entree:articles[AND]pagination:true"
+				type="number" default="1" min="1" max="200" 
+				label="CG_ISO_PAGE_SIZE" description="CG_ISO_PAGE_SIZE_DESC" />
+   			<field name="page_order" showon="iso_entree:articles[AND]pagination:true"
+				type="list" label="CG_ISO_PAGE_ORDER" description="CG_ISO_PAGE_ORDER_DESC"
+				default="a.ordering ASC">
+					<option value="a.created ASC">CG_ISO_DEFDISPLAYOLDERCREDATE</option> 
+					<option value="a.created DESC">CG_ISO_DEFDISPLAYRECENTCREDATE</option> 
+					<option value="modified ASC">CG_ISO_DEFDISPLAYOLDERMODDATE</option> 
+					<option value="modified DESC">CG_ISO_DEFDISPLAYRECENTMODDATE</option> 
+					<option value="a.title ASC">CG_ISO_DEFDISPLAYALPHA</option> 
+					<option value="a.title DESC">CG_ISO_DEFDISPLAYALPHAREV</option> 
+					<option value="a.hits ASC">CG_ISO_DEFDISPLAYCLICK</option> 
+					<option value="a.hits DESC">CG_ISO_DEFDISPLAYCLICKREV</option> 
+					<option value="a.ordering ASC">CG_ISO_DEFDISPLAYID</option> 
+					<option value="a.ordering DESC">CG_ISO_DEFDISPLAYIDREV</option> 
+					<option value="random">CG_ISO_DEFDISPLAYRANDOM</option> 
+			</field>
+			<field	name="iso_layout"
+				type="radio" default="fitRows" class="btn-group"
+				label="CG_ISO_DISPLAYTYPE" description="CG_ISO_DISPLAYTYPEDESC" >
+				<option value="fitRows">CG_ISO_DISPLAYTYPELINES</option> 
+				<option value="masonry">CG_ISO_DISPLAYTYPEMASO</option> 
+				<option value="vertical">CG_ISO_DISPLAYTYPEVERT</option>
+				<option value="packery">CG_ISO_DISPLAYTYPEPACKERY</option>
+			</field>
+			<field	showon="iso_layout:masonry,fitRows,packery"
+				name="iso_nbcol" type="number"	default="2"	min="1"	max="10" step="1"
+				label="CG_ISO_NBCOL"	description="CG_ISO_NBCOLDESC" 	/>
+<field	name="notearticleinfo"	type="note" label="CG_ISO_DISPLAYARTICLENOTE" class="alert-success"/>
+			<field name="backgroundcolor" 
+				type="color" default="#eee"
+				label="CG_ISO_BACKGD" description="CG_ISO_BACKGDDESC" />				
+   			<field name="introtext_leave_tags" showon="iso_entree:articles,webLinks"
+				type="checkbox" default="0" 
+				label="CG_ISO_LEAVE_TAGS" description="CG_ISO_LEAVE_TAGS_DESC"/>
+   			<field name="introtext_limit" showon="iso_entree:articles,k2"
+				type="number" default="100" min="0" max="500" step="20"
+				label="CG_ISO_NBCHAR" description="CG_ISO_NBCHARDESC"	 />
+   			<field name="hide_more" showon="iso_entree:articles,k2"
+				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				label="CG_ISO_HIDEMORE" description="CG_ISO_HIDEMOREDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+   			<field name="introtext_img" 
+				type="radio" class="btn-group btn-group-yesno"	default="true" 
+				label="CG_ISO_SHOWIMG" 	description="CG_ISO_SHOWIMGDESC" >
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+			<field name="introimg_maxwidth" showon="introtext_img:true"
+				type="number" default="0" min="0" max="100" step="10"
+                label="CG_ISO_MAXIMGWIDTH" description="CG_ISO_MAXIMGWIDTHDESC" />
+			<field name="introimg_maxheight" showon="introtext_img:true"
+				type="number" default="0" min="0" max="1000" step="10"
+                label="CG_ISO_MAXIMGHEIGHT" description="CG_ISO_MAXIMGHEIGHTDESC" />
+   			<field name="blocklink"
+				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				label="CG_ISO_BLOCKLINK" 	description="CG_ISO_BLOCKLINKDESC"	>
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+   			<field name="titlelink" 
+				type="radio" class="btn-group btn-group-yesno" default="true" 
+				label="CG_ISO_TITLELINK" description="CG_ISO_TITLELINKDESC" >
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+   			<field name="introtext_img_link" showon="introtext_img:true"
+				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				label="CG_ISO_SHOWIMGLINK" 	description="CG_ISO_SHOWIMGLINKDESC"	>
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+   			<field name="readmore" showon="iso_entree:articles,k2"
+				type="radio" class="btn-group" default="false" 
+				label="CG_ISO_READMORELBL" description="CG_ISO_READMOREDESC" >
+				<option value="true">JYES</option>
+				<option value="iframe">IFrame</option>
+				<option value="ajax">AJAX</option>
+				<option value="false">JNO</option>
+			</field>
+			
+	</fieldset>
+	 <fieldset name="perso_tab" label="CG_ISO_PERSO_TAB">
+		    <field type="note" name="note0" label="CG_ISO_NOTE0" heading="p"/>
+			<field	name="btnsubtitle"
+				type="radio" class="btn-group btn-group-yesno" default="false"
+				label="CG_ISO_SUBTITLE" description="CG_ISO_SUBTITLE_DESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+			<field	name="btnnew"
+				type="radio" class="btn-group btn-group-yesno" default="false"
+				label="CG_ISO_NEW" description="CG_ISO_NEW_DESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+			</field>
+   			<field name="new_limit" showon="btnnew:true"
+				type="number" default="30" min="0" max="500" step="20"
+				label="CG_ISO_NEWLIMIT" description="CG_ISO_NEWLIMIT_DESC"	 />
+		    <field type="note" name="notedate" label="CG_ISO_NOTE_DATE" heading="p"/>
+			<field name="formatsortdate" type="text" label="CG_ISO_FORMAT_SORTDATE" description ="CG_ISO_FORMAT_SORTDATE_DESC" 
+				default="d/m/Y"  />
+			<field name="formatotherdate" type="text" label="CG_ISO_FORMAT_OTHERDATE" description ="CG_ISO_FORMAT_OTHERDATE_DESC" 
+				default="d/m/Y"  />
+		    <field type="note" name="note1" label="CG_ISO_NOTE1" heading="p"/>
+			<field name="perso" type="textarea" label="CG_ISO_PERSO" description="CG_ISO_PERSO_DESC" cols="400" rows="4" filter="raw" 
+				default="{title}&lt;br&gt;{date} - {cat} - {visit} visites&lt;br&gt;{intro}"/>			
+			<field name="css" type="textarea" label="CG_ISO_CSS" description="CG_ISO_CSS_DESC" cols="400" rows="4" filter="raw" 
+				default="@media screen and (max-width: 600px) {.isotope_item img{max-width:100% !important} .isotope_item {width: 100% !important;}} .iso_fields_title{} .isotope_grid .isotope_item {padding: 0 15px 5px;box-shadow: 0 10px 6px -6px #777;}"	/>	
+			<field name="customjs" type="textarea" label="CG_ISO_JS" description="CG_ISO_JS_DESC" cols="400" rows="4" filter="raw" 
+				default=""	/>	
+		</fieldset>
+	<fieldset name="layout_tab" label="CG_ISO_LAYOUT_TAB">
+		<field type="note" name="note1" description="CG_NOTE1" class="alert-success"/>		
+		<field name="layouts" label="" type="subform" multiple ="true" 
+			formsource="/administrator/components/com_cgisotope/forms/layout.xml"  />
+		
+	</fieldset>
+	<fieldset name="depend_tab" label="CG_ISO_DEPEND_TAB">
+		<field type="note" name="notedepend" description="CG_NOTE_DEPEND" class="alert-success row-fluid"
+			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields" />		
+		<field name="fieldslinks" label="CG_ISO_FIELDSDEPEND" type="subform" multiple ="true" 
+			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields"
+			formsource="/administrator/components/com_cgisotope/forms/depend.xml" 
+			  />
+		<field type="note" 
+			showon="iso_entree!:articles[OR]cat_or_tag!:fields,catfields,cattagsfields,tagsfields"
+			name="notedependfields" description="CG_NOTE_DEPEND_NOFIELD" class="alert alert-error row-fluid"
+  />
+	</fieldset>
+</form>
+
+			

@@ -1,0 +1,54 @@
+/**
+* CG Isotope Component  - Joomla 4.0.0 Component 
+* Version			: 2.2.0
+* Package			: CG ISotope
+* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* From              : isotope.metafizzy.co
+*/
+#perso_tab .form-horizontal .controls {
+	margin-left: 10px;
+}
+#perso_tab .form-horizontal .control-label	 {
+	width:8em;
+}
+#perso_tab  input[type="text"] {width: 10em}
+#perso_tab  input[type="number"] {width: 5em}
+
+#perso_tab  .control-group:nth-of-type(2){ /* subtitle*/
+	float:left;width:35%;
+}
+#perso_tab  .control-group:nth-of-type(3){ /* new */
+	float:left;width:35%;
+}
+#perso_tab  .control-group:nth-of-type(4){ /* delay*/
+	float:right;width:30%;
+}
+#perso_tab  .control-group:nth-of-type(5){
+	clear:both
+}
+#perso_tab  .control-group:nth-of-type(6){ /* Sort date format*/
+	float:left;width:35%;
+}
+#perso_tab  .control-group:nth-of-type(7){ /* Other date format*/
+	float:left;width:35%;
+}
+#perso_tab  .control-group:nth-of-type(8){
+	clear:both
+}
+#perso_tab textarea{
+	width:80% !important;
+}
+
+#perso_tab .alert-success {font-size:120%;
+text-align:center}
+
+#perso_tab .info-labels + div {
+background: none repeat scroll 0 0 #EEEEEE;
+color: #000000;
+font-size: 110%;
+font-style: italic;
+font-weight: normal;
+margin: 15px 0 30px;
+padding: 15px 10px 10px 20px;
+}
