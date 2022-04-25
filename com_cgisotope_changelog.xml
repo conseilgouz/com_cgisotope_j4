@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>2.2.2</version>
+        <note>
+            <item>Update : 25/04/2022</item>
+        </note>
+		<fix>
+            <item>wrong xml version</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>2.2.1</version>
         <note>
             <item>Update : 25/04/2022</item>
