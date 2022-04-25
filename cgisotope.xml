@@ -77,5 +77,4 @@
 	<updateservers>
 	<server type="extension" name="CG Isotope" priority="1">https://www.conseilgouz.com/updates/com_cgisotope_update.xml</server>
 	</updateservers>
-
 </extension>
