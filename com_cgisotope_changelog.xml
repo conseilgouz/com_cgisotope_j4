@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>2.2.1</version>
+        <note>
+            <item>Update : 25/04/2022</item>
+        </note>
+		<fix>
+            <item>wrong cookie search reloading</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>2.2.0</version>
         <note>
             <item>Update : 06/04/2022</item>

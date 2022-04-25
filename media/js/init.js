@@ -1140,7 +1140,7 @@ function replaceCookie(item,index,arr) {
 function splitCookie(item) {
 	me = "#isotope-main-"+myid+" ";
 	// check if quicksearch still exists (may be removed during testing)
-	if (item.indexOf('search:') >= 0 &&  jQuery(me+'.quicksearch').len > 0 ) {
+	if (item.indexOf('search:') >= 0 &&  jQuery(me+'.quicksearch').length > 0 ) {
 		val = item.split(':');
 		qsRegex = new RegExp( val[1], 'gi' );
 		jQuery(me+'.quicksearch').val(val[1]);
