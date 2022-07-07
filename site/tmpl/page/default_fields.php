@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.0
+* Version			: 2.3.1
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -472,7 +472,7 @@ $filter_tag_div= "";
 							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> '; // pascal
 						}
 					}
-					$filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'"  title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.0
+					$filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'"  title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.1
 				}
 			}
 			$filter_cat_div .= '</div>';
@@ -822,7 +822,7 @@ foreach ($layouts_order as $layout) {
 </div>
 </div>
 <?php 
-// 2.3.0 : view article in isotope component
+// 2.3.1 : view article in isotope component
 $width = $layouts["iso"]->div_width;
 if ($this->iso_params->get('readmore','false') =='iframe') {
    echo '<div id="isotope_an_article" class="isotope_an_article fg-c'.$width.' fg-cs12 isotope-hide" ><button type="button" class="close">X</button><iframe src="" id="isotope_article_frame"></iframe></div>'; 

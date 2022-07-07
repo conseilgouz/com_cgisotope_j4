@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.0
+* Version			: 2.3.1
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -369,7 +369,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 							class="iso_cat_img" alt="'.$tagimage->image_alt.'" /> ';
 						}
 					}
-					$filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.0
+					$filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.1
 				}
 			}
 			$filter_cat_div .= '</div>';
@@ -479,7 +479,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 					}
 					$checked = "";
 					if ($this->default_tag == $aff_alias) {$checked = "is-checked";}
-					$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->tags_note[$aff_alias].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.0
+					$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->tags_note[$aff_alias].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.1
 				}
 			}
 			if ($tagsfilterparent == "true") $filter_tag_div .= '</div>';
