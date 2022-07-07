@@ -370,7 +370,7 @@
 				<option value="true">JYES</option> 
 				<option value="infinite">Infinite</option> 
 			</field>
-   			<field name="infinite_btn" showon="iso_entree:articles[AND]pagination:true,infinite"
+   			<field name="infinite_btn" showon="iso_entree:articles[AND]pagination:infinite"
 				type="radio" class="btn-group"
 				label="CG_ISO_INFINITE_BUTTON" description="CG_ISO_INFINITE_BTN_DESC"
 				default="false">
