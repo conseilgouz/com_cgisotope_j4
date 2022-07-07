@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.2.0
+* Version			: 2.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -175,7 +175,7 @@ function iso_cat_k2 (myid,options) {
 			updateFilterCounts();
 		}) 
 	);
-// 2.2.0 : clear serach button
+// 2.3.0 : clear serach button
 	jQuery(me+'.ison-cancel-squared').on( 'click', function() {
 		jQuery(me+'.quicksearch').val("");
 		qsRegex = new RegExp( $quicksearch.val(), 'gi' );
@@ -483,7 +483,7 @@ function iso_fields(myid,options) {
 			updateFilterCounts();
 		}) 
 	);
-// 2.2.0 : clear serach button
+// 2.3.0 : clear serach button
 	jQuery(me+'.ison-cancel-squared').on( 'click', function() {
 		jQuery(me+'.quicksearch').val("");
 		qsRegex = new RegExp( $quicksearch.val(), 'gi' );

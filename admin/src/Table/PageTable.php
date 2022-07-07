@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.2.0
+* Version			: 2.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -96,6 +96,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['iso_count'] = $compl['iso_count'];
             $page_params['limit_items'] = $compl['limit_items'];
             $page_params['pagination'] = $compl['pagination'];
+            $page_params['infinite_btn'] = $compl['infinite_btn'];
             $page_params['page_count'] = $compl['page_count'];
             $page_params['page_order'] = $compl['page_order'];
             $page_params['language_filter']= $compl['language_filter'];

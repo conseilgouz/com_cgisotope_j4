@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.2.0
+* Version			: 2.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -34,20 +34,42 @@ $wa->registerAndUseStyle('up',$comfield.'css/up.css');
 $wa->registerAndUseStyle('rslider',$comfield.'css/rSlider.min.css');
 if ($this->iso_params->get('css')) $wa->addInlineStyle($this->iso_params->get('css')); 
 $wa->registerAndUseScript('imgload',$comfield.'js/imagesloaded.min.js');
+$wa->registerAndUseScript('infinite',$comfield.'js/infinite-scroll.min.js');
 $wa->registerAndUseScript('isotope',$comfield.'js/isotope.min.js');
 $wa->registerAndUseScript('packery',$comfield.'js/packery-mode.min.js');
 $wa->registerAndUseScript('rslider',$comfield.'js/rSlider.min.js');
 if ($this->iso_params->get('customjs')) $wa->addInlineScript($this->iso_params->get('customjs')); 
 
+$this->iso_layout = $this->iso_params->get('iso_layout', 'fitRows');
+$this->iso_nbcol = $this->iso_params->get('iso_nbcol',2);
+
+$this->iso_layout = $this->iso_params->get('iso_layout', 'fitRows');
+$this->iso_nbcol = $this->iso_params->get('iso_nbcol',2);
+$this->imgmaxwidth =  $this->iso_params->get('introimg_maxwidth','0');
+$this->imgmaxheight =  $this->iso_params->get('introimg_maxheight','0');
+
+if (($this->iso_layout == "masonry") || ($this->iso_layout == "fitRows") || ($this->iso_layout == "packery") ) {
+	$width = (100 / $this->iso_nbcol) - 2;
+	$wa->addInlineStyle('#isotope-main-'.$com_id.' .isotope_item{ width:'.$width.'%}');
+}
+if ($this->iso_layout == "vertical") {
+	$wa->addInlineStyle('#isotope-main-'.$com_id.' .isotope_item{ width:100%}');
+}
+if  ($this->imgmaxwidth) {
+	$wa->addInlineStyle('#isotope-main-'.$com_id.' .isotope_item img{ max-width:'.$this->imgmaxwidth.'px}');
+}
+if  ($this->imgmaxheight) {
+	$wa->addInlineStyle('#isotope-main-'.$com_id.' .isotope_item img{ max-height:'.$this->imgmaxheight.'px}');
+}
 $min = ".min";
 if ((bool)Factory::getConfig()->get('debug')) $min = '';
 $wa->registerAndUseScript('cgisotope',$comfield.'js/init'.$min.'.js');
-// ==> debug init.js ==> $document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js');
+// $document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js'); // pour test JS
 $user = Factory::getUser();
 $userId = $user->get('id');
 
 $this->start = 0;
-if ($this->iso_params->get("pagination","false") == 'true') {
+if ($this->iso_params->get("pagination","false") != 'false' ) {
 	$this->start = $app->input->getInt('limitstart',0);
 }
 $this->language_filter = $this->iso_params->get('language_filter','false');
@@ -57,10 +79,10 @@ if ($this->language_filter != 'false') { // language filter
 $this->language = $this->iso_params->get('language','*');
 $this->iso_entree = $this->iso_params->get('iso_entree', 'webLinks');
 $this->article_cat_tag = $this->iso_params->get('cat_or_tag',$this->iso_entree == "webLinks"?'cat':'tags'); 
-$this->iso_layout = $this->iso_params->get('iso_layout', 'fitRows');
-$this->iso_nbcol = $this->iso_params->get('iso_nbcol',2);
 $this->tags_list = $this->iso_params->get('tags',array());
 $this->fields_list = $this->iso_params->get('displayfields');
+$this->iso_pagination = $this->iso_params->get('pagination','false');
+$this->page_count = $this->iso_params->get('page_count','0');
 $this->iso_limit = $this->iso_params->get('iso_limit','all');
 $this->displayrange =  $this->iso_params->get('displayrange','false');
 $this->rangefields =   $this->iso_params->get('rangefields',''); 
@@ -135,7 +157,7 @@ if ($this->iso_entree == "k2") {
 		}
 	}
 	$this->article_tags = array();
-	if ($this->iso_params->get("pagination","false") == 'true') {
+	if ($this->iso_params->get("pagination","false") != 'false') {
 		$this->limit = (int) $this->iso_params->get("page_count",0);
 		$this->order =  $this->iso_params->get("page_order","a.ordering");
 	} else {
@@ -223,7 +245,8 @@ if ($this->iso_entree == "k2") {
 			  'displayfiltertags'=> $this->displayfiltertags, 'displayfiltercat' => $this->displayfiltercat,
 			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
 			  'libmore' => Text::_('SSISO_LIBMORE'), 'libless' => Text::_('SSISO_LIBLESS'), 'readmore' => $this->iso_params->get("readmore","false"),
-			  'empty' => $this->iso_params->get("empty","false")));
+			  'empty' => $this->iso_params->get("empty","false"),
+			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false")));
 	
 } elseif (($this->article_cat_tag == "fields") || ($this->article_cat_tag == "catfields") || ($this->article_cat_tag == "tagsfields") || ($this->article_cat_tag == "cattagsfields")) {
 	$this->splitfields = $this->iso_params->get('displayfiltersplitfields','false'); 
@@ -251,7 +274,8 @@ if ($this->iso_entree == "k2") {
 			  'displayrange'=>$this->displayrange,'rangestep'=>$this->rangestep, 'minrange'=>$this->minrange,'maxrange'=>$this->maxrange,
 			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
 			  'libmore' => Text::_('CG_ISO_LIBMORE'), 'libless' => Text::_('CG_ISO_LIBLESS'),'readmore' => $this->iso_params->get("readmore","false"),
-			  'empty' => $this->iso_params->get("empty","false")));
+			  'empty' => $this->iso_params->get("empty","false"),
+			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false")));
 	
 } else {
 	$this->displayfiltercat = $this->iso_params->get('displayfiltercat','button');
@@ -277,7 +301,8 @@ if ($this->iso_entree == "k2") {
 			  'displayrange'=>$this->displayrange,'rangestep'=>$this->rangestep, 'minrange'=>$this->minrange,'maxrange'=>$this->maxrange,
 			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
 			  'libmore' => Text::_('CG_ISO_LIBMORE'), 'libless' => Text::_('CG_ISO_LIBLESS'),'readmore' => $this->iso_params->get("readmore","false"),
-			  'empty' => $this->iso_params->get("empty","false")));
+			  'empty' => $this->iso_params->get("empty","false"),
+			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false")));
 	
 }
 

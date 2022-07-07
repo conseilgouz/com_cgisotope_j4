@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.2.0
+* Version			: 2.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -138,54 +138,57 @@
 	width:50%;float:right;
 }
 #iso_tab .control-group:nth-of-type(56){ /* - Pagination */
-	clear:both
-}
-#iso_tab .control-group:nth-of-type(57){ /* - Article per page */
 	width:50%;float:left;
 }
-#iso_tab .control-group:nth-of-type(58){ /* - Pagination order */
+#iso_tab .control-group:nth-of-type(57){ /* - Infinite button */
 	width:50%;float:right;
 }
-#iso_tab .control-group:nth-of-type(59){ /* - Display type */
+#iso_tab .control-group:nth-of-type(58){ /* - Article per page */
+	width:50%;float:left;
+}
+#iso_tab .control-group:nth-of-type(59){ /* - Pagination order */
+	width:50%;float:right;
+}
+#iso_tab .control-group:nth-of-type(60){ /* - Display type */
 	clear:both;width: 60%;float:left;
 }
-#iso_tab .control-group:nth-of-type(60){ /* - Nb columns */
+#iso_tab .control-group:nth-of-type(61){ /* - Nb columns */
 	width: 40%;float:right;
 }
-#iso_tab .control-group:nth-of-type(61){ /* - note  */
+#iso_tab .control-group:nth-of-type(62){ /* - note  */
 	clear: both;width:100%
 }
-#iso_tab .control-group:nth-of-type(62){ /* - Bckgd color */
+#iso_tab .control-group:nth-of-type(63){ /* - Bckgd color */
 	width: 50%;float:left;
 }
-#iso_tab .control-group:nth-of-type(63){ /* - leave format */
+#iso_tab .control-group:nth-of-type(64){ /* - leave format */
 	width: 50%;float:right;
 }
-#iso_tab .control-group:nth-of-type(64){ /* - nb char */
+#iso_tab .control-group:nth-of-type(65){ /* - nb char */
 	clear:both;width: 50%;float:left;
 }
-#iso_tab .control-group:nth-of-type(65){ /* - hide ... */
+#iso_tab .control-group:nth-of-type(66){ /* - hide ... */
 	width: 50%;float:right;
 }
-#iso_tab .control-group:nth-of-type(66){ /* - show intro img */
+#iso_tab .control-group:nth-of-type(67){ /* - show intro img */
 	clear:both;;width: 35%;float:left;
 }
-#iso_tab .control-group:nth-of-type(67){ /* - img width */
+#iso_tab .control-group:nth-of-type(68){ /* - img width */
 	width: 30%;float:left;
 }
-#iso_tab .control-group:nth-of-type(68){ /* - img height */
+#iso_tab .control-group:nth-of-type(69){ /* - img height */
 	width: 30%;float:right;
 }
-#iso_tab .control-group:nth-of-type(69){ /* - block link */
+#iso_tab .control-group:nth-of-type(70){ /* - block link */
 	clear:both;width: 35%;float:left;
 }
-#iso_tab .control-group:nth-of-type(70){ /* - img link */
+#iso_tab .control-group:nth-of-type(71){ /* - img link */
 	width: 35%;float:left;
 }
-#iso_tab .control-group:nth-of-type(71){ /* - title link */
+#iso_tab .control-group:nth-of-type(72){ /* - title link */
 	width: 30%;float:right;
 }
-#iso_tab .control-group:nth-of-type(72){ /* - readmore */
+#iso_tab .control-group:nth-of-type(73){ /* - readmore */
 	clear:both;
 	padding-bottom : 1em; /* bas de page */
 }

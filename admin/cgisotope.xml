@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
 	<name>CG Isotope</name>
-	<creationDate>June 2021</creationDate>
+	<creationDate>January 2022</creationDate>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
 	<copyright>Copyright (C) 2022 ConseilGouz.com. All Rights Reserved</copyright>
 	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
-	<version>2.2.0</version>
+	<version>2.3.0</version>
 	<description>CG_ISO_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Component\CGIsotope</namespace>
     <install>
@@ -76,7 +76,5 @@
 	<changelogurl>https://www.conseilgouz.com/updates/com_cgisotope_changelog.xml</changelogurl>
 	<updateservers>
 	<server type="extension" name="CG Isotope" priority="1">https://www.conseilgouz.com/updates/com_cgisotope_update.xml</server>
-	<server type="extension" name="CG Isotope" priority="2">http://432473037d.url-de-test.ws/updateserver/updates/com_cgisotope_update.xml</server>
 	</updateservers>
-
 </extension>

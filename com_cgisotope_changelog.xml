@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>2.3.0</version>
+        <note>
+            <item>Update : 07/07/2022</item>
+        </note>
+		<addition>
+            <item>infinite scroll</item>
+            <item>display or not online parameters help</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>2.2.3</version>
         <note>
             <item>Update : 25/04/2022</item>
@@ -24,7 +36,7 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
-		<version>2.2.0</version>
+		<version>2.3.0</version>
         <note>
             <item>Update : 06/04/2022</item>
         </note>

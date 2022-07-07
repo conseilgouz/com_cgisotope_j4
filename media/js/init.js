@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.2.0
+* Version			: 2.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -415,9 +415,8 @@ function iso_cat_k2 ($,myid,options) {
     if (typeof $sortby === 'string') {
 		$sortby = $sortby.split(',');
 	}
-	var $grid = $(me + '.isotope_grid').imagesLoaded(function($) {
-		$grid.isotope({ 
-			itemSelector: me + '.isotope_item',
+	var $grid = $(me + '.isotope_grid').isotope({ 
+			itemSelector: 'none',
 			percentPosition: true,
 			layoutMode: options.layout,
 			getSortData: {
@@ -433,17 +432,64 @@ function iso_cat_k2 ($,myid,options) {
 			sortAscending: $asc,
 			filter: function($){ return grid_filter(jQuery(this))	}				
 		}); // end of grid
+		
+	$grid.imagesLoaded( function() {
+		$grid.removeClass('are-images-unloaded');
+		$grid.isotope( 'option', { itemSelector: '.isotope_item' });
+		var $items = $grid.find('.isotope_item');
+		$grid.isotope( 'appended', $items );
 		updateFilterCounts();
 		if ($sortby == "random") {
 			$grid.isotope('shuffle');
+		} else {
+			$grid.isotope();
 		}
 		$width = $toggle.width();
 		$height = $toggle.height();
+	});
 
-	}); // end of imageloaded
+
 	$(me + '.isotope-div').on("refresh", function(){
  	  $grid.isotope();
 	});
+    if (options.pagination == 'infinite') { 
+		// --------------> infinite scroll <----------------
+		var iso = $grid.data('isotope');
+		$grid.infiniteScroll({
+			path: getPath,
+			append: '.isotope_item',
+			outlayer: iso,
+		    status: '.page-load-status',
+			debug: true,
+		});
+        
+		function getPath() {
+			currentpage = this.loadCount;
+			return '?start='+(currentpage+1)*options.page_count;
+		}
+		if (options.infinite_btn == "true") {
+			$grid.infiniteScroll('option',{
+				button: '.iso_button_more',
+				loadOnScroll: false,
+			});
+			let $viewMoreButton = $('.iso_button_more');
+			jQuery(me+'.iso_button_more').show();
+			$viewMoreButton.on( 'click', function() {
+  // load next page
+			$grid.infiniteScroll('loadNextPage');
+  // enable loading on scroll
+			$grid.infiniteScroll( 'option', {
+				loadOnScroll: true,
+			});
+  // hide button
+			$viewMoreButton.hide();
+			});
+		} else {
+			jQuery(me+'.iso_div_more').hide();
+		}
+	}
+	// --------------> end of infinite scroll <----------------
+	
 	$(me+'.sort-by-button-group').on( 'click', 'button', function() {
 		var sortValue = $(this).attr('data-sort-value');
 		if (sortValue == "random") {
@@ -1039,14 +1085,14 @@ function iso_cat_k2 ($,myid,options) {
 				}
 				index++;
 			});
-			if (index < items_limit) { // unnecessary button
+			if (index < items_limit && options.pagination != 'infinite') { // unnecessary button
 				jQuery(me+'.iso_button_more').hide();
 			} else { // show more button required
 				jQuery(me+'.iso_button_more').show();
 			}
 		} 
 		// hide show see less button
-		if ((items_limit == 0) && (sav_limit > 0)) { 
+		if ((items_limit == 0) && (sav_limit > 0) && options.pagination != 'infinite') { 
 			jQuery(itemElems).each(function () {
 				if (jQuery(this).hasClass('iso_hide_elem')) {
 					count_items -=1;

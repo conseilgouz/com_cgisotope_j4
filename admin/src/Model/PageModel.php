@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.2.0
+* Version			: 2.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -62,6 +62,7 @@ class PageModel extends AdminModel {
         $data->iso_count = $compl['iso_count'];
         $data->limit_items = $compl['limit_items'];
         $data->pagination = $compl['pagination'];
+        $data->infinite_btn = $compl['infinite_btn'];
         $data->page_count = $compl['page_count'];
         $data->page_order = $compl['page_order'];
         $data->language_filter= $compl['language_filter'];
