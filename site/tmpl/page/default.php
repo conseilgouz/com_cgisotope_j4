@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.2
+* Version			: 2.3.3
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -33,8 +33,11 @@ $wa->registerAndUseStyle('iso',$comfield.'css/isotope.css');
 $wa->registerAndUseStyle('up',$comfield.'css/up.css');
 $wa->registerAndUseStyle('rslider',$comfield.'css/rSlider.min.css');
 if ($this->iso_params->get('css')) $wa->addInlineStyle($this->iso_params->get('css')); 
-$wa->registerAndUseScript('imgload',$comfield.'js/imagesloaded.min.js');
-$wa->registerAndUseScript('infinite',$comfield.'js/infinite-scroll.min.js');
+if ($this->iso_params->get("pagination","false") == 'infinite' ) {
+	$wa->registerAndUseScript('infinite',$comfield.'js/infinite-scroll.min.js');
+} else {
+	$wa->registerAndUseScript('imgload',$comfield.'js/imagesloaded.min.js');
+}
 $wa->registerAndUseScript('isotope',$comfield.'js/isotope.min.js');
 $wa->registerAndUseScript('packery',$comfield.'js/packery-mode.min.js');
 $wa->registerAndUseScript('rslider',$comfield.'js/rSlider.min.js');
@@ -89,6 +92,12 @@ $this->rangefields =   $this->iso_params->get('rangefields','');
 $this->rangestep =   $this->iso_params->get('rangestep','0'); 
 $this->calendarfields =   $this->iso_params->get('calendarfields',array()); 
 $this->displayalpha =  $this->iso_params->get('displayalpha','false');
+
+$this->displaybootstrap = $this->iso_params->get('bootstrapbutton','false'); 
+$button_bootstrap = "isotope_button";
+if ($this->displaybootstrap == 'true') { 
+	$button_bootstrap = "btn btn-sm ";
+}
 $this->minrange = '';
 $this->maxrange = '';
 $this->rangetitle =  '';
@@ -246,7 +255,8 @@ if ($this->iso_entree == "k2") {
 			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
 			  'libmore' => Text::_('SSISO_LIBMORE'), 'libless' => Text::_('SSISO_LIBLESS'), 'readmore' => $this->iso_params->get("readmore","false"),
 			  'empty' => $this->iso_params->get("empty","false"),
-			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false")));
+			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false"),
+			  'button_bootstrap' => $button_bootstrap));
 	
 } elseif (($this->article_cat_tag == "fields") || ($this->article_cat_tag == "catfields") || ($this->article_cat_tag == "tagsfields") || ($this->article_cat_tag == "cattagsfields")) {
 	$this->splitfields = $this->iso_params->get('displayfiltersplitfields','false'); 
@@ -275,7 +285,8 @@ if ($this->iso_entree == "k2") {
 			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
 			  'libmore' => Text::_('CG_ISO_LIBMORE'), 'libless' => Text::_('CG_ISO_LIBLESS'),'readmore' => $this->iso_params->get("readmore","false"),
 			  'empty' => $this->iso_params->get("empty","false"),
-			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false")));
+			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false"),
+			  'button_bootstrap' => $button_bootstrap));
 	
 } else {
 	$this->displayfiltercat = $this->iso_params->get('displayfiltercat','button');
@@ -302,7 +313,8 @@ if ($this->iso_entree == "k2") {
 			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
 			  'libmore' => Text::_('CG_ISO_LIBMORE'), 'libless' => Text::_('CG_ISO_LIBLESS'),'readmore' => $this->iso_params->get("readmore","false"),
 			  'empty' => $this->iso_params->get("empty","false"),
-			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false")));
+			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false"),
+			  'button_bootstrap' => $button_bootstrap));
 	
 }
 

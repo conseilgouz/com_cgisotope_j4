@@ -31,85 +31,85 @@
 		</fieldset>
 		<fieldset name="iso_tab" label="CG_ISO_ISOTOPE_TAB" addfieldpath="/administrator/components/com_k2/elements/"
 		addfieldprefix="ConseilGouz\Component\CGIsotope\Administrator\Field">
-<field	name="notegeneralinfo"	type="note" label="CG_ISO_GENERALINFONOTE" class="alert-success"/>
-			<field	name="iso_entree" type="radio"	default="articles"	class="btn-group"
+<field	name="notegeneralinfo"	type="note" label="CG_ISO_GENERALINFONOTE" class="alert-success clear half"/>
+			<field	name="iso_entree" type="radio"	default="articles"	class="btn-group clear half left"
 				label="CG_ISO_ENTREE" description="CG_ISO_ENTREEDESC" >
 				<option value="articles">CG_ISO_ENTREEARTICLES</option> 
 				<option value="webLinks">CG_ISO_ENTREEWEBLINKS</option> 
 			</field>
 			<field showon="iso_entree:articles"
 				name="categories" type="category"	multiple="true"	extension="com_content" 
-				label="CG_ISO_CAT" description="CG_ISO_CATDESC" />
+				label="CG_ISO_CAT" description="CG_ISO_CATDESC"  class="half right"/>
 			<field showon="iso_entree:webLinks"
 				name="wl_categories" type="category" 
 				multiple="true"	extension="com_weblinks" 
-				label="CG_ISO_CAT" description="CG_ISO_WLCATDESC"	/>
+				label="CG_ISO_CAT" description="CG_ISO_WLCATDESC"	class="half right"/>
 			<field showon="iso_entree:k2"
 				name="categories_k2" type="categoriesmultiple" default=""
 				label="ISO_K2_SELECT_CATEGORIES" description="ISO_K2_SELECT_CATEGORIES_DESC"/>
-<field	name="notesortinfo"	type="note" label="CG_ISO_SORTINFONOTE" class="alert-success"/>
+<field	name="notesortinfo"	type="note" label="CG_ISO_SORTINFONOTE" class="alert-success clear half"/>
 			<field	name="displaysort"
-				type="radio" class="btn-group btn-group-yesno"	default="show"
+				type="radio" class="btn-group btn-group-yesno clear left half"	default="show"
 				label="CG_ISO_DISPLAYSORT"	description="CG_ISO_DISPLAYSORTDESC" >
 				<option value="show">JYES</option> 
 				<option value="hide">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btndate"
-				type="radio" class="btn-group " default="true"
+				type="radio" class="btn-group half right" default="true"
 				label="CG_ISO_DISPLAYBTNDATE" description="CG_ISO_DISPLAYBTNDATEDESC" >
 				<option value="true">CG_ISO_ASC</option> 
 				<option value="DESC">CG_ISO_DESC</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btncat"
-				type="radio" class="btn-group " default="true"
+				type="radio" class="btn-group half left" default="true"
 				label="CG_ISO_DISPLAYBTNCAT" 	description="CG_ISO_DISPLAYBTNCATDESC" >
 				<option value="true">CG_ISO_ASC</option> 
 				<option value="DESC">CG_ISO_DESC</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btnalpha"
-				type="radio" class="btn-group " default="true"
+				type="radio" class="btn-group half right" default="true"
 				label="CG_ISO_DISPLAYBTNALPHA" description="CG_ISO_DISPLAYBTNALPHADESC" >
 				<option value="true">CG_ISO_ASC</option> 
 				<option value="DESC">CG_ISO_DESC</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btnvisit"
-				type="radio" class="btn-group "	default="true"
+				type="radio" class="btn-group half left"	default="true"
 				label="CG_ISO_DISPLAYBTNVISIT" description="CG_ISO_DISPLAYBTNVISITDESC" >
 				<option value="true">CG_ISO_ASC</option> 
 				<option value="DESC">CG_ISO_DESC</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btnrating"
-				type="radio" class="btn-group " default="true"
+				type="radio" class="btn-group half right" default="true"
 				label="CG_ISO_DISPLAYBTNRATING" description="CG_ISO_DISPLAYBTNRATINGDESC" >
 				<option value="true">CG_ISO_ASC</option> 
 				<option value="DESC">CG_ISO_DESC</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btnid"
-				type="radio" class="btn-group " default="false"
+				type="radio" class="btn-group half left" default="false"
 				label="CG_ISO_DISPLAYBTNID" description="CG_ISO_DISPLAYBTNIDDESC" >
 				<option value="true">CG_ISO_ASC</option> 
 				<option value="DESC">CG_ISO_DESC</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="displaysort:show" name="btnrandom"
-				type="radio" class="btn-group " default="false"
+				type="radio" class="btn-group half right" default="false"
 				label="CG_ISO_DISPLAYBTNRANDOM" description="CG_ISO_DISPLAYBTNRANDOMDESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	showon="iso_entree:articles,webLinks" name="btnfeature"
-				type="radio" class="btn-group " default="false"
+				type="radio" class="btn-group clear" default="false"
 				label="CG_ISO_DISPLAYBTNFEATURED" description="CG_ISO_DISPLAYBTNFEATUREDDESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field name="defaultdisplay" 
-				type="list" default="date_desc"
+				type="list" default="date_desc" class="half left"
 				label="CG_ISO_DEFDISPLAY"	description="CG_ISO_DEFDISPLAYDESC">				
 				<option value="date_asc">CG_ISO_DEFDISPLAYOLDERDATE</option> 
 				<option value="date_desc">CG_ISO_DEFDISPLAYRECENTDATE</option> 
@@ -124,7 +124,7 @@
 				<option value="random">CG_ISO_DEFDISPLAYRANDOM</option> 
 			</field>
 			<field	showon="iso_entree:articles"
-				name="choixdate" type="sql" default="created"	class="btn-group"
+				name="choixdate" type="sql" default="created"	class="btn-group half right"
 				query="select f.id as id, f.title as value from #__fields f where f.context like 'com_content%' and f.state > 0 and type like 'calendar'"
 				key_field="id"	value_field="value"				
 				label="CG_ISO_DATECHOICE" description="CG_ISO_DATECHOICEDESC" >
@@ -133,9 +133,9 @@
 				<option value="modified">CG_ISO_DATECHOICEMODIF</option> 
 			</field>
 			
-<field	name="notefilterinfo"	type="note" label="CG_ISO_FILTERINFONOTE" class="alert-success"/>
+<field	name="notefilterinfo"	type="note" label="CG_ISO_FILTERINFONOTE" class="alert-success clear half"/>
 			<field name="cat_or_tag" 
-				type="radio" class="btn-group"
+				type="radio" class="btn-group clear"
 				label="CG_ISO_CAT_TAGS" description="CG_ISO_CAT_TAGS_DESC"
 				default="cat">
 				<option value="cat">CG_ISO_CAT_TAGS_CAT</option>
@@ -155,7 +155,7 @@
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
-<field	name="notefiltercatinfo"	type="note" label="CG_ISO_FILTERCATINFONOTE" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success"/>
+<field	name="notefiltercatinfo"	type="note" label="CG_ISO_FILTERCATINFONOTE" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success clear half"/>
 			<field name="default_cat" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles"
 					type="category" multiple="false" extension="com_content" 
 					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" 
@@ -190,19 +190,19 @@
 				<option value="hide">CG_ISO_DISPLAYFILTERHIDE</option>
 			</field>
 			<field showon="cat_or_tag:cattags,cat,catfields,cattagsfields" 	name="catfilteralias"
-				type="radio" class="btn-group" default="false" 
+				type="radio" class="btn-group half left" default="false"
 				label="CG_ISO_CATFILTERALIAS" description="CG_ISO_CATFILTERALIASDESC"	>
 				<option value="true">CG_ISO_ALIAS</option>
 				<option value="false">CG_ISO_ALPHA</option>
 				<option value="order">CG_ISO_KEEP</option>
 			</field>
 			<field	showon="cat_or_tag:cattags,cat,catfields,cattagsfields" 	name="catsfilterimg"
-				type="radio" class="btn-group btn-group-yesno" default="false" 
+				type="radio" class="btn-group btn-group-yesno half right" default="false" 
 				label="CG_ISO_CATSFILTERIMG" description="CG_ISO_CATSFILTERIMGDESC">
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
-<field	name="notefiltertagsinfo"	type="note" label="CG_ISO_FILTERTAGSINFONOTE" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success"/>
+<field	name="notefiltertagsinfo"	type="note" label="CG_ISO_FILTERTAGSINFONOTE" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success clear half"/>
 			<field name="tags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
 					type="tag" label="CG_ISO_TAGS" description="CG_ISO_TAGSDESC" 
 					mode="nested" multiple="true" custom="deny" layout="joomla.form.field.list"/>	
@@ -235,31 +235,31 @@
 				<option value="hide">CG_ISO_DISPLAYFILTERHIDE</option>
 			</field>
 			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" name="tagsfilterparent"
-				type="radio" class="btn-group btn-group-yesno" default="false" 
+				type="radio" class="btn-group btn-group-yesno half left" default="false" 
 				label="CG_ISO_TAGSFILTERPARENT" description="CG_ISO_TAGSFILTERPARENTDESC">
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
 			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" name="tagsfilterparentlabel"
-				type="radio" class="btn-group btn-group-yesno" default="false" 
+				type="radio" class="btn-group btn-group-yesno half right" default="false" 
 				label="CG_ISO_TAGSFILTERPARENTLABEL" description="CG_ISO_TAGSFILTERPARENTLABELDESC">
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
 			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields" name="tagsfilterorder"
-				type="radio" class="btn-group btn-group-yesno" default="false" 
+				type="radio" class="btn-group btn-group-yesno clear half left" default="false" 
 				label="CG_ISO_TAGSFILTERORDER" description="CG_ISO_TAGSFILTERORDERDESC">
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
 			<field showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields" name="tagsfilterimg"
-				type="radio" class="btn-group btn-group-yesno" default="false" 
+				type="radio" class="btn-group btn-group-yesno half right" default="false" 
 				label="CG_ISO_TAGSFILTERIMG" 
 				description="CG_ISO_TAGSFILTERIMGDESC">
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
-<field	name="notefilterfieldsinfo"	type="note" label="CG_ISO_FILTERFIELDSINFONOTE" showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles" class="alert-success"/>
+<field	name="notefilterfieldsinfo"	type="note" label="CG_ISO_FILTERFIELDSINFONOTE" showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles" class="alert-success clear half"/>
 
 			<field showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles"
 				name="displayfields" type="sql"	multiple="true"
@@ -280,26 +280,26 @@
 				<option value="hide">CG_ISO_DISPLAYFILTERHIDE</option>
 			</field>
 			<field	name="displayfiltersplitfields"	showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields"
-				type="radio" default="false" class="btn-group"
+				type="radio" default="false" class="btn-group third left"
 				label="CG_ISO_DISPLAYFILTERSPLITFIELDS" description="CG_ISO_DISPLAYFILTERSPLITFIELDSDESC" 	>
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
 			<field	name="splitfieldscolumn"	
 			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]displayfiltersplitfields:true"
-				type="radio" default="false" class="btn-group"
+				type="radio" default="false" class="btn-group third left "
 				label="CG_ISO_SPLITFIELDSCOLUMN"	description="CG_ISO_SPLITFIELDSCOLUMNDESC" 	>
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
 			<field	name="splitfieldstitle"	
 			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]displayfiltersplitfields:true"
-				type="radio" default="false" class="btn-group"
+				type="radio" default="false" class="btn-group third right"
 				label="CG_ISO_SPLITFIELDSTITLE"	description="CG_ISO_SPLITFIELDSTITLEDESC" 	>
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
-<field	name="noteotherfilterinfo"	type="note" label="CG_ISO_DISPLAYOTHERFILTERNOTE" class="alert-success"/>
+<field	name="noteotherfilterinfo"	type="note" label="CG_ISO_DISPLAYOTHERFILTERNOTE" class="alert-success clear half"/>
    			<field name="language_filter"
 				type="radio" class="btn-group"
 				label="CG_ISO_LANGUAGE_FILTER" description="CG_ISO_LANGUAGE_FILTER_DESC"
@@ -343,27 +343,27 @@
 				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
 				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
 			</field>
-<field	name="notedisplayinfo"	type="note" label="CG_ISO_DISPLAYINFONOTE" class="alert-success"/>
+<field	name="notedisplayinfo"	type="note" label="CG_ISO_DISPLAYINFONOTE" class="alert-success clear half"/>
 			<field	name="displaysearch"
-				type="radio" class="btn-group btn-group-yesno" default="false"
+				type="radio" class="btn-group btn-group-yesno clear half left" default="false"
 				label="CG_ISO_DISPLAYSEARCH" description="CG_ISO_DISPLAYSEARCHDESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field name="bootstrapbutton"
-				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				type="radio" class="btn-group btn-group-yesno half right"	default="false" 
 				label="CG_ISO_BOOTSTRAP" description="CG_ISO_BOOTSTRAPDESC" >
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
    			<field name="iso_count" showon="iso_entree:articles,k2"
-				type="number" default="0" min="0" max="200" 
+				type="number" default="0" min="0" max="200" class="half left"
 				label="CG_ISO_COUNT" description="CG_ISO_COUNTDESC" />
   			<field name="limit_items" showon="iso_entree:articles,webLinks"
-				type="number" default="0" min="0" step="10" 
+				type="number" default="0" min="0" step="10" class="half right"
 				label="CG_ISO_LIMIT_ITEMS" description="CG_ISO_LIMIT_ITEMS_DESC"/>
    			<field name="pagination" showon="iso_entree:articles"
-				type="radio" class="btn-group"
+				type="radio" class="btn-group half left"
 				label="CG_ISO_PAGINATION" description="CG_ISO_PAGINATION_DESC"
 				default="false">
 				<option value="false">JNO</option> 
@@ -371,18 +371,18 @@
 				<option value="infinite">Infinite</option> 
 			</field>
    			<field name="infinite_btn" showon="iso_entree:articles[AND]pagination:infinite"
-				type="radio" class="btn-group"
+				type="radio" class="btn-group half right"
 				label="CG_ISO_INFINITE_BUTTON" description="CG_ISO_INFINITE_BTN_DESC"
 				default="false">
 				<option value="false">JNO</option> 
 				<option value="true">JYES</option> 
 			</field>
 			<field name="page_count" showon="iso_entree:articles[AND]pagination:true,infinite"
-				type="number" default="1" min="1" max="200" 
+				type="number" default="1" min="1" max="200" class="clear half left"
 				label="CG_ISO_PAGE_SIZE" description="CG_ISO_PAGE_SIZE_DESC" />
    			<field name="page_order" showon="iso_entree:articles[AND]pagination:true,infinite"
 				type="list" label="CG_ISO_PAGE_ORDER" description="CG_ISO_PAGE_ORDER_DESC"
-				default="a.ordering ASC">
+				default="a.ordering ASC" class="half right">
 					<option value="a.created ASC">CG_ISO_DEFDISPLAYOLDERCREDATE</option> 
 					<option value="a.created DESC">CG_ISO_DEFDISPLAYRECENTCREDATE</option> 
 					<option value="modified ASC">CG_ISO_DEFDISPLAYOLDERMODDATE</option> 
@@ -396,7 +396,7 @@
 					<option value="random">CG_ISO_DEFDISPLAYRANDOM</option> 
 			</field>
 			<field	name="iso_layout"
-				type="radio" default="fitRows" class="btn-group"
+				type="radio" default="fitRows" class="btn-group clear half left"
 				label="CG_ISO_DISPLAYTYPE" description="CG_ISO_DISPLAYTYPEDESC" >
 				<option value="fitRows">CG_ISO_DISPLAYTYPELINES</option> 
 				<option value="masonry">CG_ISO_DISPLAYTYPEMASO</option> 
@@ -405,55 +405,55 @@
 			</field>
 			<field	showon="iso_layout:masonry,fitRows,packery"
 				name="iso_nbcol" type="number"	default="2"	min="1"	max="10" step="1"
-				label="CG_ISO_NBCOL"	description="CG_ISO_NBCOLDESC" 	/>
-<field	name="notearticleinfo"	type="note" label="CG_ISO_DISPLAYARTICLENOTE" class="alert-success"/>
+				label="CG_ISO_NBCOL"	description="CG_ISO_NBCOLDESC" class="third right"	/>
+<field	name="notearticleinfo"	type="note" label="CG_ISO_DISPLAYARTICLENOTE" class="alert-success clear half"/>
 			<field name="backgroundcolor" 
 				type="color" default="#eee"
-				label="CG_ISO_BACKGD" description="CG_ISO_BACKGDDESC" />				
+				label="CG_ISO_BACKGD" description="CG_ISO_BACKGDDESC" class="half left"/>				
    			<field name="introtext_leave_tags" showon="iso_entree:articles,webLinks"
 				type="checkbox" default="0" 
-				label="CG_ISO_LEAVE_TAGS" description="CG_ISO_LEAVE_TAGS_DESC"/>
+				label="CG_ISO_LEAVE_TAGS" description="CG_ISO_LEAVE_TAGS_DESC" class="half right"/>
    			<field name="introtext_limit" showon="iso_entree:articles,k2"
 				type="number" default="100" min="0" max="500" step="20"
-				label="CG_ISO_NBCHAR" description="CG_ISO_NBCHARDESC"	 />
+				label="CG_ISO_NBCHAR" description="CG_ISO_NBCHARDESC"	class="half left" />
    			<field name="hide_more" showon="iso_entree:articles,k2"
-				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				type="radio" class="btn-group btn-group-yesno half right"	default="false" 
 				label="CG_ISO_HIDEMORE" description="CG_ISO_HIDEMOREDESC">
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
    			<field name="introtext_img" 
-				type="radio" class="btn-group btn-group-yesno"	default="true" 
+				type="radio" class="btn-group btn-group-yesno clear third left"	default="true" 
 				label="CG_ISO_SHOWIMG" 	description="CG_ISO_SHOWIMGDESC" >
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
 			<field name="introimg_maxwidth" showon="introtext_img:true"
-				type="number" default="0" min="0" max="100" step="10"
+				type="number" default="0" min="0" max="100" step="10" class="third left"
                 label="CG_ISO_MAXIMGWIDTH" description="CG_ISO_MAXIMGWIDTHDESC" />
-			<field name="introimg_maxheight" showon="introtext_img:true"
+			<field name="introimg_maxheight" showon="introtext_img:true" class="third right"
 				type="number" default="0" min="0" max="1000" step="10"
                 label="CG_ISO_MAXIMGHEIGHT" description="CG_ISO_MAXIMGHEIGHTDESC" />
    			<field name="blocklink"
-				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				type="radio" class="btn-group btn-group-yesno clear third left"	default="false" 
 				label="CG_ISO_BLOCKLINK" 	description="CG_ISO_BLOCKLINKDESC"	>
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
    			<field name="titlelink" 
-				type="radio" class="btn-group btn-group-yesno" default="true" 
+				type="radio" class="btn-group btn-group-yesno third left" default="true" 
 				label="CG_ISO_TITLELINK" description="CG_ISO_TITLELINKDESC" >
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
    			<field name="introtext_img_link" showon="introtext_img:true"
-				type="radio" class="btn-group btn-group-yesno"	default="false" 
+				type="radio" class="btn-group btn-group-yesno third right"	default="false" 
 				label="CG_ISO_SHOWIMGLINK" 	description="CG_ISO_SHOWIMGLINKDESC"	>
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
    			<field name="readmore" showon="iso_entree:articles,k2"
-				type="radio" class="btn-group" default="false" 
+				type="radio" class="btn-group clear" default="false" 
 				label="CG_ISO_READMORELBL" description="CG_ISO_READMOREDESC" >
 				<option value="true">JYES</option>
 				<option value="iframe">IFrame</option>
@@ -465,26 +465,26 @@
 	 <fieldset name="perso_tab" label="CG_ISO_PERSO_TAB">
 		    <field type="note" name="note0" label="CG_ISO_NOTE0" heading="p"/>
 			<field	name="btnsubtitle"
-				type="radio" class="btn-group btn-group-yesno" default="false"
+				type="radio" class="btn-group btn-group-yesno left third" default="false"
 				label="CG_ISO_SUBTITLE" description="CG_ISO_SUBTITLE_DESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	name="btnnew"
-				type="radio" class="btn-group btn-group-yesno" default="false"
+				type="radio" class="btn-group btn-group-yesno left third" default="false"
 				label="CG_ISO_NEW" description="CG_ISO_NEW_DESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
-   			<field name="new_limit" showon="btnnew:true"
+   			<field name="new_limit" showon="btnnew:true" class="right third"
 				type="number" default="30" min="0" max="500" step="20"
 				label="CG_ISO_NEWLIMIT" description="CG_ISO_NEWLIMIT_DESC"	 />
-		    <field type="note" name="notedate" label="CG_ISO_NOTE_DATE" heading="p"/>
+		    <field type="note" name="notedate" label="CG_ISO_NOTE_DATE" heading="p" class="clear"/>
 			<field name="formatsortdate" type="text" label="CG_ISO_FORMAT_SORTDATE" description ="CG_ISO_FORMAT_SORTDATE_DESC" 
-				default="d/m/Y"  />
+				default="d/m/Y" class="half left" />
 			<field name="formatotherdate" type="text" label="CG_ISO_FORMAT_OTHERDATE" description ="CG_ISO_FORMAT_OTHERDATE_DESC" 
-				default="d/m/Y"  />
-		    <field type="note" name="note1" label="CG_ISO_NOTE1" heading="p"/>
+				default="d/m/Y" class="half right" />
+		    <field type="note" name="note1" label="CG_ISO_NOTE1" heading="p" class="clear"/>
 			<field name="perso" type="textarea" label="CG_ISO_PERSO" description="CG_ISO_PERSO_DESC" cols="400" rows="4" filter="raw" 
 				default="{title}&lt;br&gt;{date} - {cat} - {visit} visites&lt;br&gt;{intro}"/>			
 			<field name="css" type="textarea" label="CG_ISO_CSS" description="CG_ISO_CSS_DESC" cols="400" rows="4" filter="raw" 

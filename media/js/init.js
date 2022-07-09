@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.2
+* Version			: 2.3.3
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -434,7 +434,6 @@ function iso_cat_k2 ($,myid,options) {
 		}); // end of grid
 		
 	$grid.imagesLoaded( function() {
-		$grid.removeClass('are-images-unloaded');
 		$grid.isotope( 'option', { itemSelector: '.isotope_item' });
 		var $items = $grid.find('.isotope_item');
 		$grid.isotope( 'appended', $items );
@@ -460,7 +459,7 @@ function iso_cat_k2 ($,myid,options) {
 			append: '.isotope_item',
 			outlayer: iso,
 		    status: '.page-load-status',
-			debug: true,
+			// debug: true,
 		});
         
 		function getPath() {
@@ -487,6 +486,10 @@ function iso_cat_k2 ($,myid,options) {
 		} else {
 			jQuery(me+'.iso_div_more').hide();
 		}
+		$grid.on( 'append.infiniteScroll', function( event, body, path, items, response ) {
+			// console.log(`Appended ${items.length} items on ${path}`);
+			infinite_buttons(items);
+		});
 	}
 	// --------------> end of infinite scroll <----------------
 	
@@ -777,6 +780,17 @@ function iso_cat_k2 ($,myid,options) {
 		}
 		updateFilterCounts();
 	});
+	/*------- infinite scroll : update buttons list------------*/
+	function infinite_buttons(appended_list) {
+		if (options.displayalpha != 'false') {
+		// alpha buttons list
+			for (x=0;x < appended_list.length-1;x++) {
+				alpha = appended_list[x].attributes['data-alpha'].value;
+				if ($(me+'.filter-button-group-alpha').find('.iso_button_alpha_'+alpha).length == 0) 
+					$(me+'.filter-button-group-alpha').append('<button class="'+options.button_bootstrap+' iso_button_alpha_'+alpha+'" data-sort-value="'+alpha+'" title="'+alpha+'">'+alpha+'</button>')
+			}
+		}
+	}
 	/*------- grid filter --------------*/
 	function grid_filter($this) {
 		var searchResult = qsRegex ? $this.text().match( qsRegex ) : true;

@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.2
+* Version			: 2.3.3
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -27,7 +27,7 @@
 	float:left; width:25%;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(6){
-	clear:both; width:100%;
+	clear:both; width:100%;display:block
 }
 #layout_tab .controls input {width:auto}
 #layout_tab .control-label {width:4em}

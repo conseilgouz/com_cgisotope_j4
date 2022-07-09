@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.2
+* Version			: 2.3.3
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -18,179 +18,12 @@
 #iso_tab .control-group .control-label {
     width: 7em;
 }
-#iso_tab .control-group:nth-of-type(2){
-	clear:both;float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(3){
-	float:right;width:50%;
-}
-#iso_tab .control-group:nth-of-type(4){
-	float:right;width:50%;
-}
-#iso_tab .control-group:nth-of-type(6){ /* note */
-	clear:both;
-}
-#iso_tab .control-group:nth-of-type(7){
-	float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(8){
-	float:right;width:50%;
-}
-#iso_tab .control-group:nth-of-type(9){ 
-	clear:both;float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(10){ 
-	float:right;width:50%;
-}
-#iso_tab .control-group:nth-of-type(11){ 
-	clear:both;float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(12){ 
-	float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(13){ 
-	clear:both;float:left; width:50%;
-}
-#iso_tab .control-group:nth-of-type(14){ 
-	float:right; width:50%;
-}
-#iso_tab .control-group:nth-of-type(15){ /* - feature first */
-	clear:both;
-}
-#iso_tab .control-group:nth-of-type(16){ /* - sorting date */
-	float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(17){ /* - default order */
-	float:right;width:50%;
-}
-#iso_tab .control-group:nth-of-type(18){ /* - note */
-	clear:both;
-}
-#iso_tab .control-group:nth-of-type(27){ /* - Tri Cat */
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(28){ /* Img Cat */
-	width:50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(29){ /* - note */
-	clear:both;
-}
-#iso_tab .control-group:nth-of-type(31){ /* - display type */
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(32){ /*  */
-	width:50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(33){ /* */
-	clear:both;width:100%;
-}
-#iso_tab .control-group:nth-of-type(34){ /* - filter tag format */
-	clear: both;
-}
-#iso_tab .control-group:nth-of-type(35){ /* - group tag */
-	clear:both;float:left;width:50%;
-}
-#iso_tab .control-group:nth-of-type(36){ /* - display parent*/
-	float:right;width:50%;
-}
-#iso_tab .control-group:nth-of-type(37){ /* - tags order */
-	clear: both;float:left;width:50%;
-}
-#iso_tab  .control-group:nth-of-type(38){ /* - tags image */
-	float:right;width:50%;
-}
-#iso_tab  .control-group:nth-of-type(39){ /* - note */
-	clear: both;
-}
-#iso_tab .control-group:nth-of-type(42){ /* - split fields */
-	clear:both;width: 35%;float:left;
-}
-#iso_tab .control-group:nth-of-type(43){ /* - group in column */
-	width: 35%;float:left;
-}
-#iso_tab .control-group:nth-of-type(44){ /* - Field label */
-	width: 30%;float:right;
-}
 
-
-#iso_tab .control-group:nth-of-type(45){ /* - note*/
-	clear:both;width:100%;
+.control-group + .left {
+	float:left;
 }
-/* #iso_tab .control-group:nth-of-type(51){  - calendar ? 
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(52){  - calendar field 
-	width:50%;float:right;
-}*/
-#iso_tab .control-group:nth-of-type(51){ /* - note*/
-	clear:both;
-}
-#iso_tab .control-group:nth-of-type(52){ /* - display search */
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(53){ /* - bootstrap buttons */
-	width:50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(54){ /* - Nb articles */
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(55){ /* - Max article */
-	width:50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(56){ /* - Pagination */
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(57){ /* - Infinite button */
-	width:50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(58){ /* - Article per page */
-	width:50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(59){ /* - Pagination order */
-	width:50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(60){ /* - Display type */
-	clear:both;width: 60%;float:left;
-}
-#iso_tab .control-group:nth-of-type(61){ /* - Nb columns */
-	width: 40%;float:right;
-}
-#iso_tab .control-group:nth-of-type(62){ /* - note  */
-	clear: both;width:100%
-}
-#iso_tab .control-group:nth-of-type(63){ /* - Bckgd color */
-	width: 50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(64){ /* - leave format */
-	width: 50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(65){ /* - nb char */
-	clear:both;width: 50%;float:left;
-}
-#iso_tab .control-group:nth-of-type(66){ /* - hide ... */
-	width: 50%;float:right;
-}
-#iso_tab .control-group:nth-of-type(67){ /* - show intro img */
-	clear:both;;width: 35%;float:left;
-}
-#iso_tab .control-group:nth-of-type(68){ /* - img width */
-	width: 30%;float:left;
-}
-#iso_tab .control-group:nth-of-type(69){ /* - img height */
-	width: 30%;float:right;
-}
-#iso_tab .control-group:nth-of-type(70){ /* - block link */
-	clear:both;width: 35%;float:left;
-}
-#iso_tab .control-group:nth-of-type(71){ /* - img link */
-	width: 35%;float:left;
-}
-#iso_tab .control-group:nth-of-type(72){ /* - title link */
-	width: 30%;float:right;
-}
-#iso_tab .control-group:nth-of-type(73){ /* - readmore */
-	clear:both;
-	padding-bottom : 1em; /* bas de page */
+.control-group > .left {
+	float:left;
 }
 
 #iso_tab textarea{

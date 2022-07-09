@@ -2,7 +2,7 @@
  * Changelog
  *
  * CG Isotope Component  - Joomla 4.0.0 Component 
- * Version			: 2.3.2
+ * Version			: 2.3.3
  * Package			: CG ISotope
  * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
  * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,6 +14,10 @@
  * ^ Change
  * # Fix
  */
+
+09-July-2022 : 2.3.3
+ # infinite scroll : update alpha buttons
+ ^ admin parameters : clean up admincss : use admin.js and css_admin.css
 
 07-July-2022 : 2.3.2
  # display infinite button only if necessary

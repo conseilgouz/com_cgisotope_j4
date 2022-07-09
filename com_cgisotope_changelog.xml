@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>2.3.3</version>
+        <note>
+            <item>Update : 09/07/2022</item>
+        </note>
+		<fix>
+            <item>infinite scroll : update alpha buttons</item>
+		</fix>
+		<change>
+            <item>admin parameters : clean up admincss : use admin.js and css_admin.css</item>
+		</change>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>2.3.2</version>
         <note>
             <item>Update : 07/07/2022</item>
@@ -58,7 +72,7 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
-		<version>2.3.2</version>
+		<version>2.2.0</version>
         <note>
             <item>Update : 06/04/2022</item>
         </note>

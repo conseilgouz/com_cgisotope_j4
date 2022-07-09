@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.2
+* Version			: 2.3.3
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -302,7 +302,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 	if (($article_cat_tag  == "cat") || ($article_cat_tag  == "cattags")) {
 		// categories sort
 		$sortFilter = array();
-		// 2.3.2 : category alias parameter
+		// 2.3.3 : category alias parameter
 		if ($this->iso_params->get('catfilteralias','false') == 'true') { // sort category aliases
 			foreach ($this->cats_alias as $key => $filter) {
 				$sortFilter[$key] = $this->cats_alias[$key];
