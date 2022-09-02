@@ -1,6 +1,6 @@
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -493,42 +493,9 @@ function iso_cat_k2 ($,myid,options) {
 	}
 	// --------------> end of infinite scroll <----------------
 	
+	
 	$(me+'.sort-by-button-group').on( 'click', 'button', function() {
-		var sortValue = $(this).attr('data-sort-value');
-		if (sortValue == "random") {
-			CG_Cookie_Set(myid,'sort',sortValue+'-');
-			$grid.isotope('shuffle');
-			return;
-		} 
-		sens = $(this).attr('data-sens');
-		sortValue = sortValue.split(',');
-		if (!$(this).hasClass('is-checked')) { // first time sorting
-			sens = $(this).attr('data-init');
-			$(this).attr("data-sens",sens);
-			asc=true;
-			if (sens== "-") asc = false;
-		} else { // invert order
-			if (sens == "-") {
-				$(this).attr("data-sens","+");
-				asc = true;
-			} else {
-				$(this).attr("data-sens","-");
-				asc = false;
-			}
-		}
-		sortAsc = {};
-		for (i=0;i < sortValue.length;i++) {
-			if ( sortValue[i] == "featured"){  // featured always first
-				sortAsc[sortValue[i]] = false ;
-			} else {
-				sortAsc[sortValue[i]] = asc;
-			}
-		}
-		CG_Cookie_Set(myid,'sort',sortValue+'-'+asc);
-		$grid.isotope({ 
-			sortBy: sortValue, 
-			sortAscending: sortAsc 
-		});
+		update_sort_buttons($(this))
 	});
 
 	$(me+'.sort-by-button-group').each( function( i, buttonGroup ) {
@@ -618,6 +585,7 @@ function iso_cat_k2 ($,myid,options) {
 			choicesInstance.removeActiveItems();
 			choicesInstance.setChoiceByValue('')
 		});
+		$('#offcanvas-clone .is-checked').remove(); // remove cloned buttons
 		update_cookie_filter(filters);
 		$grid.isotope();
 		updateFilterCounts();
@@ -780,6 +748,57 @@ function iso_cat_k2 ($,myid,options) {
 		}
 		updateFilterCounts();
 	});
+	// handling clones
+	$('#offcanvas-clone').on( 'click touchstart', 'button', function() {
+		if ($(this).attr('data-clone-type') == "multi")	filter_multi($(this));
+		if ($(this).attr('data-clone-type') == "button") filter_button($(this));
+		if ($(this).attr('data-clone-type') == "list_multi") {
+			var $event = jQuery.Event( "offcanvas-clone" );
+			filter_list_multi($(this),event,'remove');
+		}
+		if ($(this).attr('data-clone-type') == "list") {
+			filter_list($(this));
+		}
+		$(this).remove();
+	});
+	
+	function update_sort_buttons($this) {
+		var sortValue = $this.attr('data-sort-value');
+		if (sortValue == "random") {
+			CG_Cookie_Set(myid,'sort',sortValue+'-');
+			$grid.isotope('shuffle');
+			return;
+		} 
+		sens = $this.attr('data-sens');
+		sortValue = sortValue.split(',');
+		if (!$this.hasClass('is-checked')) { // first time sorting
+			sens = $this.attr('data-init');
+			$this.attr("data-sens",sens);
+			asc=true;
+			if (sens== "-") asc = false;
+		} else { // invert order
+			if (sens == "-") {
+				$this.attr("data-sens","+");
+				asc = true;
+			} else {
+				$this.attr("data-sens","-");
+				asc = false;
+			}
+		}
+		sortAsc = {};
+		for (i=0;i < sortValue.length;i++) {
+			if ( sortValue[i] == "featured"){  // featured always first
+				sortAsc[sortValue[i]] = false ;
+			} else {
+				sortAsc[sortValue[i]] = asc;
+			}
+		}
+		CG_Cookie_Set(myid,'sort',sortValue+'-'+asc);
+		$grid.isotope({ 
+			sortBy: sortValue, 
+			sortAscending: sortAsc 
+		});
+	}
 	/*------- infinite scroll : update buttons list------------*/
 	function infinite_buttons(appended_list) {
 		if (options.displayalpha != 'false') {
@@ -909,17 +928,34 @@ function iso_cat_k2 ($,myid,options) {
 	} 
 	function filter_list($this) {
 		$parent = $this.attr('data-filter-group');
+		$isclone = false;
+		if ($this.parent()[0].id == "offcanvas-clone") { // clone 
+			$selectid = $parent;
+			$isclone = true;
+		} else {
+			$selectid = $this.attr('data-filter-group');
+		}
 		var sortValue = $this.find(":selected").val();
 		if (typeof sortValue === 'undefined') sortValue = ""
+		elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+$selectid);
+		choicesInstance = elChoice.choicesInstance;
+		$needclone = false;
+		$grdparent = $this.parent();
+		if ($grdparent[0].className == "offcanvas-body") {
+			$needclone = true;
+		}
 		if (sortValue == '')   {
-			
-			$selectid = $this.attr('data-filter-group');
-			elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+$selectid);
-			choicesInstance = elChoice.choicesInstance;
+			choicesInstance.removeActiveItems();
 			choicesInstance.setChoiceByValue('')		
 			filters[$parent] = ['*'];
+			$('#offcanvas-clone').find('[data-filter-group="'+$parent+'"]').remove(); // remove cloned buttons
 		} else { 
 			filters[$parent] = [sortValue];
+			if ($needclone) { // clone
+				$('#offcanvas-clone').find('[data-filter-group="'+$parent+'"]').remove(); // remove cloned buttons
+				lib = choicesInstance.getValue().label;
+				$('<button class="btn btn-sm iso_button_'+$parent+'_'+sortValue+' is-checked" data-sort-value="'+sortValue+'" title="'+lib+'" data-filter-group="'+$parent+'" data-clone-type="list">'+lib+'</button>').prependTo("#offcanvas-clone")
+			}
 		}
 		update_cookie_filter(filters);
 		$grid.isotope(); 
@@ -928,32 +964,60 @@ function iso_cat_k2 ($,myid,options) {
 	function filter_list_multi($this,evt,params) {
 		$evnt = evt;
 		$params = params;
-		$parent = $this.parent().parent().parent().attr('data-filter-group')
+		$isclone = false;
+		if ($this.parent()[0].id == "offcanvas-clone") { // clone 
+			$parent = $this.attr('data-filter-group');
+			$selectid = "isotope-select-"+$parent;
+			$isclone = true;
+		} else {
+			$parent = $this.parent().parent().parent().attr('data-filter-group')
+			$selectid = $this.attr('id');
+		}
 		if (typeof filters[$parent] === 'undefined' ) { 
 			filters[$parent] = [];
 		}
-		$selectid = $this.attr('id');
-		
 		var elChoice = document.querySelector('joomla-field-fancy-select#'+$selectid);
 		var choicesInstance = elChoice.choicesInstance;
 		
 		if ($params == "remove") { // deselect element except all
-			removeFilter( filters, $parent, $evnt.detail.value );
+			if ($isclone) {
+				removeFilter( filters, $parent, $this.attr('data-sort-value') );
+				savfilter = JSON.parse(JSON.stringify(filters));
+				choicesInstance.removeActiveItems();
+				filters = JSON.parse(JSON.stringify(savfilter));
+				choicesInstance.removeActiveItemsByValue('');
+				for (var i = 0; i < filters[$parent].length; i++) {
+					$val = filters[$parent][i];
+					choicesInstance.setChoiceByValue($val);
+				}
+			} else {
+				removeFilter( filters, $parent, $evnt.detail.value );
+			}
 			if (filters[$parent].length == 0) {
 				filters[$parent] = ['*'] ;
 				choicesInstance.setChoiceByValue('')
 			}
 		}
+		$needclone = false;
+		$grdparent = $this.parent().parent();
+		if ($grdparent[0].className == "offcanvas-body") {
+			$needclone = true;
+		}
 		if ($params == "choice") {
 			sel = $evnt.detail.choice.value;
+			lib = $evnt.detail.choice.label;
 			if (sel == '') {// all
 				filters[$parent] = ['*'];
 				choicesInstance.removeActiveItems();
-				choicesInstance.setChoiceByValue('')
+				choicesInstance.setChoiceByValue('');
+				$('#offcanvas-clone').find('[data-filter-group="'+$parent+'"]').remove(); // remove other buttons
 			} else {
 				if (filters[$parent].indexOf('*') != -1) { // was all
 					choicesInstance.removeActiveItemsByValue('')
 					filters[$parent] = []; // remove it
+				}
+				if ($needclone) {
+					$('<button class="btn btn-sm iso_button_'+$parent+'_'+sel+' is-checked" data-sort-value="'+sel+'" title="'+lib+'" data-filter-group="'+$parent+'" data-clone-type="list_multi">'+lib+'</button>').prependTo("#offcanvas-clone")
 				}
 				addFilter( filters, $parent, sel );
 			}
@@ -968,11 +1032,39 @@ function iso_cat_k2 ($,myid,options) {
 		$parent = $this.parent().attr('data-filter-group');
 		child =  $this.attr('data-child'); // child group number
 		var sortValue = $this.attr('data-sort-value');
+		$isclone = false;
+		if ($this.parent()[0].id == "offcanvas-clone") { // clone 
+			$parent = $this.attr('data-filter-group');
+			$('.iso_button_'+$parent+'_'+sortValue).toggleClass('is-checked');
+			sortValue = '*';
+			$('.iso_button_'+$parent+'_'+sortValue).toggleClass('is-checked'); // all button
+			$isclone = true;
+		} 		
 		if (typeof filters[$parent] === 'undefined' ) { 
 			filters[$parent] = {};
 		}
+		$needclone = false;
+		$grdparent = $this.parent().parent();
+		if ($grdparent[0].className == "offcanvas-body") {
+			$needclone = true;
+		}
+		if ($needclone) {
+			if ($this.hasClass('is-checked')) {return} // already cloned
+			$('#offcanvas-clone').find('[data-filter-group="'+$parent+'"]').remove(); // remove other buttons
+			if (sortValue != '*') { // don't clone all button
+				let $clone = $this.clone(true).prependTo("#offcanvas-clone");
+				$clone.attr('data-filter-group',$parent);
+				$clone.attr('data-child',child);
+				$clone.attr('data-clone-type','button');
+				$clone.toggleClass('is-checked');
+			}
+		}
+		
 		if (sortValue == '*') {
 			filters[$parent] = ['*'];
+			if ($isclone) {
+				$('.filter-button-group-'+$parent).find('[data-sort-value="*"]').addClass('is-checked');
+			}
 			if (child) {
 				set_family_all(me,child,'button');
 			}
@@ -987,16 +1079,41 @@ function iso_cat_k2 ($,myid,options) {
 		updateFilterCounts();
 	}
 	function filter_multi($this) {
-		$parent = $this.parent().attr('data-filter-group');
-		child =  $this.attr('data-child'); // child group number
 		var sortValue = $this.attr('data-sort-value');
-		$this.toggleClass('is-checked');
+		child =  $this.attr('data-child'); // child group number
+		$isclone = false;
+		if ($this.parent()[0].id == "offcanvas-clone") { // clone 
+			$parent = $this.attr('data-filter-group');
+			$('.iso_button_'+$parent+'_'+sortValue).toggleClass('is-checked');
+			$isclone = true;
+		} else {
+			$parent = $this.parent().attr('data-filter-group');
+			$this.toggleClass('is-checked');
+		}
 		var isChecked = $this.hasClass('is-checked');
+		// clone offcanvas button
+		$needclone = false;
+		$grdparent = $this.parent().parent();
+		if ($grdparent[0].className == "offcanvas-body") {
+			$needclone = true;
+		}
+		if ($needclone) {
+			if (isChecked) { // clone button
+				let $clone = $this.clone(true).prependTo("#offcanvas-clone");
+				$clone.attr('data-filter-group',$parent);
+				$clone.attr('data-child',child);
+				$clone.attr('data-clone-type','multi');
+			} else { // remove cloned button
+				$('#offcanvas-clone .iso_button_'+$parent+'_'+sortValue).remove();
+			}
+		}
+		// end of cloning
 		if (typeof filters[$parent] === 'undefined' ) { 
 			filters[$parent] = [];
 		}
 		if (sortValue == '*') {
 			filters[$parent] = ['*'];
+			$('#offcanvas-clone').find('[data-filter-group="'+$parent+'"]').remove(); // remove other cloned buttons
 			if (child) {
 				set_family_all(me,child,'button')
 			}
@@ -1010,9 +1127,14 @@ function iso_cat_k2 ($,myid,options) {
 				}
 			} else {
 				removeFilter( filters, $parent, sortValue );
+				if (filters[$parent].length == 0) {// no more selection
+					filters[$parent] = ['*'];
+					if ($isclone) {
+						$('.filter-button-group-'+$parent).find('[data-sort-value="*"]').addClass('is-checked');
+					}
+				}
 				if (child) {
-					if (filters[$parent].length == 0) {// no more selection
-						filters[$parent] = ['*'];
+					if (filters[$parent] == ['*']) {// no more selection
 						set_family_all(me,child,'button')
 					} else { // remove current selection
 						del_family(me,$parent,child,sortValue,'button')
@@ -1254,6 +1376,13 @@ function splitCookie(item) {
 							for(c=0;c < vals.length;c++) {
 								choicesInstance.setChoiceByValue(vals[c]);
 							}
+							if (elChoice.parentElement.parentElement.className == "offcanvas-body")  { // need clone
+								for (c=0;c < choicesInstance.getValue().length;c++) {
+									lib = choicesInstance.getValue()[c].label;
+									sel = choicesInstance.getValue()[c].value;
+									$('<button class="btn btn-sm iso_button_'+values[0]+'_'+sel+' is-checked" data-sort-value="'+sel+'" title="'+lib+'" data-filter-group="'+values[0]+'" data-clone-type="list_multi">'+lib+'</button>').prependTo("#offcanvas-clone")
+								}
+							}
 						}
 					} else {
 						if (values[1] != '*') { // !tout
@@ -1267,8 +1396,26 @@ function splitCookie(item) {
 								if ( ((values[0] == "tags") && (options.displayfiltertags == 'list') && (options.article_cat_tag != "tagsfields") && (options.article_cat_tag != "cattagsfields")) ||
 									((values[0] == "cat") && (options.displayfiltercat == 'list')) ) {
 									jQuery(me+'.filter-button-group-'+values[0]+' .isotope_select').val(filters[values[0]][v]).attr('selected',true);
+									var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
+									if (elChoice.parentElement.parentElement.className == "offcanvas-body")  { // need clone
+										var choicesInstance = elChoice.choicesInstance;
+										sel = filters[values[0]][v];
+										lib = choicesInstance.getValue().label;
+										$('<button class="btn btn-sm iso_button_'+values[0]+'_'+sel+' is-checked" data-sort-value="'+sel+'" title="'+lib+'" data-filter-group="'+values[0]+'" data-clone-type="list">'+lib+'</button>').prependTo("#offcanvas-clone")
+									}
 								} else {
-									jQuery( me+'.iso_button_'+values[0]+'_'+ filters[values[0]][v]).addClass('is-checked');
+									$button = jQuery( me+'.iso_button_'+values[0]+'_'+ filters[values[0]][v]);
+									$button.addClass('is-checked');
+									if ($button.parent().parent()[0].className == "offcanvas-body")  { // need clone
+										let $clone = $button.clone(true).prependTo("#offcanvas-clone");
+										$clone.attr('data-filter-group',values[0]);
+										$clone.attr('data-clone-type','button'); // assume button
+										if ((values[0] == "cat" && (options.displayfiltercat == "multi" || options.displayfiltercat == "multiex")) ||
+										    (values[0] == "tags" && (options.displayfiltertags == "multi" || options.displayfiltercat == "multiex")) || 
+											(values[0] == "alpha" && (options.displayalpha == "multi" || options.displayalpha == "multiex")) ) {
+												$clone.attr('data-clone-type','multi');
+										}
+									}
 								}
 							};
 						}
@@ -1290,6 +1437,14 @@ function splitCookie(item) {
 							for(c=0;c < vals.length;c++) {
 								choicesInstance.setChoiceByValue(vals[c]);
 							}
+							if (elChoice.parentElement.parentElement.className == "offcanvas-body")  { // need clone
+								for (c=0;c < choicesInstance.getValue().length;c++) {
+									lib = choicesInstance.getValue()[c].label;
+									sel = choicesInstance.getValue()[c].value;
+									$('<button class="btn btn-sm iso_button_'+values[0]+'_'+sel+' is-checked" data-sort-value="'+sel+'" title="'+lib+'" data-filter-group="'+values[0]+'" data-clone-type="list_multi">'+lib+'</button>').prependTo("#offcanvas-clone")
+								}
+							}
+							
 						}
 					} else { if (values[1] != '*') { // !tout
 						jQuery(me+'.class_fields_'+values[0]).find('.is-checked').removeClass('is-checked');
@@ -1298,6 +1453,14 @@ function splitCookie(item) {
 							if ((options.displayfilterfields == 'list') ||(options.displayfilterfields == 'listex')) {
 								$this = jQuery(me+'.class_fields_'+values[0]+' .isotope_select').val(filters[values[0]][v]);
 								$this.attr('selected',true);
+								var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
+								if (elChoice.parentElement.parentElement.parentElement.className == "offcanvas-body")  { // need clone
+									var choicesInstance = elChoice.choicesInstance;
+									sel = filters[values[0]][v];
+									lib = choicesInstance.getValue().label;
+									$('<button class="btn btn-sm iso_button_'+values[0]+'_'+sel+' is-checked" data-sort-value="'+sel+'" title="'+lib+'" data-filter-group="'+values[0]+'" data-clone-type="list">'+lib+'</button>').prependTo("#offcanvas-clone")
+								}
+								
 								child =  $this.find(":selected").attr('data-child'); // child group number
 								if (child) {
 									sortValue = filters[values[0]][v];

@@ -23,11 +23,18 @@
   		<field name="div_width" type="number" value="" min="1" max="12"  label="CG_ISO_DIV_WIDTH" description="CG_ISO_DIV_WIDTH_DESC" length="2" maxlength="2"  required="true"/>
 		<field showon="div!:iso" name="div_align" type="radio" class="btn-group btn-group-yesno"	default=""  label="CG_ISO_DIV_ALIGN" description="CG_ISO_DIV_ALIGN_DESC">
 			<option value="">CG_ISO_DIV_NONE</option>
-			<option value="fg-row fg-start">CG_ISO_DIV_LEFT</option>
-			<option value="fg-row fg-center">CG_ISO_DIV_CENTER</option>
-			<option value="fg-row fg-end">CG_ISO_DIV_RIGHT</option>
-			<option value="fg-row fg-around">CG_ISO_DIV_AROUND</option>
-			<option value="fg-row fg-between">CG_ISO_DIV_BETWEEN</option>
+			<option value="row justify-content-start">CG_ISO_DIV_LEFT</option>
+			<option value="row justify-content-center">CG_ISO_DIV_CENTER</option>
+			<option value="row justify-content-end">CG_ISO_DIV_RIGHT</option>
+			<option value="row justify-content-around">CG_ISO_DIV_AROUND</option>
+			<option value="row justify-content-between">CG_ISO_DIV_BETWEEN</option>
 		</field>
+		<field	name="offcanvas"
+				type="radio" class="btn-group btn-group-yesno" default="false"
+				label="CG_ISO_OFFCANVAS" description="CG_ISO_OFFCANVASDESC" >
+				<option value="true">JYES</option> 
+				<option value="false">JNO</option> 
+		</field>
+
 </fieldset>
 </form>

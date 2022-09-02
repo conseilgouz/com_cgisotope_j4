@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.0</version>
+        <note>
+            <item>Update : 02/09/2022</item>
+        </note>
+		<addition>
+            <item>offcanvas filter buttons</item>
+		</addition>
+		<change>
+            <item>use bootstrap 5</item>
+		</change>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>2.3.3</version>
         <note>
             <item>Update : 09/07/2022</item>

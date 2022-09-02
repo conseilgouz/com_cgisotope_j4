@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
 	<name>CG Isotope</name>
-	<creationDate>January 2022</creationDate>
+	<creationDate>September 2022</creationDate>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
 	<copyright>Copyright (C) 2022 ConseilGouz.com. All Rights Reserved</copyright>
 	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
-	<version>2.3.3</version>
+	<version>3.0.0</version>
 	<description>CG_ISO_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Component\CGIsotope</namespace>
     <install>

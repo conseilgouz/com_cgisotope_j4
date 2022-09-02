@@ -1,6 +1,6 @@
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -36,7 +36,10 @@ cursor: pointer;
 .isotope_button-group .btn:active,
 .isotope_button-group .btn.is-checked,
 .isotope_button:active,
-.isotope_button.is-checked {
+.isotope_button.is-checked,
+#offcanvas-clone .btn:active,
+#offcanvas-clone .btn.is-checked
+{
   background-color: #28F;
   background: #28F;
   color: white;
@@ -381,3 +384,8 @@ div.itemExtraFields ul li span.itemExtraFieldsLabel {
   animation-name: reveal;
   animation-direction: reverse;
 }
+/* OffCanvas */
+#offcanvas-hamburger-btn {max-height:3em;position: absolute;left:0}
+.offcanvas-start {width:auto;max-width:15em}
+.offcanvas .iso_fields_title  p{width:100%}
+.offcanvas .choices {width:13rem}

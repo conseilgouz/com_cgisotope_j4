@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -32,6 +32,8 @@ $tagsfilterorder = $this->iso_params->get('tagsfilterorder','false');
 $tagsfilterimg =  $this->iso_params->get('tagsfilterimg','false');
 $tagsfilterparent =  $this->iso_params->get('tagsfilterparent','false');
 $tagsfilterparentlabel =  $this->iso_params->get('tagsfilterparentlabel','false');
+$filtersoffcanvas = $this->iso_params->get('offcanvas','false');
+
 $catsfilterimg =  $this->iso_params->get('catsfilterimg','false');
 $splitfields = $this->iso_params->get('displayfiltersplitfields','false'); 
 $splitfieldstitle = $this->iso_params->get('splitfieldstitle','false');    
@@ -77,6 +79,7 @@ if ($displaysort != "hide") {
 	$pos = $values->div_pos;
 	$values->div_width = "5";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$width += 5;
 	$layouts['sort'] = $values;
 }
@@ -95,6 +98,7 @@ if ($displaysearch == "true") {
 	}
 	$values->div_width = "4";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['search'] = $values;
 }
 if ($displayfilterfields != "hide") {
@@ -112,6 +116,7 @@ if ($displayfilterfields != "hide") {
 		$values->div_pos = $pos;
 		$values->div_width = "6";
 		$values->div_align="";
+		$values->offcanvas = "false";
 		$layouts['cat'] = $values;
 	}
 	if (($article_cat_tag == 'tagsfields') || ($article_cat_tag == 'cattagsfields')) {
@@ -128,6 +133,7 @@ if ($displayfilterfields != "hide") {
 		$values->div_pos = $pos;
 		$values->div_width = "6";
 		$values->div_align="";
+		$values->offcanvas = "false";
 		$layouts['tag'] = $values;
 	}
 	$values = new stdClass();
@@ -143,6 +149,7 @@ if ($displayfilterfields != "hide") {
 	$values->div_line = $line;
 	$values->div_pos = $pos;
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['field'] = $values;
 }
 if ($displayrange == "true") {
@@ -153,6 +160,7 @@ if ($displayrange == "true") {
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['range'] = $values;
 }
 if ($displayalpha != "false") {
@@ -163,6 +171,7 @@ if ($displayalpha != "false") {
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['alpha'] = $values;
 }
 if ($displaycalendar != "false") {
@@ -173,6 +182,7 @@ if ($displaycalendar != "false") {
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['calendar'] = $values;
 }
 if ($language_filter != "false") { // php 8
@@ -183,6 +193,7 @@ if ($language_filter != "false") { // php 8
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['lang'] = $values;
 }
 $values = new stdClass();
@@ -192,6 +203,7 @@ $values->div_line = $line;
 $values->div_pos = "1";
 $values->div_width = "12";
 $values->div_align="";
+$values->offcanvas = "false";
 $layouts["iso"] = $values;
 
 if ($layouts_prm) { // we have a parameter definition: replace default behaviour
@@ -387,6 +399,7 @@ $filter_tag_div= "";
 			if ($tagsfilterparent == "true") $filter_tag_div .= '</div>';
                         $filter_tag_div .= '</div>';
 		}   else  {	// affichage Liste
+			Text::script('JGLOBAL_SELECT_PRESS_TO_SELECT');
 			Factory::getDocument()->getWebAssetManager()
 					->useScript('webcomponent.field-fancy-select')
 					->usePreset('choicesjs');
@@ -477,6 +490,7 @@ $filter_tag_div= "";
 			}
 			$filter_cat_div .= '</div>';
 		} else {
+			Text::script('JGLOBAL_SELECT_PRESS_TO_SELECT');			
 			Factory::getDocument()->getWebAssetManager()
 					->useScript('webcomponent.field-fancy-select')
 					->usePreset('choicesjs');
@@ -787,12 +801,38 @@ if (($language_filter == "button") || ($language_filter == "multi")) {
 ksort($layouts_order,  SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL ); // order
 $val = 0;
 $line = 0;
-
+$offcanvasopened = false;
 foreach ($layouts_order as $layout) {
     $key = (string)$layout;
     $obj = $layouts[$key];
-	$val += $obj->div_width;
+	$val = $obj->div_width;
+	$line = $obj->div_line; 
+	
 	if ($line == 0) $line = $obj->div_line; 
+	if ($offcanvasopened) {
+		if ($obj->offcanvas == "false") {
+			$offcanvasopened = false;
+			echo "</div></div>";
+		}
+	}
+	$offcanvas = ($obj->offcanvas == "true"); 
+	if ($offcanvas && !$offcanvasopened) {// offcanvas
+		$offcanvasopened = true;
+	    echo '<div class="col-md-'.$obj->div_width.'" id="offcanvas-clone">';
+	    echo '<a class="btn isotope_button navbar-dark" data-bs-toggle="offcanvas" href="#offcanvas'.$obj->div.'" role="button" aria-controls="offcanvas'.$obj->div.'"  title="Filtre" id="offcanvas-hamburger-btn">';
+	    echo '<span class="navbar-toggler-icon"></span>';
+	    echo '</a></div>';
+	    
+	    echo '<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas'.$obj->div.'" aria-labelledby="offcanvas'.$obj->div.'Label" data-bs-scroll="true">';
+		$liboff = "Filtre";
+		if ($obj->div == "sort") {
+			$liboff = "Tri";
+		}
+		echo '<div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvas'.$obj->div.'Label">'.$liboff.'</h5>';
+	    echo '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>';
+     	echo '</div><div class="offcanvas-body">';
+	}
+	
 	if (($val > 12) || ( ($obj->div_width == 12) && ($val > 12)) || ($line < $obj->div_line)) { // new line needed
 		if (($obj->div == "iso") && ($obj->div_width == 12)) {
 			echo "</div><div>";
@@ -822,7 +862,7 @@ foreach ($layouts_order as $layout) {
 </div>
 </div>
 <?php 
-// 2.3.3 : view article in isotope component
+// view article in isotope component
 $width = $layouts["iso"]->div_width;
 if ($this->iso_params->get('readmore','false') =='iframe') {
    echo '<div id="isotope_an_article" class="isotope_an_article fg-c'.$width.' fg-cs12 isotope-hide" ><button type="button" class="close">X</button><iframe src="" id="isotope_article_frame"></iframe></div>'; 

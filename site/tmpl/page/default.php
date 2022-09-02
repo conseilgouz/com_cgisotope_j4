@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -314,7 +314,7 @@ if ($this->iso_entree == "k2") {
 			  'libmore' => Text::_('CG_ISO_LIBMORE'), 'libless' => Text::_('CG_ISO_LIBLESS'),'readmore' => $this->iso_params->get("readmore","false"),
 			  'empty' => $this->iso_params->get("empty","false"),
 			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false"),
-			  'button_bootstrap' => $button_bootstrap));
+			  'button_bootstrap' => $button_bootstrap,'layouts' => json_decode($this->iso_params->layouts)));
 	
 }
 

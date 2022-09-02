@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -36,6 +36,8 @@ $tagsfilterimg =  $this->iso_params->get('tagsfilterimg','false');
 $tagsfilterparent =  $this->iso_params->get('tagsfilterparent','false');
 $tagsfilterparentlabel =  $this->iso_params->get('tagsfilterparentlabel','false');
 
+$filtersoffcanvas = $this->iso_params->get('offcanvas','false');
+
 $catsfilterimg =  $this->iso_params->get('catsfilterimg','false');
 $blocklink =  $this->iso_params->get('blocklink','false'); 
 $titlelink =  $this->iso_params->get('titlelink','true'); 
@@ -60,35 +62,31 @@ $layouts_prm = json_decode($this->iso_params->layouts);
 $layouts = [];
 $layouts_order = [];
 // Default values 
-$width = 0;
+$width = 1;
 $line = 1;
 $pos = 0;
 if ($displaysort != "hide") {
 	$values = new stdClass();
 	$values->div = "sort";
-	$values->div_line = "1";
+	$values->div_line = $line;
 	$values->div_pos = "1";
 	$pos = $values->div_pos;
 	$values->div_width = "5";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$width += 5;
 	$layouts['sort'] = $values;
 }
 if ($displaysearch == "true") {
 	$values = new stdClass();
 	$values->div = "search";
-	if ($pos > 0) {// on affiche le tri => recherche en dessous
-		$values->div_line = "2";
-		$values->div_pos = "0";
-		$pos = 1;
-	} else {
-		$pos += 1;
-		$values->div_pos = $pos;
-		$values->div_line = "1";
-		$width += 4;
-	}
+	$pos += 1;
+	$values->div_pos = $pos;
+	$values->div_line = $line;
+	$width += 4;
 	$values->div_width = "4";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['search'] = $values;
 }
 if ($article_cat_tag == 'cattags') {
@@ -105,6 +103,7 @@ if ($article_cat_tag == 'cattags') {
 	$values->div_pos = $pos;
 	$values->div_width = "6";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['cat'] = $values;
 	$values = new stdClass();
 	$values->div = "tag";
@@ -119,6 +118,7 @@ if ($article_cat_tag == 'cattags') {
 	$values->div_pos = $pos;
 	$values->div_width = "6";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['tag'] = $values;
 }
 if ($article_cat_tag == 'cat') {
@@ -135,6 +135,7 @@ if ($article_cat_tag == 'cat') {
 	$values->div_line = $line;
 	$values->div_pos = $pos;
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['cat'] = $values;
 }
 if ($article_cat_tag == 'tags') {
@@ -151,26 +152,29 @@ if ($article_cat_tag == 'tags') {
 	$values->div_line = $line;
 	$values->div_pos = $pos;
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['tag'] = $values;
 }
 if ($displayrange == "true") {
 	$values = new stdClass();
-	$values->div = "range";
 	$line +=1;
+	$values->div = "range";
 	$values->div_line = $line;
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['range'] = $values;
 }
 if ($displayalpha != "false") {
 	$values = new stdClass();
-	$values->div = "alpha";
 	$line +=1;
+	$values->div = "alpha";
 	$values->div_line = $line;
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['alpha'] = $values;
 }
 if ($displaycalendar != "false") {
@@ -181,6 +185,7 @@ if ($displaycalendar != "false") {
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['calendar'] = $values;
 }
 if ($language_filter != "false") { // php 8
@@ -191,6 +196,7 @@ if ($language_filter != "false") { // php 8
 	$values->div_pos = "1";
 	$values->div_width = "12";
 	$values->div_align="";
+	$values->offcanvas = "false";
 	$layouts['lang'] = $values;
 }
 $values = new stdClass();
@@ -200,6 +206,7 @@ $values->div_line = $line;
 $values->div_pos = "1";
 $values->div_width = "12";
 $values->div_align="";
+$values->offcanvas = "false";
 $layouts["iso"] = $values;
 
 if ($layouts_prm) { // we have a parameter definition: replace default behaviour
@@ -208,7 +215,7 @@ if ($layouts_prm) { // we have a parameter definition: replace default behaviour
 	}
 }
 foreach ($layouts as $layout) {
-	$layouts_order[$layout->div_line.$layout->div_pos] = $layout->div;
+    $layouts_order[$layout->div_line.$layout->div_pos] = $layout->div;
 }
 //====================================Messages=====================================//
 $libreverse=Text::_('CG_ISO_LIBREVERSE');
@@ -245,13 +252,13 @@ if (strlen(trim($this->iso_params->get('intro'))) > 0) {
 	echo $intro; 
 }
 ?>
-<div id="isotope-main-<?php echo $com_id;?>" data="<?php echo $com_id;?>" class="isotope-main">
-<div class="isotope-div fg-row" >
+<div id="isotope-main-<?php echo $com_id;?>" data="<?php echo $com_id;?>" class="isotope-main container">
+<div class="isotope-div row" >
 <?php 
 // =====================================sort buttons div =================================================// 
 $sort_buttons_div = "";
 if ($displaysort != "hide") { 
-$sort_buttons_div = '<div class="isotope_button-group sort-by-button-group fg-c'.$layouts["sort"]->div_width.' fg-cs12 fg-cm6 '.$layouts["sort"]->div_align.'">';
+$sort_buttons_div = '<div class="isotope_button-group sort-by-button-group col-md-'.$layouts["sort"]->div_width.' col-12 '.$layouts["sort"]->div_align.'">';
 $checked = " is-checked ";
 $featured = "";
 if ($this->iso_params->get('btnfeature','false') != "false") { // featured articles always displayed first
@@ -296,7 +303,7 @@ if ($this->iso_entree != "webLinks") {
 	if ((JPluginHelper::isEnabled('content', 'vote')) && ($this->iso_params->get('btnrating','true') != "false")) {
 		$sens = $this->iso_params->get('btnrating','true') == 'true' ? '+':'-'; 
 		$sens = $defaultdisplay=="rating_desc"? "-": $sens;
-		$sort_buttons_div .= '<button class="'.$button_bootstrap.$checked.' iso_button_click" data-sort-value="'.$featured.'rating,category,title,date" data-init="'.$sens.'" data-sens="'.$sens.'" title="'.$libreverse.'">'.$librating.'</button>';
+		$sort_buttons_div .= '<button class="'.$button_bootstrap.$checked.' iso_button_rating" data-sort-value="'.$featured.'rating,category,title,date" data-init="'.$sens.'" data-sens="'.$sens.'" title="'.$libreverse.'">'.$librating.'</button>';
 		$checked = "";
 	}
 }
@@ -305,7 +312,7 @@ $sort_buttons_div .= "</div>";
 // ============================search div ============================================//
 $search_div = "";
 if ($displaysearch == "true") { 
-	$search_div .= '<div class="iso_search fg-c'.$layouts["search"]->div_width.' fg-cs12 '.$layouts["search"]->div_align.'" >';
+	$search_div .= '<div class="iso_search col-md-'.$layouts["search"]->div_width.' col-12 '.$layouts["search"]->div_align.'" >';
 	$search_div .= '<input type="text" class="quicksearch " placeholder="'.$libsearch.'" style="width:80%;float:left">';
 	$search_div .= '<i class="ison-cancel-squared " title="'.$libsearchclear.'" style="width:20%;float:right"></i>';
 	$search_div .= '</div>';
@@ -349,7 +356,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 			asort($sortFilter,  SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL ); // alphabatic order
 		}
 	    if  (($displayfiltercat == "button")  || ($displayfiltercat == "multi") || ($displayfiltercat == "multiex")) {
-    	    $filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat fg-c'.$layouts["cat"]->div_width.' fg-cs12 '.$layouts["cat"]->div_align.'" data-filter-group="cat">';
+    	    $filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$layouts["cat"]->div_width.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat">';
 			$checked = "";
 			if ($this->default_cat == "") {
 				$checked = "is-checked";
@@ -369,11 +376,12 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 							class="iso_cat_img" alt="'.$tagimage->image_alt.'" /> ';
 						}
 					}
-					$filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.3
+					$filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>';
 				}
 			}
 			$filter_cat_div .= '</div>';
 		} else {
+			Text::script('JGLOBAL_SELECT_PRESS_TO_SELECT');
 			Factory::getDocument()->getWebAssetManager()
 					->useScript('webcomponent.field-fancy-select')
 					->usePreset('choicesjs');
@@ -388,10 +396,10 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 			if ($displayfiltercat == "listmulti") {
 				$libmulti = Text::_('CG_ISO_LIBLISTMULTI');
 				$multiple = "  place-placeholder='".$libmulti."'";
-				$selectAttr[] = ' multiple';
+				$selectAttr = array(' multiple');
 			}
-			$filter_tag_div .= '<div class="isotope_button-group filter-button-group-cat fg-c'.$layouts["tag"]->div_width.' fg-cs12 '.$layouts["tag"]->div_align.'" data-filter-group="cat">';
-			$filter_tag_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
+			$filter_tag_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$layouts["tag"]->div_width.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="cat">';
+			// $filter_tag_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
 			$name = 'isotope-select-cat';
 			$options = array();
 			$options['']['items'][] = ModulesHelper::createOption('',$liball);
@@ -443,10 +451,10 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 				$checked = "is-checked";
 			}
 			if ($tagsfilterparent != "true") {
-        		$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags fg-c'.$layouts["tag"]->div_width.' fg-cs12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
+        		$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$layouts["tag"]->div_width.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
 				$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_tout '.$checked.'" data-sort-value="*" />'.$liball.'</button>';
 			} else {
-        		$filter_tag_div .= '<div class="fg-c'.$layouts["tag"]->div_width.' fg-cs12 '.$layouts["tag"]->div_align.'">';
+        		$filter_tag_div .= '<div class="col-md-'.$layouts["tag"]->div_width.' col-12 '.$layouts["tag"]->div_align.'">';
 			}
 			$cur_parent = '';
 			foreach ($sortFilter as $aval) {
@@ -479,12 +487,13 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 					}
 					$checked = "";
 					if ($this->default_tag == $aff_alias) {$checked = "is-checked";}
-					$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->tags_note[$aff_alias].'"/>'.$img.Text::_($aff).'</button>'; // 2.3.3
+					$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->tags_note[$aff_alias].'"/>'.$img.Text::_($aff).'</button>'; 
 				}
 			}
 			if ($tagsfilterparent == "true") $filter_tag_div .= '</div>';
                         $filter_tag_div .= '</div>';
 		}   else  {	// affichage Liste
+			Text::script('JGLOBAL_SELECT_PRESS_TO_SELECT');
 			Factory::getDocument()->getWebAssetManager()
 					->useScript('webcomponent.field-fancy-select')
 					->usePreset('choicesjs');
@@ -498,11 +507,11 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 			$multiple = "";
 			if ($displayfiltertags == "listmulti") {
 				$libmulti = Text::_('CG_ISO_LIBLISTMULTI');
-				$multiple = "  place-placeholder='".$libmulti."'";
-				$selectAttr[] = ' multiple';
+				$multiple = "  placeholder='".$libmulti."'";
+				$selectAttr = array(' multiple');
 			}
-			$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags fg-c'.$layouts["tag"]->div_width.' fg-cs12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
-			$filter_tag_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
+			$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$layouts["tag"]->div_width.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
+			// $filter_tag_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
 			$name = 'isotope-select-tags';
 			$options = array();
 			$options['']['items'][] = ModulesHelper::createOption('',$liball);
@@ -529,7 +538,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
  }
 //============================= isotope grid =============================================//
 $width = $layouts["iso"]->div_width;
-$isotope_grid_div = '<div class="isotope_grid fg-c'.$width.' fg-cs12" style="padding:0">'; // bootstrap : suppression du padding pour isotope
+$isotope_grid_div = '<div class="isotope_grid col-md-'.$width.' col-12" style="padding:0">'; // bootstrap : suppression du padding pour isotope
 foreach ($this->list as $key=>$category) {
 	foreach ($category as $item) {
 		$tag_display = "";
@@ -742,14 +751,14 @@ foreach ($this->list as $key=>$category) {
 // ============================range div ==============================================//
 $isotope_range_div = "";
 if ($displayrange == "true") {
-    $isotope_range_div = '<div class="iso_range fg-row fg-c'.$layouts["range"]->div_width.' fg-cs12 '.$layouts["range"]->div_align.'">';
-    $isotope_range_div .= '<div class="fg-c1 fg-cs12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="fg-c11 fg-cs12"><input type="text" id="rSlider"/></div>';
+    $isotope_range_div = '<div class="iso_range row col-md-'.$layouts["range"]->div_width.' col-12 '.$layouts["range"]->div_align.'">';
+    $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-11 fg-cs12"><input type="text" id="rSlider"/></div>';
     $isotope_range_div .= '</div>';
 }
 // ============================alpha div ==============================================//
 $isotope_alpha_div = "";
 if ($displayalpha != "false") {
-    $isotope_alpha_div = '<div class="isotope_button-group filter-button-group-alpha iso_alpha fg-row fg-c'.$layouts["alpha"]->div_width.' fg-cs12 '.$layouts["alpha"]->div_align.'" data-filter-group="alpha">';
+    $isotope_alpha_div = '<div class="isotope_button-group filter-button-group-alpha iso_alpha col-md-'.$layouts["alpha"]->div_width.' col-12 '.$layouts["alpha"]->div_align.'" data-filter-group="alpha">';
 	$isotope_alpha_div .= CGHelper::create_alpha_buttons($this,$button_bootstrap);
     $isotope_alpha_div .= '</div>';
 }
@@ -757,7 +766,7 @@ if ($displayalpha != "false") {
 $isotope_calendar_div = "";
 if ($displaycalendar != "false") {
 	$isotope_calendar_div = "<div class='calendar-month' style='width:100%'><div style='float:left' id='calendar_month_left'></div><div style='float:right' id='calendar_month_right'></div></div>";
-    $isotope_calendar_div .= '<div class="isotope_button-group filter-button-group-calendar dragscroll fg-row fg-c'.$layouts["calendar"]->div_width.' fg-cs12 '.$layouts["calendar"]->div_align.'" data-filter-group="calendar" id="filter-button-group-calendar">';
+    $isotope_calendar_div .= '<div class="isotope_button-group filter-button-group-calendar dragscroll row col-md-'.$layouts["calendar"]->div_width.' col-12 '.$layouts["calendar"]->div_align.'" data-filter-group="calendar" id="filter-button-group-calendar">';
 	$isotope_calendar_div .= CGHelper::create_calendar_buttons($this,$button_bootstrap);
 	$isotope_calendar_div .= '</div><div class="controls-calendar" id="controls-calendar"><button class="prev-calendar" id="prev-calendar"><span style="font-size:25px"><</span></button> ';
 	$isotope_calendar_div .= '<button class="next-calendar" id="next-calendar"><span style="font-size:25px">></span></button></div>';
@@ -765,30 +774,56 @@ if ($displaycalendar != "false") {
 // =============================Lang. filter ============================================//
 $isotope_lang_div = "";
 if (($language_filter == "button") || ($language_filter == "multi")) { 
-    $isotope_lang_div = '<div class="isotope_button-group iso_lang fg-row fg-c'.$layouts["lang"]->div_width.' fg-cs12 '.$layouts["lang"]->div_align.'" data-filter-group="lang">';
+    $isotope_lang_div = '<div class="isotope_button-group iso_lang row col-md-'.$layouts["lang"]->div_width.' col-12 '.$layouts["lang"]->div_align.'" data-filter-group="lang">';
 	$isotope_lang_div .= CGHelper::create_language_buttons($this,$button_bootstrap);
     $isotope_lang_div .= '</div>';
 }
 //=====================================layouts==============================================//
+?>
+<?php
+
 ksort($layouts_order,  SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL ); // order
 $val = 0;
-
+$offcanvas = false;
+$line = 0;
+$offcanvasopened = false;
 foreach ($layouts_order as $layout) {
     $key = (string)$layout;
     $obj = $layouts[$key];
-	$val += $obj->div_width;
-	if ($line == 0) $line = $obj->div_line; 
-	if (($val > 12) || ( ($obj->div_width == 12) && ($val > 12)) || ($line < $obj->div_line)) { // new line needed
+	$val = $obj->div_width;
+	$line = $obj->div_line; 
+	if ($offcanvasopened) {
+		if ($obj->offcanvas == "false") {
+			$offcanvasopened = false;
+			echo "</div></div>";
+		}
+	}
+	$offcanvas = ($obj->offcanvas == "true"); 
+	if ($offcanvas && !$offcanvasopened) {// offcanvas
+		$offcanvasopened = true;
+	    echo '<div class="col-md-'.$obj->div_width.'" id="offcanvas-clone">';
+	    echo '<a class="btn isotope_button navbar-dark" data-bs-toggle="offcanvas" href="#offcanvas'.$obj->div.'" role="button" aria-controls="offcanvas'.$obj->div.'" title="Filtre" id="offcanvas-hamburger-btn">';
+	    echo '<span class="navbar-toggler-icon"></span>';
+	    echo '</a></div>';
+	    
+	    echo '<div class="offcanvas offcanvas-start"  tabindex="-1" id="offcanvas'.$obj->div.'" aria-labelledby="offcanvas'.$obj->div.'Label" data-bs-scroll="true">';
+		$liboff = "Filtre";
+		if ($obj->div == "sort") {
+			$liboff = "Tri";
+		}
+		echo '<div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvas'.$obj->div.'Label">'.$liboff.'</h5>';
+	    echo '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>';
+     	echo '</div><div class="offcanvas-body">';
+	}
+	if (($val > 12) || ( ($obj->div_width == 12) && ($val > 12))) { // new line needed
 		if (($obj->div == "iso") && ($obj->div_width == 12)) {
 			echo "</div><div>";
 		} else {
-			echo "</div><div class='fg-row'>";
+			echo "</div><div class='row'>";
 		}
 		$val = $obj->div_width;
 		if ($line < $obj->div_line) { // requested new line
 			$line = $obj->div_line; 
-		} else { // calculated new line
-			$line += 1; 
 		}
 	}
 	if ($obj->div == "search") echo $search_div;
@@ -799,8 +834,9 @@ foreach ($layouts_order as $layout) {
 	if ($obj->div == "range") echo $isotope_range_div;
 	if ($obj->div == "lang") echo $isotope_lang_div;
 	if ($obj->div == "alpha") echo $isotope_alpha_div;
-	if ($obj->div == "calendar") echo $isotope_calendar_div;	
+	if ($obj->div == "calendar") echo $isotope_calendar_div;
 }
+
 ?>
 </div>
 </div>

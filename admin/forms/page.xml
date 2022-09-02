@@ -150,7 +150,7 @@
 				label="ISO_ERRINCCOMPATIBLITY" description="ISO_ERRINCCOMPATIBLITY_DESC" 
 				showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:webLinks,k2" />		
 			<field	name="empty"
-				type="radio" class="btn-group btn-group-yesno" default="false"
+				type="radio" class="btn-group btn-group-yesno half left" default="false"
 				label="CG_ISO_DISPLAYEMPTY" description="CG_ISO_DISPLAYEMPTYDESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
@@ -158,13 +158,13 @@
 <field	name="notefiltercatinfo"	type="note" label="CG_ISO_FILTERCATINFONOTE" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success clear half"/>
 			<field name="default_cat" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles"
 					type="category" multiple="false" extension="com_content" 
-					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" 
+					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" class="half left"
 					default="">
 					<option value="">CG_ISO_LIBALL</option>
 					<option value="none">CG_ISO_LIBNONE</option>
 			</field>
 			<field name="default_cat_wl" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:webLinks"
-				type="category" multiple="false" extension="com_weblinks" default=""
+				type="category" multiple="false" extension="com_weblinks" default="" class="half left"
 				label="CG_ISO_DEFAULT_CAT" 	description="CG_ISO_DEFAULT_CATDESC" >
 				<option value="">CG_ISO_LIBALL</option>
 				<option value="none">CG_ISO_LIBNONE</option>
@@ -174,13 +174,13 @@
 					type="sqlnoerr" 
 					query="SELECT id,name FROM #__k2_categories WHERE trash = 0 ORDER BY parent, ordering"
 					key_field="id" value_field="name"
-					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" 
+					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC"  class="half left"
 					default="">
 					<option value="">CG_ISO_LIBALL</option>
 					<option value="none">CG_ISO_LIBNONE</option>
 			</field>
 			<field	name="displayfiltercat"	showon="cat_or_tag:cat,cattags,cattagsfields"
-				type="radio" default="button" class="btn-group"
+				type="radio" default="button" class="btn-group clear"
 				label="CG_ISO_DISPLAYFILTERCAT" description="CG_ISO_DISPLAYFILTERCATDESC" 	>
 				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
 				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
@@ -204,10 +204,10 @@
 			</field>
 <field	name="notefiltertagsinfo"	type="note" label="CG_ISO_FILTERTAGSINFONOTE" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success clear half"/>
 			<field name="tags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
-					type="tag" label="CG_ISO_TAGS" description="CG_ISO_TAGSDESC" 
+					type="tag" label="CG_ISO_TAGS" description="CG_ISO_TAGSDESC" class="clear half left"
 					mode="nested" multiple="true" custom="deny" layout="joomla.form.field.list"/>	
 			<field name="default_tag"	showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
-				type="tag" 	mode="nested" custom="deny"	default=""
+				type="tag" 	mode="nested" custom="deny"	default="" class="half right"
 				label="CG_ISO_DEFAULT_TAG" 	description="CG_ISO_DEFAULT_TAGDESC" layout="joomla.form.field.list">
 					<option value="">CG_ISO_LIBALL</option>
 					<option value="none">CG_ISO_LIBNONE</option>
@@ -225,7 +225,7 @@
 			<field showon="cat_or_tag:tags,cattags[AND]iso_entree:k2"
 				name="tags_k2" type="k2tags" label="ISO_K2_TAGS" description="ISO_K2_TAGS_DESC"/>
 			<field	name="displayfiltertags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields"
-				type="radio" default="button" class="btn-group"
+				type="radio" default="button" class="btn-group clear"
 				label="CG_ISO_DISPLAYFILTER"	description="CG_ISO_DISPLAYFILTERDESC" 	>
 				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
 				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
@@ -262,14 +262,14 @@
 <field	name="notefilterfieldsinfo"	type="note" label="CG_ISO_FILTERFIELDSINFONOTE" showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles" class="alert-success clear half"/>
 
 			<field showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles"
-				name="displayfields" type="sql"	multiple="true"
+				name="displayfields" type="sql"	multiple="true" class="clear half left"
 				query="select f.id as id, f.title as value from #__fields f where f.context like 'com_content%' and f.state > 0"
 				key_field="id"	value_field="value"
 				label="CG_ISO_FIELDS" description="CG_ISO_FIELDSDESC"	
 				layout="joomla.form.field.list"/>
 			<field	name="displayfilterfields"	
 			showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,cattagsfields,tagsfields"
-				type="radio" default="button" class="btn-group"
+				type="radio" default="button" class="btn-group clear"
 				label="CG_ISO_DISPLAYFILTERFIELDS"	description="CG_ISO_DISPLAYFILTERFIELDSDESC" 	>
 				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
 				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
@@ -310,19 +310,19 @@
 			</field>
 			<field	name="displayrange"
 				showon="iso_entree:articles"
-				type="radio" class="btn-group btn-group-yesno" default="false"
+				type="radio" class="btn-group btn-group-yesno half left" default="false"
 				label="CG_ISO_DISPLAYRANGE" description="CG_ISO_DISPLAYRANGEDESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
 			<field	name="rangefields" showon="iso_entree:articles[AND]displayrange:true"
-				type="sql"	multiple="false"
+				type="sql"	multiple="false" class="half right"
 				query="select f.id as id, f.title as value from #__fields f where f.context like 'com_content%' and f.state > 0"
 				key_field="id"	value_field="value"
 				label="CG_ISO_RANGEFIELDS" description="CG_ISO_RANGEFIELDSDESC">
 			</field>
 			<field name="rangestep" showon="iso_entree:articles[AND]displayrange:true"
-				type="radio" class="btn-group" default="auto" 
+				type="radio" class="btn-group clear" default="auto" 
 				label="CG_ISO_RANGESTEP" description="CG_ISO_RANGESTEPDESC"	>
 				<option value="auto">CG_ISO_AUTO</option>
 				<option value="1">1</option>
@@ -337,7 +337,7 @@
 				<option value="1000">1000</option>
 			</field>
 			<field	name="displayalpha"
-				type="radio" class="btn-group" default="false"
+				type="radio" class="btn-group clear" default="false"
 				label="CG_ISO_DISPLAYALPHA" description="CG_ISO_DISPLAYALPHADESC" >
 				<option value="false">JNO</option> 
 				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
