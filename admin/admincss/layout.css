@@ -27,10 +27,10 @@
 	float:left; width:25%;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(6){
-	clear:both; width:50%;float:left;display:block
+	clear:both; width:70%;float:left;display:block
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(7){
-	width:50%;
+	width:30%;
 }
 #layout_tab .controls input {width:auto}
 #layout_tab .control-label {width:4em}
@@ -44,7 +44,7 @@
  clear:both;width:20%; float:left;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(7) .control-label  {
- width:20%;
+ width:40%;
 }
 #layout_tab .alert-success {font-size:120%;
 text-align:center}
