@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.1</version>
+        <note>
+            <item>Update : 04/09/2022</item>
+        </note>
+		<addition>
+            <item>offcanvas range filter</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.0</version>
         <note>
             <item>Update : 02/09/2022</item>

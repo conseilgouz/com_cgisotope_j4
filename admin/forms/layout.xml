@@ -35,6 +35,7 @@
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 		</field>
-		<field showon="div:iso" name="empty" type="text" label="" size="0"/>
+		<field showon="div:iso" name="empty" type="text" label="" size="0">
+		</field>
 </fieldset>
 </form>

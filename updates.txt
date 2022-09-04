@@ -2,7 +2,7 @@
  * Changelog
  *
  * CG Isotope Component  - Joomla 4.0.0 Component 
- * Version			: 3.0.0
+ * Version			: 3.0.1
  * Package			: CG ISotope
  * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
  * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,6 +14,9 @@
  * ^ Change
  * # Fix
  */
+04-September-2022 :  3.0.1
+ + offcanvas : add range filter
+
 02-September-2022 :  3.0.0
  ^ use bootstrap 5
  + offcanvas filter buttons
