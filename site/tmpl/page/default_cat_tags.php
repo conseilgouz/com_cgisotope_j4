@@ -751,8 +751,10 @@ foreach ($this->list as $key=>$category) {
 // ============================range div ==============================================//
 $isotope_range_div = "";
 if ($displayrange == "true") {
-    $isotope_range_div = '<div class="iso_range row col-md-'.$layouts["range"]->div_width.' col-12 '.$layouts["range"]->div_align.'">';
-    $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-11 fg-cs12"><input type="text" id="rSlider"/></div>';
+	$awidth = $layouts["range"]->div_width;
+	if ($layouts["range"]->offcanvas) $awidth = 12;
+    $isotope_range_div = '<div class="iso_range col-md-'.$awidth.' col-12 '.$layouts["range"]->div_align.'">';
+    $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-12 fg-cs12"><input type="text" id="rSlider"/></div>';
     $isotope_range_div .= '</div>';
 }
 // ============================alpha div ==============================================//
@@ -766,7 +768,9 @@ if ($displayalpha != "false") {
 $isotope_calendar_div = "";
 if ($displaycalendar != "false") {
 	$isotope_calendar_div = "<div class='calendar-month' style='width:100%'><div style='float:left' id='calendar_month_left'></div><div style='float:right' id='calendar_month_right'></div></div>";
-    $isotope_calendar_div .= '<div class="isotope_button-group filter-button-group-calendar dragscroll row col-md-'.$layouts["calendar"]->div_width.' col-12 '.$layouts["calendar"]->div_align.'" data-filter-group="calendar" id="filter-button-group-calendar">';
+	$awidth = $layouts["calendar"]->div_width;
+	if ($layouts["calendar"]->offcanvas) $awidth = 12;
+    $isotope_calendar_div .= '<div class="isotope_button-group filter-button-group-calendar dragscroll col-md-'.$awidth.' col-12 '.$layouts["calendar"]->div_align.'" data-filter-group="calendar" id="filter-button-group-calendar">';
 	$isotope_calendar_div .= CGHelper::create_calendar_buttons($this,$button_bootstrap);
 	$isotope_calendar_div .= '</div><div class="controls-calendar" id="controls-calendar"><button class="prev-calendar" id="prev-calendar"><span style="font-size:25px"><</span></button> ';
 	$isotope_calendar_div .= '<button class="next-calendar" id="next-calendar"><span style="font-size:25px">></span></button></div>';
@@ -774,7 +778,9 @@ if ($displaycalendar != "false") {
 // =============================Lang. filter ============================================//
 $isotope_lang_div = "";
 if (($language_filter == "button") || ($language_filter == "multi")) { 
-    $isotope_lang_div = '<div class="isotope_button-group iso_lang row col-md-'.$layouts["lang"]->div_width.' col-12 '.$layouts["lang"]->div_align.'" data-filter-group="lang">';
+	$awidth = $layouts["lang"]->div_width;
+	if ($layouts["lang"]->offcanvas) $awidth = 12;
+    $isotope_lang_div = '<div class="isotope_button-group iso_lang col-md-'.$awidth.' col-12 '.$layouts["lang"]->div_align.'" data-filter-group="lang">';
 	$isotope_lang_div .= CGHelper::create_language_buttons($this,$button_bootstrap);
     $isotope_lang_div .= '</div>';
 }
@@ -792,6 +798,9 @@ foreach ($layouts_order as $layout) {
     $obj = $layouts[$key];
 	$val = $obj->div_width;
 	$line = $obj->div_line; 
+	if ($obj->div == "iso")	{// no offcanvas on iso
+		$obj->offcanvas = "false";
+	}	
 	if ($offcanvasopened) {
 		if ($obj->offcanvas == "false") {
 			$offcanvasopened = false;

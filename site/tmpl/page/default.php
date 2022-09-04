@@ -67,7 +67,7 @@ if  ($this->imgmaxheight) {
 $min = ".min";
 if ((bool)Factory::getConfig()->get('debug')) $min = '';
 $wa->registerAndUseScript('cgisotope',$comfield.'js/init'.$min.'.js');
-// $document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js'); // pour test JS
+//$document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js'); // pour test JS
 $user = Factory::getUser();
 $userId = $user->get('id');
 

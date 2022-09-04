@@ -445,6 +445,8 @@ function iso_cat_k2 ($,myid,options) {
 		}
 		$width = $toggle.width();
 		$height = $toggle.height();
+		
+
 	});
 
 
@@ -493,7 +495,24 @@ function iso_cat_k2 ($,myid,options) {
 	}
 	// --------------> end of infinite scroll <----------------
 	
-	
+	$('#offcanvas-hamburger-btn').on('click',function(){
+	// conflict rangeslider/offcanvas : add a timer
+		var selector = '.offcanvas';
+		var waitForEl = function (callback, maxTimes = false) {
+			if (maxTimes === false || maxTimes > 0) {
+				maxTimes != false && maxTimes--;
+				setTimeout(function () {
+					waitForEl(callback, maxTimes);
+				}, 100);
+			} else {
+				rangeSlider.onResize();
+				callback();
+			}
+		};
+		waitForEl(function () {
+			jQuery(selector); // do something with selector
+		}, 3);		
+	})
 	$(me+'.sort-by-button-group').on( 'click', 'button', function() {
 		update_sort_buttons($(this))
 	});

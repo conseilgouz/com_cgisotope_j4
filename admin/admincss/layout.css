@@ -32,6 +32,9 @@
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(7){
 	width:30%;
 }
+#layout_tab .subform-repeatable-group .control-group:nth-of-type(8){
+	width:30%;visibility:hidden;
+}
 #layout_tab .controls input {width:auto}
 #layout_tab .control-label {width:4em}
 #layout_tab .controls {

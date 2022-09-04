@@ -389,4 +389,5 @@ div.itemExtraFields ul li span.itemExtraFieldsLabel {
 .offcanvas-start {width:auto;max-width:15em}
 .offcanvas .iso_fields_title  p{width:100%}
 .offcanvas .choices {width:13rem}
-.offcanvas-body .isotope_button-group {margin-bottom:1rem}
+.offcanvas-header {padding: 1rem 1rem 0rem 1rem !important;}
+.offcanvas-body .isotope_button-group,.offcanvas-body .iso_range {margin-bottom: 1rem;}

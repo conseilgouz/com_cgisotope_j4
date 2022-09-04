@@ -29,12 +29,12 @@
 			<option value="row justify-content-around">CG_ISO_DIV_AROUND</option>
 			<option value="row justify-content-between">CG_ISO_DIV_BETWEEN</option>
 		</field>
-		<field	name="offcanvas"
+		<field	showon="div!:iso" name="offcanvas"
 				type="radio" class="btn-group btn-group-yesno" default="false"
 				label="CG_ISO_OFFCANVAS" description="CG_ISO_OFFCANVASDESC" >
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 		</field>
-
+		<field showon="div:iso" name="empty" type="text" label="" size="0"/>
 </fieldset>
 </form>

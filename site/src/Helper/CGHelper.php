@@ -971,7 +971,7 @@ class CGHelper  extends ComponentHelper{
 		foreach ($iso->languagelist as $language) {
 			if ($language->image) {
 				$result .= "<button class='".$button_bootstrap." iso_button_lang_".$language->lang_code."' data-sort-value='".$language->lang_code."' title='".$language->title_native."'>";
-				$result .= JHtml::_('image', 'mod_languages/' . $language->image . '.gif', '', null, true);
+				$result .= HTMLHelper::_('image', 'mod_languages/' . $language->image . '.gif', '', null, true);
 				$result .= "</button>";
 			}			
 		}
