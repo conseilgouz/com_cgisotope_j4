@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* Version			: 3.0.2
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -134,6 +134,8 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['rangefields'] = $compl['rangefields'];
             $page_params['rangestep'] = $compl['rangestep'];
             $page_params['displayalpha'] = $compl['displayalpha'];
+            $page_params['displayoffcanvas'] = $compl['displayoffcanvas'];
+            $page_params['offcanvaspos'] = $compl['offcanvaspos'];
             $page_params['displaycalendar'] = $compl['displaycalendar'];
             $page_params['calendarfields'] = $compl['calendarfields'];
             $page_params['empty'] = $compl['empty'];

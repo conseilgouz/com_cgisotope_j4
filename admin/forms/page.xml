@@ -343,6 +343,22 @@
 				<option value="button">CG_ISO_DISPLAYFILTERBUTTON</option> 
 				<option value="multi">CG_ISO_DISPLAYFILTERMULTIBUTTON</option> 
 			</field>
+			<field	name="displayoffcanvas"
+				type="radio" class="btn-group half left" default="false"
+				label="CG_ISO_DISPLAYOFFCANVAS" description="CG_ISO_DISPLAYOFFCANVASDESC" >
+				<option value="false">JNO</option> 
+				<option value="hamburger">CG_ISO_DISPLAYOFFHAMBURGERBUTTON</option> 
+				<option value="text">CG_ISO_DISPLAYOFFTEXTBUTTON</option> 
+			</field>
+			<field name="offcanvaspos" 		
+				showon="displayoffcanvas:hamburger"
+				type="radio" class="btn-group half right" default="leave"
+				label="CG_ISO_DISPLAYOFFCANVASPOS" description="CG_ISO_DISPLAYOFFCANVASPOSDESC" >
+				<option value="leave">CG_ISO_DISPLAYOFFHAMBURGERLEAVE</option> 
+				<option value="left">CG_ISO_DISPLAYOFFHAMBURGERLEFT</option> 
+				<option value="right">CG_ISO_DISPLAYOFFHAMBURGERRIGHT</option> 
+			</field>
+			
 <field	name="notedisplayinfo"	type="note" label="CG_ISO_DISPLAYINFONOTE" class="alert-success clear half"/>
 			<field	name="displaysearch"
 				type="radio" class="btn-group btn-group-yesno clear half left" default="false"

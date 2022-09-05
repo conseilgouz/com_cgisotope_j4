@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.1
+* Version			: 3.0.2
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -385,7 +385,9 @@ div.itemExtraFields ul li span.itemExtraFieldsLabel {
   animation-direction: reverse;
 }
 /* OffCanvas */
-#offcanvas-hamburger-btn {max-height:3em;position: absolute;left:0}
+#offcanvas-hamburger-btn.left {max-height:3em;position: absolute;left:0;margin-right:0}
+#offcanvas-hamburger-btn.right {max-height:3em;position: absolute;right:0;margin-right:0}
+#offcanvas-hamburger-btn{float:left;margin-right:1em}
 .offcanvas-start {width:auto;max-width:15em}
 .offcanvas .iso_fields_title  p{width:100%}
 .offcanvas .choices {width:13rem}

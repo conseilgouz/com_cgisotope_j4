@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.1
+* Version			: 3.0.2
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -17,7 +17,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 
 $document = Factory::getDocument();
 
-HTMLHelper::_('bootstrap.framework');
+// HTMLHelper::_('bootstrap.framework');
 HTMLHelper::_('jquery.framework'); 
 
 $comfield	= 'media/com_cgisotope/';
@@ -30,7 +30,7 @@ $this->iso_params = CGHelper::getParams($this->page,$this->getModel());
 $wa = Factory::getDocument()->getWebAssetManager();
 
 $wa->registerAndUseStyle('iso',$comfield.'css/isotope.css');
-$wa->registerAndUseStyle('up',$comfield.'css/up.css');
+// $wa->registerAndUseStyle('up',$comfield.'css/up.css');
 $wa->registerAndUseStyle('rslider',$comfield.'css/rSlider.min.css');
 if ($this->iso_params->get('css')) $wa->addInlineStyle($this->iso_params->get('css')); 
 if ($this->iso_params->get("pagination","false") == 'infinite' ) {
@@ -92,10 +92,15 @@ $this->rangefields =   $this->iso_params->get('rangefields','');
 $this->rangestep =   $this->iso_params->get('rangestep','0'); 
 $this->calendarfields =   $this->iso_params->get('calendarfields',array()); 
 $this->displayalpha =  $this->iso_params->get('displayalpha','false');
-
+$this->displayoffcanvas =  $this->iso_params->get('displayoffcanvas','text');
+$this->offcanvaspos = "leave";
+if  ($this->displayoffcanvas == "hamburger") {
+	$this->offcanvaspos =  $this->iso_params->get('offcanvaspos','leave');
+}
 $this->displaybootstrap = $this->iso_params->get('bootstrapbutton','false'); 
 $button_bootstrap = "isotope_button";
 if ($this->displaybootstrap == 'true') { 
+	\Joomla\CMS\HTML\HTMLHelper::_('bootstrap.button', '.selector');
 	$button_bootstrap = "btn btn-sm ";
 }
 $this->minrange = '';

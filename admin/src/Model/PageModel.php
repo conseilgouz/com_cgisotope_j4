@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* Version			: 3.0.2
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -99,6 +99,8 @@ class PageModel extends AdminModel {
         $data->rangefields = $compl['rangefields'];
         $data->rangestep = $compl['rangestep'];
         $data->displayalpha = $compl['displayalpha'];
+        $data->displayoffcanvas = $compl['displayoffcanvas'];
+        $data->offcanvaspos = $compl['offcanvaspos'];
 		$data->displaycalendar = $compl['displaycalendar'];
 		$data->calendarfields = $compl['calendarfields'];
         $data->empty = $compl['empty'];
