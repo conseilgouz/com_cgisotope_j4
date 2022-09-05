@@ -843,7 +843,7 @@ foreach ($layouts_order as $layout) {
 		$offcanvasopened = true;
 	    echo '<div class="col-md-'.$obj->div_width.'" id="offcanvas-clone">';
 		$offcanvaspos = ($this->offcanvaspos == "leave") ? "" : $this->offcanvaspos;
-	    echo '<a class="btn isotope_button navbar-dark '.$offcanvaspos.'" data-bs-toggle="offcanvas" href="#offcanvas'.$obj->div.'" role="button" aria-controls="offcanvas'.$obj->div.'"  title="Filtre" id="offcanvas-hamburger-btn">';
+	    echo '<a class="'.$button_bootstrap.' btn-info navbar-dark '.$offcanvaspos.'" data-bs-toggle="offcanvas" href="#offcanvas'.$obj->div.'" role="button" aria-controls="offcanvas'.$obj->div.'"  title="Filtre" id="offcanvas-hamburger-btn">';
 		if ($this->displayoffcanvas == 'hamburger') {
 			echo '<span class="navbar-toggler-icon"></span>';
 		} else {
