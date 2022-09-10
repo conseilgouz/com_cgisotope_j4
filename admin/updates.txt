@@ -2,7 +2,7 @@
  * Changelog
  *
  * CG Isotope Component  - Joomla 4.0.0 Component 
- * Version			: 3.0.3
+ * Version			: 3.0.4
  * Package			: CG ISotope
  * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
  * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,8 +14,13 @@
  * ^ Change
  * # Fix
  */
+10-September-2022 : 3.0.4
+ # offcanvas : fix after tests
+ # date/time : timezone applied twice in articles dates
+ # php 8.1 compatibility
+ 
 05-September-2022 :  3.0.3
- + offcanvas : fix after tests
+ # offcanvas : fix after tests
 
 04-September-2022 :  3.0.1
  + offcanvas : add range filter

@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.2
+* Version			: 3.0.4
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -256,6 +256,7 @@ if (strlen(trim($this->iso_params->get('intro'))) > 0) {
 $sort_buttons_div = "";
 if ($displaysort != "hide") { 
 $awidth = $layouts["sort"]->div_width;
+if (!property_exists($layouts["sort"],'offcanvas')) $layouts["sort"]->offcanvas = "false";
 if ($layouts["sort"]->offcanvas == "true") $awidth = 12;
 $sort_buttons_div = '<div class="isotope_button-group sort-by-button-group col-md-'.$awidth.' col-12 '.$layouts["sort"]->div_align.'">';
 $checked = " is-checked ";
@@ -312,6 +313,7 @@ $sort_buttons_div .= "</div>";
 $search_div = "";
 if ($displaysearch == "true") { 
 	$awidth = $layouts["search"]->div_width;
+	if (!property_exists($layouts["search"],'offcanvas')) $layouts["search"]->offcanvas = "false";
 	if ($layouts["search"]->offcanvas == "true") $awidth = 12;
 	$search_div .= '<div class="iso_search col-md-'.$awidth.' col-12 '.$layouts["search"]->div_align.'" >';
 	$search_div .= '<input type="text" class="quicksearch " placeholder="'.$libsearch.'" style="width:80%;float:left">';
@@ -356,6 +358,7 @@ $filter_tag_div= "";
 		}
 	    if (($displayfiltertags == "button") || ($displayfiltertags == "multi") || ($displayfiltertags == "multiex") ) {
 			$awidth = $layouts["tag"]->div_width;
+			if (!property_exists($layouts["tag"],'offcanvas')) $layouts["tag"]->offcanvas = "false";
 			if ($layouts["tag"]->offcanvas == "true") $awidth = 12;
 			$checked = "";
 			if ($this->default_tag == "") {
@@ -439,7 +442,7 @@ $filter_tag_div= "";
 				}
 			}
 			$filter_tag_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';
-			$filter_tag_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => $value,'list.attr'   => implode(' ', $selectAttr)));
+			$filter_tag_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => null,'list.attr'   => implode(' ', $selectAttr)));
 
 			$filter_tag_div .= '</joomla-field-fancy-select>';
 			$filter_tag_div .= '</div>';
@@ -471,6 +474,7 @@ $filter_tag_div= "";
 		}
 	    if  (($displayfiltercat == "button")  || ($displayfiltercat == "multi") || ($displayfiltercat == "multiex")) {
 			$awidth = $layouts["cat"]->div_width;
+			if (!property_exists($layouts["cat"],'offcanvas')) $layouts["cat"]->offcanvas = "false";
 			if ($layouts["cat"]->offcanvas == "true") $awidth = 12;
     	    $filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$awidth.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat">';
 			$checked = "";
@@ -515,6 +519,7 @@ $filter_tag_div= "";
 				$selectAttr[] = ' multiple';
 			}
 			$awidth = $layouts["cat"]->div_width;
+			if (!property_exists($layouts["cat"],'offcanvas')) $layouts["cat"]->offcanvas = "false";
 			if ($layouts["cat"]->offcanvas == "true") $awidth = 12;
 			$filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$awidth.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat">';
 			$filter_cat_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
@@ -531,7 +536,7 @@ $filter_tag_div= "";
 				}
 			}
 			$filter_cat_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';
-			$filter_cat_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => $value,'list.attr'   => implode(' ', $selectAttr)));
+			$filter_cat_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => null,'list.attr'   => implode(' ', $selectAttr)));
 
 			$filter_cat_div .= '</joomla-field-fancy-select>';
 			$filter_cat_div .= '</div>';
@@ -585,6 +590,7 @@ $filter_tag_div= "";
 			if (count($group) == 5) $col_width = "col-md-2 col-12";
 			if (count($group) == 6) $col_width = "col-md-2 col-12";
 		}
+		if (!property_exists($layouts["field"],'offcanvas')) $layouts["field"]->offcanvas = "false";
 		if ($layouts["field"]->offcanvas == "true") $col_width = 12;
   
 		if (count($params_fields) == 0) {// all fields : sort otherwise keep parameter's order
@@ -747,7 +753,7 @@ foreach ($this->list as $key=>$category) {
 		}
 		$perso = $this->iso_params->get('perso');
 		$perso = CGHelper::checkNullFields($perso,$item,$phocacount); // suppress null field if required
-			$arr_css= array("{id}"=>$item->id,"{title}"=>$title, "{cat}"=>$this->cats_lib[$item->catid],"{date}"=>$libdate.JHtml::_('date', $item->displayDate, $libdateformat),"{create}"=>JHtml::_('date', $item->created, $libotherdateformat),"{pub}"=>JHtml::_('date', $item->publish_up, $libotherdateformat),"{modif}"=>JHtml::_('date', $item->modified, $libotherdateformat), "{visit}" =>$item->hits, "{intro}" => $item->displayIntrotext,"{stars}"=>$rating,"{rating}"=>$item->rating,"{ratingcnt}"=>$item->rating_count,"{count}"=>$phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}"=>$item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags);
+			$arr_css= array("{id}"=>$item->id,"{title}"=>$title, "{cat}"=>$this->cats_lib[$item->catid],"{date}"=>$libdate.date($libdateformat,strtotime($item->displayDate)),"{create}"=>date($libotherdateformat,strtotime($item->created)),"{pub}"=>date($libotherdateformat,strtotime($item->publish_up)),"{modif}"=>date($libotherdateformat,strtotime($item->modified)), "{visit}" =>$item->hits, "{intro}" => $item->displayIntrotext,"{stars}"=>$rating,"{rating}"=>$item->rating,"{ratingcnt}"=>$item->rating_count,"{count}"=>$phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}"=>$item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags);
 		foreach ($arr_css as $key_c => $val_c) {
 		    $perso = str_replace($key_c, Text::_($val_c),$perso);
 		}
@@ -783,6 +789,7 @@ foreach ($this->list as $key=>$category) {
 $isotope_range_div = "";
 if ($displayrange == "true") {
 	$awidth = $layouts["range"]->div_width;
+	if (!property_exists($layouts["range"],'offcanvas')) $layouts["range"]->offcanvas = "false";
 	if ($layouts["range"]->offcanvas == "true") $awidth = 12;
     $isotope_range_div = '<div class="iso_range col-md-'.$awidth.' col-12 '.$layouts["range"]->div_align.'">';
     $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-12 col-md-12"><input type="text" id="rSlider"/></div>';
@@ -792,6 +799,7 @@ if ($displayrange == "true") {
 $isotope_alpha_div = "";
 if ($displayalpha != "false") {
 	$awidth = $layouts["alpha"]->div_width;
+	if (!property_exists($layouts["alpha"],'offcanvas')) $layouts["alpha"]->offcanvas = "false";
 	if ($layouts["alpha"]->offcanvas == "true") $awidth = 12;
     $isotope_alpha_div = '<div class="isotope_button-group filter-button-group-alpha iso_alpha col-md-'.$awidth.' col-12 '.$layouts["alpha"]->div_align.'" data-filter-group="alpha">';
 	$isotope_alpha_div .= CGHelper::create_alpha_buttons($this,$button_bootstrap);
@@ -802,6 +810,7 @@ $isotope_calendar_div = "";
 if ($displaycalendar != "false") {
 	$isotope_calendar_div = "<div class='calendar-month' style='width:100%'><div style='float:left' id='calendar_month_left'></div><div style='float:right' id='calendar_month_right'></div></div>";
 	$awidth = $layouts["calendar"]->div_width;
+	if (!property_exists($layouts["calendar"],'offcanvas')) $layouts["calendar"]->offcanvas = "false";
 	if ($layouts["calendar"]->offcanvas == "true") $awidth = 12;
     $isotope_calendar_div .= '<div class="isotope_button-group filter-button-group-calendar dragscroll col-md-'.$awidth.' col-12 '.$layouts["calendar"]->div_align.'" data-filter-group="calendar" id="filter-button-group-calendar">';
 	$isotope_calendar_div .= CGHelper::create_calendar_buttons($this,$button_bootstrap);
@@ -812,6 +821,7 @@ if ($displaycalendar != "false") {
 $isotope_lang_div = "";
 if (($language_filter == "button") || ($language_filter == "multi")) {
 	$awidth = $layouts["lang"]->div_width;
+	if (!property_exists($layouts["lang"],'offcanvas')) $layouts["lang"]->offcanvas = "false";
 	if ($layouts["lang"]->offcanvas == "true") $awidth = 12;
     $isotope_lang_div = '<div class="isotope_button-group iso_lang col-md-'.$awidth.' col-12 '.$layouts["lang"]->div_align.'" data-filter-group="lang">';
 	$isotope_lang_div .= CGHelper::create_language_buttons($this,$button_bootstrap);
@@ -826,7 +836,11 @@ foreach ($layouts_order as $layout) {
     $key = (string)$layout;
     $obj = $layouts[$key];
 	$val = $obj->div_width;
-	$line = $obj->div_line; 
+	$line = $obj->div_line;
+		if (!property_exists($layouts[$key],'offcanvas')) {
+		$layouts[$key]->offcanvas = "false";
+		$obj->offcanvas = "false";
+	}
 	if ($obj->div == "iso")	{// no offcanvas on iso
 		$obj->offcanvas = "false";
 	}

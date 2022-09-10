@@ -2,6 +2,19 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.4</version>
+        <note>
+            <item>Update : 10/09/2022</item>
+        </note>
+		<fix>
+            <item>php 8.1 compatibility</item>
+            <item>offcanvas : fix after tests</item>
+            <item>date/time : timezone applied twice in articles dates</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.3</version>
         <note>
             <item>Update : 05/09/2022</item>
