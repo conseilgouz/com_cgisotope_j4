@@ -753,14 +753,14 @@ foreach ($this->list as $key=>$category) {
 		}
 		$perso = $this->iso_params->get('perso');
 		$perso = CGHelper::checkNullFields($perso,$item,$phocacount); // suppress null field if required
-			$arr_css= array("{id}"=>$item->id,"{title}"=>$title, "{cat}"=>$this->cats_lib[$item->catid],"{date}"=>$libdate.date($libdateformat,strtotime($item->displayDate)),"{create}"=>date($libotherdateformat,strtotime($item->created)),"{pub}"=>date($libotherdateformat,strtotime($item->publish_up)),"{modif}"=>date($libotherdateformat,strtotime($item->modified)), "{visit}" =>$item->hits, "{intro}" => $item->displayIntrotext,"{stars}"=>$rating,"{rating}"=>$item->rating,"{ratingcnt}"=>$item->rating_count,"{count}"=>$phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}"=>$item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags);
+			$arr_css= array("{id}"=>$item->id,"{title}"=>$title, "{cat}"=>$this->cats_lib[$item->catid],"{date}"=>$libdate.date($libdateformat,strtotime($item->displayDate)),"{create}"=>HTMLHelper::_('date', $item->created, $libotherdateformat),"{pub}"=>HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"{modif}"=>HTMLHelper::_('date', $item->modified, $libotherdateformat), "{visit}" =>$item->hits, "{intro}" => $item->displayIntrotext,"{stars}"=>$rating,"{rating}"=>$item->rating,"{ratingcnt}"=>$item->rating_count,"{count}"=>$phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}"=>$item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags);
 		foreach ($arr_css as $key_c => $val_c) {
 		    $perso = str_replace($key_c, Text::_($val_c),$perso);
 		}
 		foreach ($field_cust as $key_f => $val_f) { // display fields values
 			$perso = str_replace($key_f, Text::_($val_f),$perso);
 		}
-		$perso = CGHelper::checkNoField($perso); // 1.5.2 : suppress empty fields
+		$perso = CGHelper::checkNoField($perso); // suppress empty fields
 		// apply content plugins 
 		$app = Factory::getApplication(); // Joomla 4.0
 		$item_cls = new stdClass;

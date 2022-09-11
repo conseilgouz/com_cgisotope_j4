@@ -36,7 +36,7 @@ class CGHelper  extends ComponentHelper{
 		return Text::_('CG_ISOTOPE');
 	}
     public static function getCGVersion() {
-		return '3.0.4';
+		return '3.0.5';
 	}
     public static function getParams($id, $model = null)
     {
