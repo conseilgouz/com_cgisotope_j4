@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.6</version>
+        <note>
+            <item>Update : 12/09/2022</item>
+        </note>
+		<fix>
+            <item>admin : add save only button in page edit</item>
+			<item>css : add border-color to bootstrap buttons</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.5</version>
         <note>
             <item>Update : 11/09/2022</item>

@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* Version			: 3.0.6
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -59,6 +59,7 @@ class HtmlView extends BaseHtmlView {
 
 		// If not checked out, can save the item.
 		if ($canDo->get('core.edit')) {
+			ToolBarHelper::apply('page.apply');
 			ToolBarHelper::save('page.save');
 		}
 		ToolBarHelper::cancel('page.cancel', 'JTOOLBAR_CLOSE');

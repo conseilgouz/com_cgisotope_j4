@@ -2,7 +2,7 @@
  * Changelog
  *
  * CG Isotope Component  - Joomla 4.0.0 Component 
- * Version			: 3.0.5
+ * Version			: 3.0.6
  * Package			: CG ISotope
  * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
  * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,6 +14,9 @@
  * ^ Change
  * # Fix
  */
+12-September-2022 : 3.0.6
+ # admin : add save only button in page edit
+ # add border-color to bootstrap buttons
 
 11-September-2022 : 3.0.5
  # date/time : timezone applied twice in displayDate field only
