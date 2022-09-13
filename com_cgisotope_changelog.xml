@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.7</version>
+        <note>
+            <item>Update : 13/09/2022</item>
+        </note>
+		<fix>
+            <item>admin : save only button fix</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.6</version>
         <note>
             <item>Update : 12/09/2022</item>

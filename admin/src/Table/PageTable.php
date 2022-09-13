@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 3.0.2
+* Version			: 3.0.7
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -76,7 +76,7 @@ class PageTable extends Table implements VersionableTableInterface
 		$data->fieldslinks = $this->fieldslinks;
         $input = Factory::getApplication()->input;
         $task = $input->get('task');
-        if ($task == "save") {
+        if ( ($task == "save") || ($task == 'apply') ){
             $compl = $input->getVar('jform', array(), 'post', 'array');
             $page_params = [];
             $page_params['iso_entree'] = $compl['iso_entree'];
