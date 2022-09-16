@@ -4,6 +4,17 @@
 		<type>component</type>
 		<version>3.0.7</version>
         <note>
+            <item>Update : 16/09/2022</item>
+        </note>
+		<addition>
+            <item>offcanvas : move isotope grid when offcanvas shown</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
+		<version>3.0.7</version>
+        <note>
             <item>Update : 13/09/2022</item>
         </note>
 		<fix>

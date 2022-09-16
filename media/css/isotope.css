@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.6
+* Version			: 3.0.8
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -397,3 +397,11 @@ div.itemExtraFields ul li span.itemExtraFieldsLabel {
 .offcanvas .choices {width:13rem}
 .offcanvas-header {padding: 1rem 1rem 0rem 1rem !important;}
 .offcanvas-body .isotope_button-group,.offcanvas-body .iso_range {margin-bottom: 1rem;}
+@media (min-width: 640px) {
+	.offcanvas25{
+		width:25%!important
+	}
+	.isogrid75{
+		width: 75% !important;right:-25%;
+	}
+}
