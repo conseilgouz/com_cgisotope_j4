@@ -7,7 +7,7 @@
 	<authorUrl>www.conseilgouz.com</authorUrl>
 	<copyright>Copyright (C) 2022 ConseilGouz.com. All Rights Reserved</copyright>
 	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
-	<version>3.0.9</version>
+	<version>3.0.10</version>
 	<description>CG_ISO_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Component\CGIsotope</namespace>
     <install>
