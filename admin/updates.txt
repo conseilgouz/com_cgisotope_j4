@@ -2,7 +2,7 @@
  * Changelog
  *
  * CG Isotope Component  - Joomla 4.0.0 Component 
- * Version			: 3.0.10
+ * Version			: 3.0.11
  * Package			: CG ISotope
  * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
  * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,6 +14,10 @@
  * ^ Change
  * # Fix
  */
+ 
+16-September-2022 : 3.0.11
+ #offcanvas : missing isotope.css update
+ 
 16-September-2022 : 3.0.10
  # offcanvas : missing page.form update
 
