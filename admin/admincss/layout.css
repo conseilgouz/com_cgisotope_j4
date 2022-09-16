@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.1
+* Version			: 3.0.9
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -27,14 +27,15 @@
 	float:left; width:25%;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(6){
-	clear:both; width:70%;float:left;display:block
+	clear:both; width:70%;float:left;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(7){
 	width:30%;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(8){
-	width:30%;visibility:hidden;
+	width:30%;visibility:hidden;height:0;
 }
+#layout_tab .subform-repeatable-group .control-group.hidden{height:0}
 #layout_tab .controls input {width:auto}
 #layout_tab .control-label {width:4em}
 #layout_tab .controls {
@@ -44,10 +45,10 @@
 	display:none;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(6) .control-label  {
- clear:both;width:20%; float:left;
+ clear:both;width:auto; float:left;
 }
 #layout_tab .subform-repeatable-group .control-group:nth-of-type(7) .control-label  {
- width:40%;
+ width:auto;
 }
 #layout_tab .alert-success {font-size:120%;
 text-align:center}

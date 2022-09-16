@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.2
+* Version			: 3.0.9
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -93,9 +93,10 @@ $this->rangestep =   $this->iso_params->get('rangestep','0');
 $this->calendarfields =   $this->iso_params->get('calendarfields',array()); 
 $this->displayalpha =  $this->iso_params->get('displayalpha','false');
 $this->displayoffcanvas =  $this->iso_params->get('displayoffcanvas','text');
-$this->offcanvaspos = "leave";
+$this->offcanvaspos = $this->iso_params->get('offcanvaspos','start');
+$this->offcanvasbtnpos = "leave";
 if  ($this->displayoffcanvas == "hamburger") {
-	$this->offcanvaspos =  $this->iso_params->get('offcanvaspos','leave');
+	$this->offcanvasbtnpos =  $this->iso_params->get('offcanvasbtnpos','leave');
 }
 $this->displaybootstrap = $this->iso_params->get('bootstrapbutton','false'); 
 $button_bootstrap = "isotope_button";

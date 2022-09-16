@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.8
+* Version			: 3.0.9
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -856,15 +856,15 @@ foreach ($layouts_order as $layout) {
 		\Joomla\CMS\HTML\HTMLHelper::_('bootstrap.offcanvas', '.selector', []);
 		$offcanvasopened = true;
 	    echo '<div class="col-md-'.$obj->div_width.'" id="offcanvas-clone">';
-		$offcanvaspos = ($this->offcanvaspos == "leave") ? "" : $this->offcanvaspos;
-	    echo '<a class="'.$button_bootstrap.' btn-info navbar-dark '.$offcanvaspos.'" data-bs-toggle="offcanvas" href="#offcanvas'.$obj->div.'" role="button" aria-controls="offcanvas'.$obj->div.'"  title="Filtre" id="offcanvas-hamburger-btn">';
+		$offcanvasbtnpos = ($this->offcanvasbtnpos == "leave") ? "" : $this->offcanvasbtnpos;
+	    echo '<a class="'.$button_bootstrap.' btn-info navbar-dark '.$offcanvasbtnpos.'" data-bs-toggle="offcanvas" href="#offcanvas'.$obj->div.'" role="button" aria-controls="offcanvas'.$obj->div.'"  title="Filtre" id="offcanvas-hamburger-btn">';
 		if ($this->displayoffcanvas == 'hamburger') {
 			echo '<span class="navbar-toggler-icon"></span>';
 		} else {
 			echo '<span class="navbar-toggler-text">'.Text::_('CG_ISO_LIBFILTER').'</span>';
 		}
 		echo '</a><div id="clonedbuttons"></div></div>';
-	    echo '<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas'.$obj->div.'" aria-labelledby="offcanvas'.$obj->div.'Label" data-bs-scroll="true">';
+	    echo '<div class="offcanvas offcanvas-'.$this->offcanvaspos.'" tabindex="-1" id="offcanvas'.$obj->div.'" aria-labelledby="offcanvas'.$obj->div.'Label" data-bs-scroll="true">';
 		$liboff = Text::_('CG_ISO_LIBFILTER');
 		echo '<div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvas'.$obj->div.'Label">'.$liboff.'</h5>';
 	    echo '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>';

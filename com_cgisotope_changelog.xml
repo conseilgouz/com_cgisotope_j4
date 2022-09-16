@@ -2,7 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
-		<version>3.0.7</version>
+		<version>3.0.9</version>
+        <note>
+            <item>Update : 16/09/2022</item>
+        </note>
+		<addition>
+            <item>offcanvas : choose offcanvas position</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
+		<version>3.0.8</version>
         <note>
             <item>Update : 16/09/2022</item>
         </note>

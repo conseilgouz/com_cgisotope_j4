@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.8
+* Version			: 3.0.9
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -780,15 +780,22 @@ function iso_cat_k2 ($,myid,options) {
 		}
 		$(this).remove();
 	});
-	// offcanvas : update isotope width
+	//-------------------- offcanvas : update isotope width
 	var myOffcanvas = document.getElementById('offcanvas_isotope')
 	myOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
 		document.getElementById('offcanvas_isotope').classList.remove('offcanvas25');
 		document.getElementsByClassName('isotope_grid')[0].classList.remove('isogrid75');
+		document.getElementsByClassName('isotope_grid')[0].classList.remove('offstart');
+		document.getElementsByClassName('isotope_grid')[0].classList.remove('offend');
+		$grid.isotope();
 	})
 	myOffcanvas.addEventListener('show.bs.offcanvas', function () {
 		document.getElementById('offcanvas_isotope').classList.add('offcanvas25');
-		document.getElementsByClassName('isotope_grid')[0].classList.add('isogrid75');
+		if (document.getElementById('offcanvas_isotope').classList.contains("offcanvas-start")) 
+			document.getElementsByClassName('isotope_grid')[0].classList.add('offstart');
+		if (document.getElementById('offcanvas_isotope').classList.contains("offcanvas-end")) 
+			document.getElementsByClassName('isotope_grid')[0].classList.add('offend');
+		$grid.isotope();
 	})
 	
 	function update_sort_buttons($this) {

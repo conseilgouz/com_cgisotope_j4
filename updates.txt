@@ -2,7 +2,7 @@
  * Changelog
  *
  * CG Isotope Component  - Joomla 4.0.0 Component 
- * Version			: 3.0.8
+ * Version			: 3.0.9
  * Package			: CG ISotope
  * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
  * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,6 +14,9 @@
  * ^ Change
  * # Fix
  */
+16-September-2022 : 3.0.9
+ # offcanvas : choose offcanvas position
+
 16-September-2022 : 3.0.8
  # offcanvas : move isotope grid when offcanvas shown
 
