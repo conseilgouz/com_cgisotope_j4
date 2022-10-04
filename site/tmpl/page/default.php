@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.9
+* Version			: 3.0.12
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -18,7 +18,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 $document = Factory::getDocument();
 
 // HTMLHelper::_('bootstrap.framework');
-HTMLHelper::_('jquery.framework'); 
+// HTMLHelper::_('jquery.framework'); 
 
 $comfield	= 'media/com_cgisotope/';
 $app = Factory::getApplication();
@@ -90,7 +90,7 @@ $this->iso_limit = $this->iso_params->get('iso_limit','all');
 $this->displayrange =  $this->iso_params->get('displayrange','false');
 $this->rangefields =   $this->iso_params->get('rangefields',''); 
 $this->rangestep =   $this->iso_params->get('rangestep','0'); 
-$this->calendarfields =   $this->iso_params->get('calendarfields',array()); 
+$this->calendarfields =   array(); 
 $this->displayalpha =  $this->iso_params->get('displayalpha','false');
 $this->displayoffcanvas =  $this->iso_params->get('displayoffcanvas','text');
 $this->offcanvaspos = $this->iso_params->get('offcanvaspos','start');

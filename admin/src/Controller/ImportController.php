@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* Version			: 3.0.12
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -131,7 +131,7 @@ class ImportController extends FormController
         do {
 			$result = $db->setQuery(
                 $db->getQuery(true)
-                ->select(count('*'))
+                ->select('count(*)')
                 ->from($db->quoteName('#__cgisotope_page'))
                 ->where($db->quoteName('title') . ' like ' . $db->quote($title) .' AND state in (0,1)')
             )->loadResult();

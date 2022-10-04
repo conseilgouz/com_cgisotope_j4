@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.11
+* Version			: 3.0.12
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -232,11 +232,12 @@ margin : 0px 0px 0px 0px !important;
 button.close {
 	float:right;
 	margin-right: 1em;
-	width:1em;
+	width:2em;
 	color: black !important;
 	background-color: grey !important;
 	opacity:.5;
 }
+h1 button.close{font-size:50% }
 .isotope-open {
   -webkit-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0); 

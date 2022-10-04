@@ -49,7 +49,6 @@ $displayrange=$this->iso_params->get('displayrange','false');
 $rangefields=$this->iso_params->get('rangefields','false');  
 $rangestep=$this->iso_params->get('rangestep','false');  
 $displayalpha = $this->iso_params->get('displayalpha','false');  
-$displaycalendar = $this->iso_params->get('displaycalendar','false');  
 $imgmaxwidth = $this->iso_params->get('introimg_maxwidth','0'); 
 $imgmaxheight = $this->iso_params->get('introimg_maxheight','0'); 
 $params_fields = $this->iso_params->get('displayfields',array());
@@ -172,17 +171,6 @@ if ($displayalpha != "false") {
 	$values->div_align="";
 	$values->offcanvas = "false";
 	$layouts['alpha'] = $values;
-}
-if ($displaycalendar != "false") {
-	$values = new stdClass();
-	$values->div = "calendar";
-	$line +=1;
-	$values->div_line = $line;
-	$values->div_pos = "1";
-	$values->div_width = "12";
-	$values->div_align="";
-	$values->offcanvas = "false";
-	$layouts['calendar'] = $values;
 }
 if ($language_filter != "false") { // php 8
 	$values = new stdClass();
@@ -650,7 +638,6 @@ foreach ($this->list as $key=>$category) {
 		$field_value = "";
 		$field_cust = array();
 		$data_range = "";
-		$data_calendar = " data-calendar='";
 		if (isset($this->article_fields) and array_key_exists($item->id,$this->article_fields)) {
 			foreach ($this->article_fields[$item->id] as $key_f=>$tag_f) {
                 if (is_array($tag_f)) { // multiple answers
@@ -671,24 +658,8 @@ foreach ($this->list as $key=>$category) {
 				if (($displayrange == "true") && ($key_f == $this->rangetitle) ) {
 					$data_range = " data-range='".$obj->val."' ";
 				}
-				if (($displaycalendar != "false") && is_string($tag_f)) { // php 8.0
-			        $obj = $this->fields[(string)$tag_f]; // php 8.0
-			        if (in_array($obj->field_id,$this->calendarfields)) {
-			            if (strpos((string)$obj->val,'{') !== false) {// repeatable calendar ?
-			                $lesdates = json_decode($obj->val);
-			                foreach($lesdates as $unedate) {
-			                    foreach($unedate as $ladate) {
-   				                    $data_calendar .= " ".$ladate;
-       			                }
-		 	                }
-		 	           } else { // string = one date
-			                $data_calendar .= " ".HTMLHelper::_('date',$obj->val,'Y-m-d');
-			           }
-			        }
-			    }
 			};
 		}
-		$data_calendar .= "' ";
 		$itemtags = "";
 		foreach ($this->article_tags[$item->id] as $tag) {
 				$itemtags .= '<span class="iso_tag_'.$this->tags_alias[$tag->tag].'">'.(($itemtags == "") ? $tag->tag : "<span class='iso_tagsep'><span>-</span></span>".$tag->tag).'</span>';
@@ -707,7 +678,7 @@ foreach ($this->list as $key=>$category) {
 			$c = 'isotope_pointer'; // add class cursor = pointer
 		}
 		
-		$isotope_grid_div .= '<div class="isotope_item iso_cat_'.$key.' '.$field_value.' '.$c.' '.$tag_display.'" data-featured="'.$item->featured.'" data-title="'.$item->title.'" data-category="'.$data_cat.'" data-date="'.$ladate.'" data-click="'.$click.'"data-rating="'.$item->rating.'" data-id="'.$item->id.'" data-lang="'.$item->language.'"  data-alpha="'.substr($item->title,0,1).'" '.$data_range.$data_calendar.$t.'>';
+		$isotope_grid_div .= '<div class="isotope_item iso_cat_'.$key.' '.$field_value.' '.$c.' '.$tag_display.'" data-featured="'.$item->featured.'" data-title="'.$item->title.'" data-category="'.$data_cat.'" data-date="'.$ladate.'" data-click="'.$click.'"data-rating="'.$item->rating.'" data-id="'.$item->id.'" data-lang="'.$item->language.'"  data-alpha="'.substr($item->title,0,1).'" '.$data_range.$t.'>';
 		$canEdit = $user->authorise('core.edit', 'com_content.article.'.$item->id);
 		if ($canEdit) {
 				$isotope_grid_div .=  '<span class="edit-icon">';
@@ -805,18 +776,6 @@ if ($displayalpha != "false") {
 	$isotope_alpha_div .= CGHelper::create_alpha_buttons($this,$button_bootstrap);
     $isotope_alpha_div .= '</div>';
 }
-// ============================calendar div ==============================================//
-$isotope_calendar_div = "";
-if ($displaycalendar != "false") {
-	$isotope_calendar_div = "<div class='calendar-month' style='width:100%'><div style='float:left' id='calendar_month_left'></div><div style='float:right' id='calendar_month_right'></div></div>";
-	$awidth = $layouts["calendar"]->div_width;
-	if (!property_exists($layouts["calendar"],'offcanvas')) $layouts["calendar"]->offcanvas = "false";
-	if ($layouts["calendar"]->offcanvas == "true") $awidth = 12;
-    $isotope_calendar_div .= '<div class="isotope_button-group filter-button-group-calendar dragscroll col-md-'.$awidth.' col-12 '.$layouts["calendar"]->div_align.'" data-filter-group="calendar" id="filter-button-group-calendar">';
-	$isotope_calendar_div .= CGHelper::create_calendar_buttons($this,$button_bootstrap);
-	$isotope_calendar_div .= '</div><div class="controls-calendar" id="controls-calendar"><button class="prev-calendar" id="prev-calendar"><span style="font-size:25px"><</span></button> ';
-	$isotope_calendar_div .= '<button class="next-calendar" id="next-calendar"><span style="font-size:25px">></span></button></div>';
-}
 // =============================Lang. filter ============================================//
 $isotope_lang_div = "";
 if (($language_filter == "button") || ($language_filter == "multi")) {
@@ -892,7 +851,6 @@ foreach ($layouts_order as $layout) {
 	if ($obj->div == "lang") echo $isotope_lang_div;
 	if ($obj->div == "range") echo $isotope_range_div;
 	if ($obj->div == "alpha") echo $isotope_alpha_div;	
-	if ($obj->div == "calendar") echo $isotope_calendar_div;	
 }
 
 ?>

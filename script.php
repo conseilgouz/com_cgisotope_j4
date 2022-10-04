@@ -69,6 +69,9 @@ class com_cgisotopeInstallerScript
     
     function postflight($type, $parent)
     {
+		if (($type=='install') || ($type == 'update')) { // remove obsolete dir/files
+			$this->postinstall_cleanup();
+		}
         switch ($type) {
             case 'install': $message = Text::_('ISO_POSTFLIGHT_INSTALLED'); break;
             case 'uninstall': $message = Text::_('ISO_POSTFLIGHT_UNINSTALLED'); break;
@@ -89,6 +92,22 @@ class com_cgisotopeInstallerScript
 
 //         JFactory::getApplication()->enqueueMessage($message);       
     }
+	private function postinstall_cleanup() {
+		// remove obsolete update sites
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true)
+			->delete('#__update_sites')
+			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
+		$db->setQuery($query);
+		$db->execute();
+		// Simple Isotope is now on Github
+		$query = $db->getQuery(true)
+			->delete('#__update_sites')
+			->where($db->quoteName('location') . ' like "%conseilgouz.com/updates/com_cgisotope%"');
+		$db->setQuery($query);
+		$db->execute();
+		
+	}	
 	// Check if Joomla version passes minimum requirement
 	private function passMinimumJoomlaVersion()
 	{

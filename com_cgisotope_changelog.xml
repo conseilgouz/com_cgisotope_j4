@@ -2,6 +2,24 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.12</version>
+        <note>
+            <item>Update : 03/10/2022</item>
+        </note>
+		<fix>
+            <item>Import : countable error during import from isotope module</item>
+            <item>Tags : display all available tags in module's parameters</item>
+		</fix>
+		<remove>
+			<item>Remove Jquery dependencies
+		</remove>
+        <addition>
+            <item>look for updates/changelog files on github</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.11</version>
         <note>
             <item>Update : 16/09/2022</item>

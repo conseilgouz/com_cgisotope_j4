@@ -207,7 +207,7 @@
 					type="tag" label="CG_ISO_TAGS" description="CG_ISO_TAGSDESC" class="clear half left"
 					mode="nested" multiple="true" custom="deny" layout="joomla.form.field.list"/>	
 			<field name="default_tag"	showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
-				type="tag" 	mode="nested" custom="deny"	default="" class="half right"
+				type="tag" 	mode="nested" remote-search="false" custom="deny"	default="" class="half right"
 				label="CG_ISO_DEFAULT_TAG" 	description="CG_ISO_DEFAULT_TAGDESC" layout="joomla.form.field.list">
 					<option value="">CG_ISO_LIBALL</option>
 					<option value="none">CG_ISO_LIBNONE</option>
@@ -367,7 +367,6 @@
 				<option value="left">CG_ISO_DISPLAYOFFHAMBURGERLEFT</option> 
 				<option value="right">CG_ISO_DISPLAYOFFHAMBURGERRIGHT</option> 
 			</field>
-			
 <field	name="notedisplayinfo"	type="note" label="CG_ISO_DISPLAYINFONOTE" class="alert-success clear half"/>
 			<field	name="displaysearch"
 				type="radio" class="btn-group btn-group-yesno clear half left" default="false"

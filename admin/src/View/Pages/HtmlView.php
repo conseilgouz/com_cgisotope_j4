@@ -93,9 +93,9 @@ class HtmlView extends BaseHtmlView
 		else if ($canDo->get('core.edit.state')) {
 			ToolBarHelper::trash('pages.trash');
 		} 
-
 		if ($canDo->get('core.admin')) {
 			ToolbarHelper::divider();
+			ToolbarHelper::inlinehelp();			
 			ToolbarHelper::preferences('com_cgisotope');			
 		}
 	}
