@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* Version			: 3.0.12
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -11,6 +11,7 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\File;
 
 class com_cgisotopeInstallerScript
 {
@@ -80,9 +81,7 @@ class com_cgisotopeInstallerScript
         }
         $message = '<h3>'.Text::sprintf('ISO_POSTFLIGHT',$parent->getManifest()->name,$parent->getManifest()->version,$message).'</h3>';
 
-		$changelog = $this->getChangelog();
-		
-		Factory::getApplication()->enqueueMessage($message.Text::_('CG_ISO_XML_DESCRIPTION').'<br>'.$changelog, 'notice');
+		Factory::getApplication()->enqueueMessage($message.Text::_('CG_ISO_XML_DESCRIPTION'), 'notice');
 
 		// Uninstall this installer
 		$this->uninstallInstaller();
@@ -93,6 +92,18 @@ class com_cgisotopeInstallerScript
 //         JFactory::getApplication()->enqueueMessage($message);       
     }
 	private function postinstall_cleanup() {
+		
+		$obsoleteFiles = [
+			JPATH_ADMINISTRATOR."/components/com_cgisotope/updates.txt"
+		];
+		foreach ($obsoleteFiles as $file) {
+			if (@is_file($file)) {
+				File::delete($file);
+			}
+		}
+		
+		
+		
 		// remove obsolete update sites
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true)
@@ -158,135 +169,6 @@ class com_cgisotopeInstallerScript
 		$db->setQuery($query);
 		$db->execute();
 		Factory::getCache()->clean('_system');
-	}
-	private function getChangelog()
-	{
-		$changelog = file_get_contents($this->dir . '/updates.txt');
-
-		$changelog = "\n" . trim(preg_replace('#^.* \*/#s', '', $changelog));
-		$changelog = preg_replace("#\r#s", '', $changelog);
-
-		$parts = explode("\n\n", $changelog);
-
-		if (empty($parts))
-		{
-			return '';
-		}
-
-		$this_version = '';
-
-		$changelog = [];
-
-		// Add first entry to the changelog
-		$changelog[] = array_shift($parts);
-
-		// Add extra older entries if this is an upgrade based on previous installed version
-		if ($this->previous_version)
-		{
-			if (preg_match('#^[0-9]+-[a-z]+-[0-9]+ : v([0-9\.]+(?:-dev[0-9]+)?)\n#i', trim($changelog[0]), $match))
-			{
-				$this_version = $match[1];
-			}
-
-			foreach ($parts as $part)
-			{
-				$part = trim($part);
-
-				if ( ! preg_match('#^[0-9]+-[a-z]+-[0-9]+ : v([0-9\.]+(?:-dev[0-9]+)?)\n#i', $part, $match))
-				{
-					continue;
-				}
-
-				$changelog_version = $match[1];
-
-				if (version_compare($changelog_version, $this->previous_version, '<='))
-				{
-					break;
-				}
-
-				$changelog[] = $part;
-			}
-		}
-
-		$changelog = implode("\n\n", $changelog);
-
-		//  + Added   ! Removed   ^ Changed   # Fixed
-		$change_types = [
-			'+' => ['Added', 'success'],
-			'!' => ['Removed', 'danger'],
-			'^' => ['Changed', 'warning'],
-			'#' => ['Fixed', 'info'],
-		];
-		foreach ($change_types as $char => $type)
-		{
-			$changelog = preg_replace(
-				'#\n ' . preg_quote($char, '#') . ' #',
-				"\n" . '<span class="label label-sm label-' . $type[1] . '" title="' . $type[0] . '">' . $char . '</span> ',
-				$changelog
-			);
-		}
-
-		// Extract note
-		$note = '';
-		if (preg_match('#\n > (.*?)\n#s', $changelog, $match))
-		{
-			$note      = $match[1];
-			$changelog = str_replace($match[0], "\n", $changelog);
-		}
-
-		$changelog = preg_replace('#see: (https://www\.conseilgouz\.com[^ \)]*)#s', '<a href="\1" target="_blank">see documentation</a>', $changelog);
-
-		$changelog = preg_replace(
-			"#(\n+)([0-9]+.*?) : v([0-9\.]+(?:-dev[0-9]*)?)([^\n]*?\n+)#",
-			'</pre>\1'
-			. '<h4><small>\2</small> v\3</h4>'
-			. '\4<pre>',
-			$changelog
-		);
-
-		$changelog = str_replace(
-			[
-				'<pre>',
-				'[FREE]',
-				'[PRO]',
-			],
-			[
-				'<pre style="line-height: 1.6em;max-height: 100px;overflow: auto;">',
-				'<span class="badge badge-sm badge-success">FREE</span>',
-				'<span class="badge badge-sm badge-info">PRO</span>',
-			],
-			$changelog
-		);
-
-		$changelog = preg_replace(
-			'#\[J([1-9][\.0-9]*)\]#',
-			'<span class="badge badge-sm badge-default">J\1</span>',
-			$changelog
-		);
-
-		$title = Text::sprintf('ISO_LATEST',$this->name);
-
-		if ($this->previous_version && version_compare($this->previous_version, $this_version, '<'))
-		{
-			$title .= ' since v' . $this->previous_version;
-		}
-
-		if ($this->previous_version
-			&& $this->getMajorVersionPart($this->previous_version) < $this->getMajorVersionPart($this_version)
-			&& ! $this->hasMessagesOfType('warning')
-		)
-		{
-			JFactory::getApplication()->enqueueMessage(Text::sprintf('RLI_MAJOR_UPGRADE', Text::_($this->name)), 'warning');
-		}
-
-		if (strpos($this_version, 'dev') !== false)
-		{
-			$note = '';
-		}
-
-		return '<h3>' . $title . ':</h3>'
-			. ($note ? '<div class="alert alert-warning">' . $note . '</div>' : '')
-			. $changelog;
 	}
 	
 }

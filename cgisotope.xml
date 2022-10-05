@@ -58,7 +58,6 @@
 			<filename>access.xml</filename>			
 			<filename>config.xml</filename>
 			<filename>index.html</filename>
-			<filename>updates.txt</filename>
 			<folder>admincss</folder>
 			<folder>forms</folder>
 			<folder>services</folder>
