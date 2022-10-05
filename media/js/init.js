@@ -783,6 +783,7 @@ function filter_list($this,evt,params) {
 		if (filters[$parent].length == 0) {
 			filters[$parent] = ['*'] ;
 			choicesInstance.setChoiceByValue('')
+			update_cookie_filter(filters);
 		}	
 		return;
 	}
