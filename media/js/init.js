@@ -546,8 +546,12 @@ function events_list(component) {
 	agroup= document.querySelectorAll(me+'.filter-button-group-'+component);
 	for (var i=0; i< agroup.length;i++) {
 		agroup[i].addEventListener('choice',function(evt, params) {
-			filter_list(this,evt)
+			filter_list(this,evt,'choice')
 			});
+		agroup[i].addEventListener('removeItem',function(evt, params) {
+			filter_list(this,evt,'remove');
+		});
+			
 	};
 }
 // create buttons eventListeners
@@ -752,7 +756,7 @@ function grid_filter($this) {
 	}
 } 
 // ---- Filter List 
-function filter_list($this,evt) {
+function filter_list($this,evt,params) {
 	$parent = $this.getAttribute('data-filter-group');
 	$isclone = false;
 	if ($this.parentNode.id == "clonedbuttons") { // clone 
@@ -772,6 +776,16 @@ function filter_list($this,evt) {
 	if ($grdparent.className == "offcanvas-body") {
 		$needclone = true;
 	}
+	if (params == 'remove' && $needclone) { // remove item from offcanvas => remove button
+		removeFilter( filters, $parent, evt.detail.value );
+		myclone = document.querySelector('#clonedbuttons button[data-sort-value="'+evt.detail.value+'"]')
+		if (myclone) myclone.remove();
+		if (filters[$parent].length == 0) {
+			filters[$parent] = ['*'] ;
+			choicesInstance.setChoiceByValue('')
+		}	
+		return;
+	}
 	if (sortValue == '')   {
 		choicesInstance.removeActiveItems();
 		choicesInstance.setChoiceByValue('')		
@@ -780,7 +794,7 @@ function filter_list($this,evt) {
 		for (var i=0; i< $buttons.length;i++) { // remove buttons
 			$buttons[i].remove(); 
 		}
-		} else { 
+	} else { 
 		filters[$parent] = [sortValue];
 		if ($needclone) { // clone
 			$buttons = document.querySelectorAll('#clonedbuttons [data-filter-group="'+$parent+'"]');
@@ -828,6 +842,8 @@ function filter_list($this,evt) {
 				}
 			} else {
 				removeFilter( filters, $parent, $evnt.detail.value );
+				myclone = document.querySelector('#clonedbuttons button[data-sort-value="'+$evnt.detail.value+'"]')
+				if (myclone) myclone.remove();
 			}
 			if (filters[$parent].length == 0) {
 				filters[$parent] = ['*'] ;
@@ -1252,12 +1268,9 @@ function splitCookie(item) {
 							for(v=0;v < filters[values[0]].length;v++) {
 								if ( ((values[0] == "tags") && (options.displayfiltertags == 'list') ) ||
 									((values[0] == "cat") && (options.displayfiltercat == 'list')) ) {
-									aList = document.querySelectorAll(me+'.filter-button-group-'+values[0]+' .isotope_select');
-									for(f=0;f < aList.length;f++) {
-										if (aList[f].value == filters[values[0]][v])
-											aList[f].setAttribute('selected',true);
-									}
 									var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
+									var choicesInstance = elChoice.choicesInstance;
+									choicesInstance.setChoiceByValue(filters[values[0]][v]);
 									if (elChoice.parentElement.parentElement.className == "offcanvas-body")  { // need clone
 										var choicesInstance = elChoice.choicesInstance;
 										sel = filters[values[0]][v];
