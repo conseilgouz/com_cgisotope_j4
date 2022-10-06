@@ -11,7 +11,7 @@
             <item>Tags : display all available tags in module's parameters</item>
 		</fix>
 		<remove>
-			<item>Remove Jquery dependencies
+			<item>Remove Jquery dependencies</item>
 		</remove>
         <addition>
             <item>look for updates/changelog files on github</item>
