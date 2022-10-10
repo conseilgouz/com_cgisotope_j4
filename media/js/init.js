@@ -298,6 +298,9 @@ function iso_cat_k2 (myid,options) {
 			iso_height = grid_toggle.height();
 		}
 	});
+	iso.on( 'layoutComplete', function( laidOutItems ) {
+		updateFilterCounts();
+	})
 	iso_div = document.querySelector(me + '.isotope-div');
 	iso_div.addEventListener("refresh", function(){
  	  iso.arrange();
