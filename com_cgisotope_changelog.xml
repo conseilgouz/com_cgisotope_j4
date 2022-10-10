@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.13</version>
+        <note>
+            <item>Update : 10/10/2022</item>
+        </note>
+		<fix>
+            <item>Fix : show empty first time</item>
+		</fix>
+        <addition>
+            <item>look for updates/changelog files on github</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.12</version>
         <note>
             <item>Update : 03/10/2022</item>
