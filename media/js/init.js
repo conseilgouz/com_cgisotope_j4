@@ -288,12 +288,10 @@ function iso_cat_k2 (myid,options) {
 		iso.options.itemSelector ='.isotope_item';
 		var $items = Array.prototype.slice.call(iso.element.querySelectorAll('.isotope_item'));
 		iso.appended($items );
+		updateFilterCounts();
 		if (sort_by == "random") {
 			iso.shuffle();
-		} else {
-			iso.arrange();
 		}
-		updateFilterCounts();
 		if (typeof $toogle !== 'undefined') {
 			iso_width = grid_toggle.width();
 			iso_height = grid_toggle.height();
