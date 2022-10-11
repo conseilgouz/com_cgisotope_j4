@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.9
+* Version			: 3.0.14
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -354,7 +354,7 @@ $filter_tag_div= "";
 			}
 			if ($tagsfilterparent != "true") {
         		$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
-				$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_tout '.$checked.'" data-sort-value="*" />'.$liball.'</button>';
+				$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_tout '.$checked.'" data-sort-value="*" />'.$liball.'</button>';
 			} else {
         		$filter_tag_div .= '<div class="col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'">';
 			}
