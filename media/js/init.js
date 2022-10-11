@@ -281,6 +281,7 @@ function iso_cat_k2 (myid,options) {
 			},
 			sortBy: sort_by,
 			sortAscending: asc,
+			isJQueryFiltering : false,
 			filter: function(itemElem ){ if (itemElem) return grid_filter(itemElem)	}				
 	}); // end of Isotope definition
 	imagesLoaded(grid, function() {
@@ -298,9 +299,6 @@ function iso_cat_k2 (myid,options) {
 			iso_height = grid_toggle.height();
 		}
 	});
-	iso.on( 'layoutComplete', function( laidOutItems ) {
-		updateFilterCounts();
-	})
 	iso_div = document.querySelector(me + '.isotope-div');
 	iso_div.addEventListener("refresh", function(){
  	  iso.arrange();

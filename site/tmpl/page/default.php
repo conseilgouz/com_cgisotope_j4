@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.12
+* Version			: 3.0.13
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -42,9 +42,6 @@ $wa->registerAndUseScript('isotope',$comfield.'js/isotope.min.js');
 $wa->registerAndUseScript('packery',$comfield.'js/packery-mode.min.js');
 $wa->registerAndUseScript('rslider',$comfield.'js/rSlider.min.js');
 if ($this->iso_params->get('customjs')) $wa->addInlineScript($this->iso_params->get('customjs')); 
-
-$this->iso_layout = $this->iso_params->get('iso_layout', 'fitRows');
-$this->iso_nbcol = $this->iso_params->get('iso_nbcol',2);
 
 $this->iso_layout = $this->iso_params->get('iso_layout', 'fitRows');
 $this->iso_nbcol = $this->iso_params->get('iso_nbcol',2);

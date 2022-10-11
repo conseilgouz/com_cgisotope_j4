@@ -4,14 +4,12 @@
 		<type>component</type>
 		<version>3.0.13</version>
         <note>
-            <item>Update : 10/10/2022</item>
+            <item>Update : 11/10/2022</item>
         </note>
 		<fix>
             <item>Fix : show empty first time</item>
+            <item>Imageloaded 5.0</item>
 		</fix>
-        <addition>
-            <item>look for updates/changelog files on github</item>
-        </addition>
 	</changelog>
 	<changelog>
 		<element>com_cgisotope</element>
