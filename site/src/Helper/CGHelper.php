@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.16
+* Version			: 3.0.17
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -36,7 +36,14 @@ class CGHelper  extends ComponentHelper{
 		return Text::_('CG_ISOTOPE');
 	}
     public static function getCGVersion() {
-		return '3.0.16';
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select('manifest_cache');
+		$query->from($db->quoteName('#__extensions'));
+		$query->where('name = "' . self::getCGName() . '"');
+		$db->setQuery($query);
+		$manifest = json_decode($db->loadResult(), true);
+		return $manifest['version'];		
 	}
     public static function getParams($id, $model = null)
     {

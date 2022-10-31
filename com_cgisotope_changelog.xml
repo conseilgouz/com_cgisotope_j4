@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.17</version>
+        <note>
+            <item>Update : 31/10/2022</item>
+        </note>
+		<fix>
+            <item>update isotope.css</item>
+		</fix>
+		<addition>
+            <item>Get component version in database</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.16</version>
         <note>
             <item>Update : 31/10/2022</item>
