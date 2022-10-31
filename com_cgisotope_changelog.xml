@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.15</version>
+        <note>
+            <item>Update : 31/10/2022</item>
+        </note>
+		<fix>
+            <item>Offcanvas : touchscreen fix</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.14</version>
         <note>
             <item>Update : 11/10/2022</item>

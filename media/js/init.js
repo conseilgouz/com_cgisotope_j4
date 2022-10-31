@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.13
+* Version			: 3.0.15
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -78,14 +78,18 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 					$close = document.querySelector('button.close');
 					addClass($close,'isotope-hide');
 					['click', 'touchstart'].forEach(type => {
-							$close.addEventListener(type,function() {
+							$close.addEventListener(type,function(e) {
+									e.stopPropagation();
+									e.preventDefault();		
 									resetToggle();
 							});
 					})
 				}
 	// listen to exit event
 				['click', 'touchstart'].forEach(type => {
-					grid_toggle.addEventListener(type, function() {
+					grid_toggle.addEventListener(type, function(e) {
+							e.stopPropagation();
+							e.preventDefault();		
 							resetToggle();
 							})
 				})
@@ -94,7 +98,7 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 	}
 }
 ['click', 'touchstart'].forEach(type => {
-	iso_div.addEventListener(type, function() {
+	iso_div.addEventListener(type, function(e) {
 		resetToggle();
 	});
 })
@@ -321,14 +325,19 @@ function iso_cat_k2 (myid,options) {
 			infScroll.option({button:'.iso_button_more',loadOnScroll: false});
 			let $viewMoreButton = document.querySelector('.iso_button_more');
 			more.style.display = "block";
-			$viewMoreButton.addEventListener( 'click', function() {
+			['click', 'touchstart'].forEach(type => {
+				$viewMoreButton.addEventListener( type, function(e) {
+					e.stopPropagation();
+					e.preventDefault();		
 				// load next page
-				infScroll.loadNextPage();
-				// enable loading on scroll
-				infScroll.option({loadOnScroll: true});
+					infScroll.loadNextPage();
+					// enable loading on scroll
+					infScroll.option({loadOnScroll: true});
 				// hide button
-				$viewMoreButton.style.display = "none";
-			});
+					$viewMoreButton.style.display = "none";
+					event.preventDefault();
+				});
+			})
 		} else {
 			more.style.display = "hide";
 		}
@@ -341,34 +350,58 @@ function iso_cat_k2 (myid,options) {
 	// --------------> end of infinite scroll <----------------
 	hamburgerbtn = document.getElementById('offcanvas-hamburger-btn');
 	if (hamburgerbtn ) {
-		hamburgerbtn.addEventListener('click',function(){
+	// Offcanvas is on ----------------------------------
+		['click'].forEach(type => {
+			hamburgerbtn.addEventListener(type,function(e){
 	// conflict rangeslider/offcanvas : add a timer
-			var selector = '.offcanvas';
-			var waitForEl = function (callback, maxTimes = false) {
-				if (maxTimes === false || maxTimes > 0) {
-					maxTimes != false && maxTimes--;
-					setTimeout(function () {
-						waitForEl(callback, maxTimes);
-					}, 100);
-				} else {
-					if (typeof rangeSlider !== 'undefined')	rangeSlider.onResize();
-					callback();
-				}
-			};
-			waitForEl(function () {
-				document.querySelector(selector); // do something with selector
-			}, 3);		
+				var selector = '.offcanvas';
+				var waitForEl = function (callback, maxTimes = false) {
+					if (maxTimes === false || maxTimes > 0) {
+						maxTimes != false && maxTimes--;
+						setTimeout(function () {
+							waitForEl(callback, maxTimes);
+						}, 100);
+					} else {
+						if (typeof rangeSlider !== 'undefined')	rangeSlider.onResize();
+						callback();
+					}
+				};
+				waitForEl(function () {
+					document.querySelector(selector); // do something with selector
+				}, 3);		
+			})
 		})
+	// set default buttons in cloned area
+		if ( (filters['cat'] != ['*']) || (filters['tags'] != ['*']) ) { // default value set for tags or categories ?
+			grouptype = ['cat','tags']
+			optionstype = [options.displayfiltercat,options.displayfiltertags]
+			for (var g = 0; g < grouptype.length;g++) {
+				clone_exist = document.querySelector(me+'#clonedbuttons button[data-sort-value="'+filters[grouptype[g]]+'"]');
+				if (!clone_exist) {
+					agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' button'); 
+					for (var i=0; i< agroup.length;i++) {
+						if (agroup[i].getAttribute('data-sort-value') == filters[grouptype[g]]) {
+							create_clone_button(grouptype[g],filters[grouptype[g]],agroup[i].textContent,optionstype[g],'');
+							create_clone_listener(filters[grouptype[g]]);
+						}
+					}
+				}
+			}
+		}
 	}
 	var sortbybutton = document.querySelectorAll(me+'.sort-by-button-group button');
 	for (var i=0; i< sortbybutton.length;i++) {
-		sortbybutton[i].addEventListener( 'click',function() {
-			update_sort_buttons(this);
-			for (var j=0; j< sortbybutton.length;j++) {
-				sortbybutton[j].classList.remove('is-checked');
-			}
-			this.classList.add('is-checked');
-		});
+		['click', 'touchstart'].forEach(type => {
+			sortbybutton[i].addEventListener(type,function(e) {
+				e.stopPropagation();
+				e.preventDefault();		
+				update_sort_buttons(this);
+				for (var j=0; j< sortbybutton.length;j++) {
+					sortbybutton[j].classList.remove('is-checked');
+				}
+				this.classList.add('is-checked');
+			});
+		})
 	}
 // use value of search field to filter
 	var quicksearch = document.querySelector(me+'.quicksearch');
@@ -380,60 +413,62 @@ function iso_cat_k2 (myid,options) {
 		}));
 //  clear search button + reset filter buttons
     var cancelsquarred = document.querySelector(me+'.ison-cancel-squared');
-	cancelsquarred.addEventListener( 'click', function() {
-		quicksearch.value = "";
-		qsRegex = new RegExp( quicksearch.value, 'gi' );
-		CG_Cookie_Set(myid,'search',quicksearch.value);
-		if (rangeSlider) {
-			range_sel = range_init;
-			ranges = range_sel.split(",");
-			rangeSlider.setValues(parseInt(ranges[0]),parseInt(ranges[1]));
-			CG_Cookie_Set(myid,'range',range_sel);
-		}
-		filters['cat'] = ['*']
-		filters['tags'] = ['*']
-		filters['lang'] = ['*']
-		filters['alpha'] = ['*']
-		
-		grouptype = ['cat','tags','fields','alpha']
-		for (var g = 0; g < grouptype.length;g++) {
-			agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' .btn');
+	['click', 'touchstart'].forEach(type => {
+		cancelsquarred.addEventListener( type, function(e) {
+			e.stopPropagation();
+			e.preventDefault();		
+			quicksearch.value = "";
+			qsRegex = new RegExp( quicksearch.value, 'gi' );
+			CG_Cookie_Set(myid,'search',quicksearch.value);
+			if (rangeSlider) {
+				range_sel = range_init;
+				ranges = range_sel.split(",");
+				rangeSlider.setValues(parseInt(ranges[0]),parseInt(ranges[1]));
+				CG_Cookie_Set(myid,'range',range_sel);
+			}
+			filters['cat'] = ['*']
+			filters['tags'] = ['*']
+			filters['lang'] = ['*']
+			filters['alpha'] = ['*']
+			grouptype = ['cat','tags','fields','alpha']
+			for (var g = 0; g < grouptype.length;g++) {
+				agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' button'); // 2022-10-27
+				for (var i=0; i< agroup.length;i++) {
+					agroup[i].classList.remove('is-checked');
+					if (agroup[i].getAttribute('data-sort-value') == "*") addClass(agroup[i],'is-checked');
+					if (agroup[i].getAttribute('data-all') == "all") agroup[i].setAttribute('selected',true);
+					if (grouptype[g] == 'fields') {
+						removeClass(agroup[i],'iso_hide_elem');
+						myparent = agroup[i].parentNode.getAttribute('data-filter-group');
+						filters[myparent] = "*";
+					}
+				}
+			}
+			agroup = document.querySelectorAll(me+'.iso_lang button'); // 2022-10-27
 			for (var i=0; i< agroup.length;i++) {
 				agroup[i].classList.remove('is-checked');
 				if (agroup[i].getAttribute('data-sort-value') == "*") addClass(agroup[i],'is-checked');
 				if (agroup[i].getAttribute('data-all') == "all") agroup[i].setAttribute('selected',true);
-				if (grouptype[g] == 'fields') {
-					removeClass(agroup[i],'iso_hide_elem');
-					myparent = agroup[i].parentNode.getAttribute('data-filter-group');
-					filters[myparent] = "*";
-				}
 			}
-		}
-		
-		agroup = document.querySelectorAll(me+'.iso_lang .btn');
-		for (var i=0; i< agroup.length;i++) {
-			agroup[i].classList.remove('is-checked');
-			if (agroup[i].getAttribute('data-sort-value') == "*") addClass(agroup[i],'is-checked');
-			if (agroup[i].getAttribute('data-all') == "all") agroup[i].setAttribute('selected',true);
-		}
-		agroup= document.querySelectorAll(me+'select[id^="isotope-select-"]');
-		for (var i=0; i< agroup.length;i++) {
-			$val = agroup[i].parentElement.parentElement.parentElement.getAttribute('data-filter-group');
-			var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+$val);
-			var choicesInstance = elChoice.choicesInstance;
-			choicesInstance.removeActiveItems();
-			choicesInstance.setChoiceByValue('')
-			filters[$val] = ['*']
-		};
-		$buttons = document.querySelectorAll('#clonedbuttons .is-checked');
-		for (var i=0; i< $buttons.length;i++) { // remove buttons
+			agroup= document.querySelectorAll(me+'select[id^="isotope-select-"]');
+			for (var i=0; i< agroup.length;i++) {
+				$val = agroup[i].parentElement.parentElement.parentElement.getAttribute('data-filter-group');
+				var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+$val);
+				var choicesInstance = elChoice.choicesInstance;
+				choicesInstance.removeActiveItems();
+				choicesInstance.setChoiceByValue('')
+				filters[$val] = ['*']
+			};
+			$buttons = document.querySelectorAll('#clonedbuttons .is-checked');
+			for (var i=0; i< $buttons.length;i++) { // remove buttons
 				$buttons[i].remove(); 
-		}
-		update_cookie_filter(filters);
-		iso.arrange();
-		updateFilterCounts();
-		document.querySelector(me+'.quicksearch').focus();
-	});
+			}
+			update_cookie_filter(filters);
+			iso.arrange();
+			updateFilterCounts();
+			document.querySelector(me+'.quicksearch').focus();
+		});
+	})
 	if  (options.displayfiltertags == "listmulti") 	{ 
 		events_listmulti('tags');
 	}
@@ -482,22 +517,20 @@ function iso_cat_k2 (myid,options) {
 		events_button('alpha');
 	}
 	more = document.querySelector(me+'.iso_button_more');
-	more.addEventListener('click', function(e) {
-		e.preventDefault();
-		if (items_limit > 0) {
-			items_limit = 0; // no limit
-			this.textContent = options.libless;
-		} else {
-			items_limit = options.limit_items; // set limit
-			this.textContent = options.libmore;
-		}
-		updateFilterCounts();
-	});
-	// handling clones => todo in cookie handling
-/*	clones = document.querySelectorAll("#clonedbuttons button");
-	for (var i=0; i< clones.length;i++) {
-		create_clone_listener(clones[i]);
-	}*/
+	['click', 'touchstart'].forEach(type => {
+		more.addEventListener(type, function(e) {
+			e.stopPropagation();
+			e.preventDefault();		
+			if (items_limit > 0) {
+				items_limit = 0; // no limit
+				this.textContent = options.libless;
+			} else {
+				items_limit = options.limit_items; // set limit
+				this.textContent = options.libmore;
+			}
+			updateFilterCounts();
+		});
+	})
 	//-------------------- offcanvas : update isotope width
 	var myOffcanvas = document.getElementById('offcanvas_isotope');
 	if (myOffcanvas) {
@@ -538,7 +571,24 @@ function events_listmulti(component) {
 		if (typeof filters[$parent] === 'undefined' ) { 
 			filters[$parent] = ['*'];
 		}			
-	};		
+	};	
+	if ((filters[$parent][0] != '*') && (filters[$parent].length == 1)) {
+		var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+component);
+		var choicesInstance = elChoice.choicesInstance;
+		var savefilter = filters[$parent][0];
+		choicesInstance.removeActiveItemsByValue(''); // remove all 
+		choicesInstance.setChoiceByValue(savefilter);
+		if (elChoice.parentElement.parentElement.className == "offcanvas-body") { // need clone
+			clone_exist = document.querySelector(me+'#clonedbuttons button[data-sort-value="'+filters[component]+'"]');
+			if (!clone_exist) { // create default button
+				sel = savefilter;
+				lib = choicesInstance.getValue()[0].label;
+				child = null;
+				create_clone_button(component,sel,lib,'list',child);
+				create_clone_listener(sel);
+			}
+		}
+	}	
 }
 // create list eventListeners
 function events_list(component) {
@@ -552,6 +602,20 @@ function events_list(component) {
 		});
 			
 	};
+	var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+component);
+	if (!elChoice) return;
+	var choicesInstance = elChoice.choicesInstance;
+	choicesInstance.setChoiceByValue(filters[component]);
+	if ((elChoice.parentElement.parentElement.className == "offcanvas-body") && (filters[component] != '*')) { // need clone
+		clone_exist = document.querySelector(me+'#clonedbuttons button[data-sort-value="'+filters[component]+'"]');
+		if (!clone_exist) { // create default button
+			sel = filters[component];
+			lib = choicesInstance.getValue().label;
+			child = null;
+			create_clone_button(component,sel,lib,'list',child);
+			create_clone_listener(sel);
+		}
+	}	
 }
 // create buttons eventListeners
 function events_button(component) {
@@ -562,6 +626,8 @@ function events_button(component) {
 	for (var i=0; i< agroup.length;i++) {
 		['click', 'touchstart'].forEach(type => {
 			agroup[i].addEventListener(type,function(evt) {
+				evt.stopPropagation();
+				evt.preventDefault();		
 				filter_button(this,evt)
 			// reset other buttons
 				mygroup= this.parentNode.querySelectorAll('button' );
@@ -582,15 +648,13 @@ function events_multibutton(component) {
 	for (var i=0; i< agroup.length;i++) {
 		['click', 'touchstart'].forEach(type =>{
 			agroup[i].addEventListener(type,function(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();		
 			filter_multi(this,evt);
+			set_buttons_multi(this);
 			})
 		})
 	};
-	for (var i=0; i< agroup.length;i++) {
-		agroup[i].addEventListener('click',function() {
-			set_buttons_multi(this);
-		})
-	}
 }	
 function update_sort_buttons($this) {
 	var sortValue = $this.getAttribute('data-sort-value');
@@ -801,9 +865,12 @@ function filter_list($this,evt,params) {
 			for (var i=0; i< $buttons.length;i++) { // remove buttons
 				$buttons[i].remove(); 
 			}
-			lib = evt.detail.choice.label;
-			create_clone_button($parent,sortValue,lib,'list','');
-			create_clone_listener(sortValue);
+			clone_exist = document.querySelector(me+'#clonedbuttons button[data-sort-value="'+filters[$parent]+'"]');
+			if (!clone_exist) {
+				lib = evt.detail.choice.label;
+				create_clone_button($parent,sortValue,lib,'list','');
+				create_clone_listener(sortValue);
+			}
 		}
 	}
 	update_cookie_filter(filters);
@@ -872,8 +939,11 @@ function filter_list($this,evt,params) {
 					filters[$parent] = []; // remove it
 				}
 				if ($needclone) {
-					create_clone_button($parent,sel,lib,'list_multi','');
-					create_clone_listener(sel);
+					clone_exist = document.querySelector(me+'#clonedbuttons button[data-sort-value="'+filters[$parent]+'"]');
+					if (!clone_exist) {
+						create_clone_button($parent,sel,lib,'list_multi','');
+						create_clone_listener(sel);
+					}
 				}
 				addFilter( filters, $parent, sel );
 			}
@@ -969,8 +1039,10 @@ function filter_list($this,evt,params) {
 				create_clone_button($parent,sortValue,lib,'multi',child);
 				create_clone_listener(sortValue);
 			} else { // remove cloned button
-				aclone = document.querySelector('#clonedbuttons .iso_button_'+$parent+'_'+sortValue)
-				aclone.remove();
+				if (sortValue != "*") {
+					aclone = document.querySelector('#clonedbuttons .iso_button_'+$parent+'_'+sortValue)
+					aclone.remove();
+				}
 			}
 		}
 		// end of cloning
@@ -1106,12 +1178,16 @@ function create_clone_button($parent,$sel,$lib,$type,child) {
 // -- Create cloned button event listener
 function create_clone_listener($sel) {
 	onebutton =  document.querySelector('#clonedbuttons [data-sort-value="'+$sel+'"] ');
-	onebutton.addEventListener('click',function(evt) {
-		if (this.getAttribute('data-clone-type') == "multi")	filter_multi(this);
-		if (this.getAttribute('data-clone-type') == "button") filter_button(this);
-		if (this.getAttribute('data-clone-type') == "list_multi") filter_list_multi(this,evt,'remove');
-		if (this.getAttribute('data-clone-type') == "list") filter_list(this,evt);
-		this.remove();
+	['click', 'touchstart'].forEach(type => {
+		onebutton.addEventListener(type,function(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();		
+			if (this.getAttribute('data-clone-type') == "multi")	filter_multi(this);
+			if (this.getAttribute('data-clone-type') == "button") filter_button(this);
+			if (this.getAttribute('data-clone-type') == "list_multi") filter_list_multi(this,evt,'remove');
+			if (this.getAttribute('data-clone-type') == "list") filter_list(this,evt);
+			this.remove();
+		})
 	})
 }
 function debounce( fn, threshold ) {
