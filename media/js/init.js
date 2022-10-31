@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.15
+* Version			: 3.0.16
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -372,10 +372,11 @@ function iso_cat_k2 (myid,options) {
 			})
 		})
 	// set default buttons in cloned area
-		if ( (filters['cat'] != ['*']) || (filters['tags'] != ['*']) ) { // default value set for tags or categories ?
+		if ( (filters['cat'][0] != '*') || (filters['tags'][0] != '*') ) { // default value set for tags or categories ?
 			grouptype = ['cat','tags']
 			optionstype = [options.displayfiltercat,options.displayfiltertags]
 			for (var g = 0; g < grouptype.length;g++) {
+				if (filters[grouptype[g]][0] == "*") continue; // ignore 'all' value
 				clone_exist = document.querySelector(me+'#clonedbuttons button[data-sort-value="'+filters[grouptype[g]]+'"]');
 				if (!clone_exist) {
 					agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' button'); 
@@ -412,9 +413,10 @@ function iso_cat_k2 (myid,options) {
 			updateFilterCounts();
 		}));
 //  clear search button + reset filter buttons
-    var cancelsquarred = document.querySelector(me+'.ison-cancel-squared');
+    var cancelsquarred = document.querySelectorAll(me+'.ison-cancel-squared');
+	for (var cl=0; cl< cancelsquarred.length;cl++) {
 	['click', 'touchstart'].forEach(type => {
-		cancelsquarred.addEventListener( type, function(e) {
+		cancelsquarred[cl].addEventListener( type, function(e) {
 			e.stopPropagation();
 			e.preventDefault();		
 			quicksearch.value = "";
@@ -430,7 +432,7 @@ function iso_cat_k2 (myid,options) {
 			filters['tags'] = ['*']
 			filters['lang'] = ['*']
 			filters['alpha'] = ['*']
-			grouptype = ['cat','tags','fields','alpha']
+			grouptype = ['cat','tags','alpha']
 			for (var g = 0; g < grouptype.length;g++) {
 				agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' button'); // 2022-10-27
 				for (var i=0; i< agroup.length;i++) {
@@ -440,7 +442,7 @@ function iso_cat_k2 (myid,options) {
 					if (grouptype[g] == 'fields') {
 						removeClass(agroup[i],'iso_hide_elem');
 						myparent = agroup[i].parentNode.getAttribute('data-filter-group');
-						filters[myparent] = "*";
+						if (myparent) filters[myparent] = "*";
 					}
 				}
 			}
@@ -452,12 +454,12 @@ function iso_cat_k2 (myid,options) {
 			}
 			agroup= document.querySelectorAll(me+'select[id^="isotope-select-"]');
 			for (var i=0; i< agroup.length;i++) {
-				$val = agroup[i].parentElement.parentElement.parentElement.getAttribute('data-filter-group');
-				var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+$val);
+				var myval = agroup[i].parentElement.parentElement.parentElement.getAttribute('data-filter-group');
+				var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+myval);
 				var choicesInstance = elChoice.choicesInstance;
 				choicesInstance.removeActiveItems();
 				choicesInstance.setChoiceByValue('')
-				filters[$val] = ['*']
+				filters[myval] = ['*']
 			};
 			$buttons = document.querySelectorAll('#clonedbuttons .is-checked');
 			for (var i=0; i< $buttons.length;i++) { // remove buttons
@@ -469,6 +471,7 @@ function iso_cat_k2 (myid,options) {
 			document.querySelector(me+'.quicksearch').focus();
 		});
 	})
+	}
 	if  (options.displayfiltertags == "listmulti") 	{ 
 		events_listmulti('tags');
 	}
@@ -904,8 +907,8 @@ function filter_list($this,evt,params) {
 				filters = JSON.parse(JSON.stringify(savfilter));
 				choicesInstance.removeActiveItemsByValue('');
 				for (var i = 0; i < filters[$parent].length; i++) {
-					$val = filters[$parent][i];
-					choicesInstance.setChoiceByValue($val);
+					remval = filters[$parent][i];
+					choicesInstance.setChoiceByValue(remval);
 				}
 			} else {
 				removeFilter( filters, $parent, $evnt.detail.value );
@@ -1034,7 +1037,7 @@ function filter_list($this,evt,params) {
 			$needclone = true;
 		}
 		if ($needclone) {
-			if (isChecked) { // clone button
+			if ((isChecked) && (sortValue != "*")) { // clone button
 				lib = evt.srcElement.innerHTML;
 				create_clone_button($parent,sortValue,lib,'multi',child);
 				create_clone_listener(sortValue);
@@ -1204,6 +1207,7 @@ function debounce( fn, threshold ) {
 	}  
 }
 function addFilter( filters, $parent, filter ) {
+	if (!$parent) return;
 	if ( filters[$parent].indexOf( filter ) == -1 ) {
 		filters[$parent].push( filter );
 	}
@@ -1218,6 +1222,7 @@ function removeFilter( filters, $parent, filter ) {
 function update_cookie_filter(filters) {
 	$filter_cookie = "";
 	for (x in filters) {
+		if (x == "null") continue;
 		if ($filter_cookie.length > 0) $filter_cookie += ">";
 		$filter_cookie += x+'<'+filters[x].toString();
 	}
@@ -1235,15 +1240,14 @@ function CG_Cookie_Set(id,param,b) {
 	$secure = "";
 	if (window.location.protocol == "https:") $secure="secure;"; 
 	lecookie = getCookie(cookie_name);
-	$val = param+':'+b;
-	$cook = $val;
+	$cook = param+':'+b;
 	if (lecookie != '') {
 		if (lecookie.indexOf(param) >=0 ) { // cookie contient le parametre
 			$cook = "";
 			$arr = lecookie.split('&');
-			$arr.forEach(replaceCookie,$val);
+			$arr.forEach(replaceCookie,$cook);
 		} else { // ne contient pas encore ce parametre : on ajoute
-			$cook = lecookie +'&'+$val;
+			$cook = lecookie +'&'+$cook;
 		}
 	}
 	document.cookie = cookie_name+"="+$cook+expires+"; path=/; samesite=lax;"+$secure;
@@ -1491,11 +1495,11 @@ function set_family(me,$parent,child,sortValue,$type) {
 			if (newparents.length > 0) {
 				for ($i = 0;$i < newparents.length;$i++) {
 					if ($type == 'list') {
-						$val = newparents[$i].getAttribute('value');
+						newval = newparents[$i].getAttribute('value');
 					} else {
-						$val = newparents[$i].getAttribute('data-sort-value');
+						newval = newparents[$i].getAttribute('data-sort-value');
 					}
-					if ($val != "*") parents.push($val);
+					if (newval != "*") parents.push(newval);
 				}
 			}
 		} else {
@@ -1511,11 +1515,11 @@ function set_family(me,$parent,child,sortValue,$type) {
 					if ($vals.length > 0) {
 						for ($j = 0;$j < $vals.length;$j++) {
 							if ($type == 'list') {
-								$val = $vals[$j].getAttribute('value');
+								oneval = $vals[$j].getAttribute('value');
 							} else {
-								$val = $vals[$j].getAttribute('data-sort-value');
+								oneval = $vals[$j].getAttribute('data-sort-value');
 							}
-							if ($val != "*") newparents.push($val);
+							if (oneval != "*") newparents.push(onval);
 						}
 					}
 				}
@@ -1545,12 +1549,12 @@ function del_family(me,$parent,child,sortValue,$type) {
 			if (newparents.length > 0) {
 				for ($i = 0;$i < newparents.length;$i++) {
 					if ($type == 'list') {
-						$val = newparents[$i].getAttribute('value');
+						delval = newparents[$i].getAttribute('value');
 					} else {
-						$val = newparents[$i].getAttribute('data-sort-value');
+						delval = newparents[$i].getAttribute('data-sort-value');
 					}
-					if ($val != "*") {
-						parents.push($val);
+					if (delval != "*") {
+						parents.push(delval);
 						addClass(newparents[$i],'iso_hide_elem');
 					}
 				}
@@ -1564,12 +1568,12 @@ function del_family(me,$parent,child,sortValue,$type) {
 					if ($vals.length > 0) {
 						for ($j = 0;$j < $vals.length;$j++) {
 							if ($type == 'list') {
-								$val = $vals[$j].getAttribute('value');
+								delval = $vals[$j].getAttribute('value');
 							} else {
-								$val = $vals[$j].getAttribute('data-sort-value');
+								delval = $vals[$j].getAttribute('data-sort-value');
 							}
-							if ($val != "*") { 
-								newparents.push($val);
+							if (delval != "*") { 
+								newparents.push(delval);
 								addClass($vals[$j],'iso_hide_elem');
 							}
 						}
@@ -1595,12 +1599,12 @@ function set_family_all(me,child,$type) {
 		for (i = 0;i < parents.length;i++) {
 			if (hasClass(parents[i],'iso_hide_elem')) continue; // ignore hidden elements
 			if ($type == 'list') {
-				$val = parents[i].getAttribute('value');
+				setval = parents[i].getAttribute('value');
 			} else {
-				$val = parents[i].getAttribute('data-sort-value');
+				setval = parents[i].getAttribute('data-sort-value');
 			}
-			if ($val && ($val != "*")) {
-				removeClass($this.querySelector('[data-parent="'+$val+'"]'),'iso_hide_elem');
+			if (setval && (setval != "*")) {
+				removeClass($this.querySelector('[data-parent="'+setval+'"]'),'iso_hide_elem');
 			}
 		}
 		if ($type == 'list') {

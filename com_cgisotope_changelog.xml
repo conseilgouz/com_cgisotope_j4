@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.16</version>
+        <note>
+            <item>Update : 31/10/2022</item>
+        </note>
+		<fix>
+            <item>Offcanvas : custom fields handling</item>
+		</fix>
+		<addition>
+            <item>Offcanvas : clear filters button</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.15</version>
         <note>
             <item>Update : 31/10/2022</item>
