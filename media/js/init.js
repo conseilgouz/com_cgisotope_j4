@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.16
+* Version			: 3.0.18
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -406,22 +406,26 @@ function iso_cat_k2 (myid,options) {
 	}
 // use value of search field to filter
 	var quicksearch = document.querySelector(me+'.quicksearch');
-	quicksearch.addEventListener('keyup',debounce( function() {
+	if (quicksearch) {
+		quicksearch.addEventListener('keyup',debounce( function() {
 			qsRegex = new RegExp( quicksearch.value, 'gi' );
 			CG_Cookie_Set(myid,'search',quicksearch.value);
 			iso.arrange();
 			updateFilterCounts();
 		}));
+	}
 //  clear search button + reset filter buttons
     var cancelsquarred = document.querySelectorAll(me+'.ison-cancel-squared');
 	for (var cl=0; cl< cancelsquarred.length;cl++) {
 	['click', 'touchstart'].forEach(type => {
 		cancelsquarred[cl].addEventListener( type, function(e) {
 			e.stopPropagation();
-			e.preventDefault();		
-			quicksearch.value = "";
-			qsRegex = new RegExp( quicksearch.value, 'gi' );
-			CG_Cookie_Set(myid,'search',quicksearch.value);
+			e.preventDefault();	
+			if (quicksearch) {
+				quicksearch.value = "";
+			}
+			qsRegex = new RegExp( "", 'gi' );
+			CG_Cookie_Set(myid,'search',"");
 			if (rangeSlider) {
 				range_sel = range_init;
 				ranges = range_sel.split(",");
@@ -468,7 +472,9 @@ function iso_cat_k2 (myid,options) {
 			update_cookie_filter(filters);
 			iso.arrange();
 			updateFilterCounts();
-			document.querySelector(me+'.quicksearch').focus();
+			if (quicksearch) {
+				quicksearch.focus();
+			}
 		});
 	})
 	}
@@ -520,20 +526,22 @@ function iso_cat_k2 (myid,options) {
 		events_button('alpha');
 	}
 	more = document.querySelector(me+'.iso_button_more');
-	['click', 'touchstart'].forEach(type => {
-		more.addEventListener(type, function(e) {
-			e.stopPropagation();
-			e.preventDefault();		
-			if (items_limit > 0) {
-				items_limit = 0; // no limit
-				this.textContent = options.libless;
-			} else {
-				items_limit = options.limit_items; // set limit
-				this.textContent = options.libmore;
-			}
-			updateFilterCounts();
-		});
-	})
+	if (more) {
+		['click', 'touchstart'].forEach(type => {
+			more.addEventListener(type, function(e) {
+				e.stopPropagation();
+				e.preventDefault();		
+				if (items_limit > 0) {
+					items_limit = 0; // no limit
+					this.textContent = options.libless;
+				} else {
+					items_limit = options.limit_items; // set limit
+					this.textContent = options.libmore;
+				}
+				updateFilterCounts();
+			});
+		})
+	}
 	//-------------------- offcanvas : update isotope width
 	var myOffcanvas = document.getElementById('offcanvas_isotope');
 	if (myOffcanvas) {
@@ -1272,7 +1280,7 @@ function splitCookie(item) {
 	me = "#isotope-main-"+myid+" ";
 	// check if quicksearch still exists (may be removed during testing)
 	quicksearch = document.querySelector(me+'.quicksearch');
-	if (item.indexOf('search:') >= 0 &&  typeof quicksearch !== 'undefined' ) {
+	if (item.indexOf('search:') >= 0 &&  quicksearch ) {
 		val = item.split(':');
 		qsRegex = new RegExp( val[1], 'gi' );
 		quicksearch.value = val[1];

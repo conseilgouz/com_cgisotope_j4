@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.18</version>
+        <note>
+            <item>Update : 06/11/2022</item>
+        </note>
+		<fix>
+            <item>check article access</item>
+			<item>error if search button not defined</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.17</version>
         <note>
             <item>Update : 31/10/2022</item>
