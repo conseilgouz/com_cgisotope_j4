@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
 	<name>CG Isotope</name>
-	<creationDate>31 October 2022</creationDate>
+	<creationDate>6 November 2022</creationDate>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>

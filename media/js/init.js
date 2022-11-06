@@ -1248,14 +1248,15 @@ function CG_Cookie_Set(id,param,b) {
 	$secure = "";
 	if (window.location.protocol == "https:") $secure="secure;"; 
 	lecookie = getCookie(cookie_name);
-	$cook = param+':'+b;
+	$val = param+':'+b;
+	$cook = $val;
 	if (lecookie != '') {
 		if (lecookie.indexOf(param) >=0 ) { // cookie contient le parametre
 			$cook = "";
 			$arr = lecookie.split('&');
-			$arr.forEach(replaceCookie,$cook);
+			$arr.forEach(replaceCookie,$val);
 		} else { // ne contient pas encore ce parametre : on ajoute
-			$cook = lecookie +'&'+$cook;
+			$cook = lecookie +'&'+$val;
 		}
 	}
 	document.cookie = cookie_name+"="+$cook+expires+"; path=/; samesite=lax;"+$secure;
