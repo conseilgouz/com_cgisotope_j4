@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.20</version>
+        <note>
+            <item>Update : 07/11/2022</item>
+        </note>
+		<fix>
+            <item>check article access is boolean</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.19</version>
         <note>
             <item>Update : 06/11/2022</item>

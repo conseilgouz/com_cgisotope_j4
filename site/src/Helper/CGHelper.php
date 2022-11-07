@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.18
+* Version			: 3.0.20
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -259,7 +259,7 @@ class CGHelper  extends ComponentHelper{
 		// $articles->setState('filter.published', 1);
 		$access     = ComponentHelper::getParams('com_content')->get('show_noauth');
 		$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
-		$articles->setState('filter.access', $authorised);
+		$articles->setState('filter.access', true); // check access
 		$catids = $iso->categories;
 		$articles->setState('filter.category_id', $catids);		
 		$articles->setState('filter.category_id.include', true);
