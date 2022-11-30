@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.19
+* Version			: 3.0.21
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -55,6 +55,24 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 					document.querySelector("#isotope_an_article").innerHTML = '';
 					var mytoken = document.getElementById("token");
 					token = mytoken.getAttribute("name");
+					url = '?'+token+'=1&task=display&article='+ this.dataset['articleid']+'&entree=articles&format=json';
+					Joomla.request({
+						method : 'POST',
+						url : url,
+						onSuccess: function(data, xhr) {
+							var result = JSON.parse(data);
+							removeClass(iso_article,'article-loading');
+							iso_article.style.height = iso_height;
+							iso_article.style.width = iso_width+'px';
+							if (!result.success) result.success = true; 
+							displayArticle(result); 
+						},
+						onError: function(message) {console.log(message.responseText)}
+					})
+					/*
+					
+					var mytoken = document.getElementById("token");
+					token = mytoken.getAttribute("name");
 					$.ajax({
 						data: { [token]: "1", task: "display", format: "json", article: this.dataset['articleid'],entree: options.entree },
 						success: function(result, status, xhr) { 
@@ -65,7 +83,7 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 							displayArticle(result); 
 						},
 						error: function(message) {console.log(message.responseText)}
-					});	
+					});	*/
 				} else if (options.readmore == 'iframe') {	
 	/* iFrame */
 					if (iso_height == 0) iso_height="100vh";
@@ -131,34 +149,34 @@ function displayArticle(result) {
     if (result.success) {
 		for (var i=0; i<result.length; i++) {
             html += '<h1>'+result[i].title+'<button type="button" class="close">X</button></h1>';
-			if ((options.entree == "k2") && (result[i].image)) {
-				html += '<span class="itemImage"><a class="moduleItemImage" href="'+result[i].link+'">';
-				html += '<img src="'+result[i].image+'" alt="'+result[i].title+'" /></a></span>';
-			}
+													   
+																																								  
+																					 
+	
 			html +=result[i].fulltext;
 			if (result[i].fulltext =="") html += result[i].introtext;
-			if ((options.entree == "k2") && (result[i].extra_fields)) {
-				html +='<div class="itemExtraFields"><ul>';
-				if (Array.isArray(result[i].extra_fields) ) {
-					$l = result[i].extra_fields.length;
-					for (var x=0; x< $l; x++) {
-						html += '<li class="typeTextfield">';
-						html += '<span class="itemExtraFieldsLabel">'+result[i].extra_fields[x].name+"</span>";
-						html += '<span class="itemExtraFieldsValue">'+result[i].extra_fields[x].value+"</span>";
-						html += "</li>";
-					}
-				} else { 
-					$l = Object.values(result[i].extra_fields).length;
-					for (var x in result[i].extra_fields ) {
-					html += '<li class="typeTextfield">';
-					html += '<span class="itemExtraFieldsLabel">'+result[i].extra_fields[x].name+"</span>";
-					html += '<span class="itemExtraFieldsValue">'+result[i].extra_fields[x].value+"</span>";
-					html += "</li>";
-				}
+																							 
+											   
+												 
+										
+								
+										   
+																																									 
+																																									  
+					  
+	  
+			 
+																				  
+											 
+										  
+																																								  
+																																									 
+					 
+	 
 
-				}
-				html +='</ul></div>';
-			}
+	 
+						 
+	
 			if (result[i].scripts.length > 0) {
 				for (var s=0; s < result[i].scripts.length ;s++) {
 					var scriptElement = document.createElement( "script" );
@@ -436,9 +454,9 @@ function iso_cat_k2 (myid,options) {
 			filters['tags'] = ['*']
 			filters['lang'] = ['*']
 			filters['alpha'] = ['*']
-			grouptype = ['cat','tags','alpha']
+			grouptype = ['cat','tags','alpha','fields']
 			for (var g = 0; g < grouptype.length;g++) {
-				agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' button'); // 2022-10-27
+				agroup = document.querySelectorAll(me+'.filter-button-group-'+grouptype[g]+' button'); 
 				for (var i=0; i< agroup.length;i++) {
 					agroup[i].classList.remove('is-checked');
 					if (agroup[i].getAttribute('data-sort-value') == "*") addClass(agroup[i],'is-checked');
@@ -446,7 +464,7 @@ function iso_cat_k2 (myid,options) {
 					if (grouptype[g] == 'fields') {
 						removeClass(agroup[i],'iso_hide_elem');
 						myparent = agroup[i].parentNode.getAttribute('data-filter-group');
-						if (myparent) filters[myparent] = "*";
+						if (myparent) filters[myparent] = ['*'];
 					}
 				}
 			}

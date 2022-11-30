@@ -9,6 +9,7 @@
 */
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;					   
 use Joomla\CMS\Plugin\PluginHelper;
 use \Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -18,12 +19,12 @@ use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 PluginHelper::importPlugin('content');
 PluginHelper::importPlugin('cgisotope');
 
-$uri = JUri::getInstance();
+$uri = Uri::getInstance();
 $user = Factory::getUser();
 $app = Factory::getApplication();
 
 $com_id = $app->input->getInt('Itemid');
-$comfield = ''.JURI::base(true).'/media/com_cgisotope/';
+$comfield = ''.URI::base(true).'/media/com_cgisotope/';
 
 $defaultdisplay = $this->iso_params->get('defaultdisplay', 'date_desc');
 $displaysortinfo = $this->iso_params->get('displaysortinfo', 'show');
@@ -226,7 +227,7 @@ if ($this->params->get('show_page_heading')) {
 	echo $this->escape($this->params->get('page_heading')); 
 	echo "</h1>";
 }
-if (strlen(trim($this->iso_params->get('intro'))) > 0) {
+if (strlen(trim($this->iso_params->get('intro',''))) > 0) {
 	// apply content plugins
 	$item_cls = new stdClass;
 	$item_cls->text = $this->iso_params->get('intro');
@@ -379,10 +380,10 @@ $filter_tag_div= "";
 						$tagimage  = json_decode($this->tags_image[$aff_alias]);
                                                 if (property_exists($tagimage,'image_image_fulltext') || property_exists($tagimage,'image_intro')) {
                                                     if ($tagimage->image_intro != "") {
-							$img = '<img src="'.JURI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
+							$img = '<img src="'.URI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
 							class="iso_tag_img" alt="'.$tagimage->image_intro_alt.'" title="'.$tagimage->image_intro_caption.'"/> ';
                                                     } elseif ($tagimage->image_fulltext != "") {
-							$img = '<img src="'.JURI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
+							$img = '<img src="'.URI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
 							class="iso_tag_img" alt="'.$tagimage->image_fulltext_alt.'" title="'.$tagimage->image_fulltext_caption.'"/> ';
                                                     }
                                                 }
@@ -480,7 +481,7 @@ $filter_tag_div= "";
 					if ($catsfilterimg == "true") {
 						$catparam  = json_decode($this->cats_params[$key]);	
 						if ($catparam->image != "") {
-							$img = '<img src="'.JURI::root().$catparam->image.'"  
+							$img = '<img src="'.URI::root().$catparam->image.'"  
 							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> '; // pascal
 						}
 					}
@@ -623,17 +624,17 @@ foreach ($this->list as $key=>$category) {
 				if (!$tagimage) continue;
                                 if ((!property_exists($tagimage,'image_fulltext')) || ($tagimage->image_fulltext == "") && ($tagimage->image_intro == ""))  continue;
         				if ($tagimage->image_intro != "") {
-						$tag_img .= '<img src="'.JURI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
+						$tag_img .= '<img src="'.URI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
 									class="iso_tag_img_art" alt="'.$tagimage->image_intro_alt.'" title="'.$tagimage->image_intro_caption.'"/> ';
 					} elseif ($tagimage->image_fulltext != "") {
-						$tag_img .=  '<img src="'.JURI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
+						$tag_img .=  '<img src="'.URI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
 								class="iso_tag_img_art" alt="'.$tagimage->image_fulltext_alt.'" title="'.$tagimage->image_fulltext_caption.'"/> ';
 				};
 			}
 		} 	
 		$cat_params = json_decode($this->cats_params[$item->catid]);
 		if (($cat_params) && ($cat_params->image != "")) {
-			$cat_img = "<img src='".JURI::root().$cat_params->image."' alt='".$cat_params->image_alt."' class='iso_cat_img_art'/>";
+			$cat_img = "<img src='".URI::root().$cat_params->image."' alt='".$cat_params->image_alt."' class='iso_cat_img_art'/>";
 		}
 		$field_value = "";
 		$field_cust = array();
@@ -678,7 +679,7 @@ foreach ($this->list as $key=>$category) {
 			$c = 'isotope_pointer'; // add class cursor = pointer
 		}
 		
-		$isotope_grid_div .= '<div class="isotope_item iso_cat_'.$key.' '.$field_value.' '.$c.' '.$tag_display.'" data-featured="'.$item->featured.'" data-title="'.$item->title.'" data-category="'.$data_cat.'" data-date="'.$ladate.'" data-click="'.$click.'"data-rating="'.$item->rating.'" data-id="'.$item->id.'" data-lang="'.$item->language.'"  data-alpha="'.substr($item->title,0,1).'" '.$data_range.$t.'>';
+		$isotope_grid_div .= '<div class="isotope_item iso_cat_'.$key.' '.$field_value.' '.$c.' '.$tag_display.'" data-featured="'.$item->featured.'" data-title="'.$item->title.'" data-category="'.$data_cat.'" data-date="'.$ladate.'" data-click="'.$click.'"data-rating="'.$item->rating.'" data-blog="'.$item->ordering.'" data-id="'.$item->id.'" data-lang="'.$item->language.'"  data-alpha="'.substr($item->title,0,1).'" '.$data_range.$t.'>';
 		$canEdit = $user->authorise('core.edit', 'com_content.article.'.$item->id);
 		if ($canEdit) {
 				$isotope_grid_div .=  '<span class="edit-icon">';
@@ -724,7 +725,7 @@ foreach ($this->list as $key=>$category) {
 		}
 		$perso = $this->iso_params->get('perso');
 		$perso = CGHelper::checkNullFields($perso,$item,$phocacount); // suppress null field if required
-			$arr_css= array("{id}"=>$item->id,"{title}"=>$title, "{cat}"=>$this->cats_lib[$item->catid],"{date}"=>$libdate.date($libdateformat,strtotime($item->displayDate)),"{create}"=>HTMLHelper::_('date', $item->created, $libotherdateformat),"{pub}"=>HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"{modif}"=>HTMLHelper::_('date', $item->modified, $libotherdateformat), "{visit}" =>$item->hits, "{intro}" => $item->displayIntrotext,"{stars}"=>$rating,"{rating}"=>$item->rating,"{ratingcnt}"=>$item->rating_count,"{count}"=>$phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}"=>$item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags);
+			$arr_css= array("{id}"=>$item->id,"{title}"=>$title, "{cat}"=>$this->cats_lib[$item->catid],"{date}"=>$libdate.date($libdateformat,strtotime($item->displayDate)),"{create}"=>HTMLHelper::_('date', $item->created, $libotherdateformat),"{pub}"=>HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"{modif}"=>HTMLHelper::_('date', $item->modified, $libotherdateformat), "{visit}" =>$item->hits, "{intro}" => $item->displayIntrotext,"{stars}"=>$rating,"{rating}"=>$item->rating,"{ratingcnt}"=>$item->rating_count,"{count}"=>$phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}"=>$item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags,"{featured}" => $item->featured);
 		foreach ($arr_css as $key_c => $val_c) {
 		    $perso = str_replace($key_c, Text::_($val_c),$perso);
 		}
@@ -893,7 +894,7 @@ if ($this->iso_params->get('pagination','true') == 'infinite') { ?>
 </div>
 <?php } ?>
 </div>
-<?php if (strlen(trim($this->iso_params->get('bottom'))) > 0) {
+<?php if (strlen(trim($this->iso_params->get('bottom',''))) > 0) {
 	// apply content plugins on bottom message
 	$item_cls = new stdClass;
 	$item_cls->text = $this->iso_params->get('bottom');

@@ -2,6 +2,21 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.21</version>
+        <note>
+            <item>Update : 30/12/2022</item>
+        </note>
+		<fix>
+            <item>Remove JQuery : AJAX Call</item>
+			<item>Suppress PHP 8.1 Notices</item>
+		</fix>
+		<remove>
+			<item>Remove K2</item>
+		</remove>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.20</version>
         <note>
             <item>Update : 07/11/2022</item>

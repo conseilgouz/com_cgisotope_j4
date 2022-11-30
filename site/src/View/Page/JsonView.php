@@ -27,11 +27,7 @@ class JsonView extends BaseHtmlView {
 	{
 		$input = Factory::getApplication()->input;
 		$articleId = $input->get('article');
-		if ($input->get('entree') == 'k2') {
-			echo json_encode(self::getArticleK2((int)$articleId)); 
-		} else {
-			echo json_encode(self::getArticle((int)$articleId)); 
-		}
+		echo json_encode(self::getArticle((int)$articleId)); 
 	}
 	//-----------------------One article display------------------------------------------//
 	static function getArticle($id) {
@@ -103,89 +99,6 @@ class JsonView extends BaseHtmlView {
         	$arr = false;
         }
        
-		return $arr;
-	}
-	//-----------------------One K2 article display------------------------------------------//
-	static function getArticleK2($id) {
-	 	PluginHelper::importPlugin('content');
-        $componentParams = ComponentHelper::getParams('com_k2');
-		jimport('joomla.filesystem.file');
-		$application = Factory::getApplication();
-		$limit = 1;
-		$cid = NULL;
-		$ordering = '';
-		$limitstart = 0;
-
-		$user = Factory::getUser();
-		$aid = $user->get('aid');
-		$db = Factory::getDbo();
-
-		$jnow = Factory::getDate();
-		$now = $jnow->toSql();
-                
-		$nullDate = $db->getNullDate();
-
-		$query = "SELECT i.*, c.name AS categoryname,c.id AS categoryid, c.alias AS categoryalias, c.params AS categoryparams 
-			FROM #__k2_items as i 
-			LEFT JOIN #__k2_categories c ON c.id = i.catid 
-			WHERE i.published = 1 ";
-		$query .= " AND i.access IN(".implode(',', $user->getAuthorisedViewLevels()).") ";
-		$query .= " AND i.trash = 0 AND c.published = 1 ";
-		$query .= " AND c.access IN(".implode(',', $user->getAuthorisedViewLevels()).") ";
-		$query .= " AND c.trash = 0 
-				AND ( i.publish_up = ".$db->Quote($nullDate)." OR i.publish_up <= ".$db->Quote($now)." ) 
-				AND ( i.publish_down = ".$db->Quote($nullDate)." OR i.publish_down >= ".$db->Quote($now)." ) 
-				AND i.id={$id}";
-		if ($application->getLanguageFilter())
-				{
-					$languageTag = Factory::getLanguage()->getTag();
-					$query .= " AND c.language IN (".$db->Quote($languageTag).", ".$db->Quote('*').") AND i.language IN (".$db->Quote($languageTag).", ".$db->Quote('*').")";
-				}
-		$db->setQuery($query);
-		$item = $db->loadObject();
-		        // Image K2
-	    if ($componentParams->get('imageTimestamp')) {
-            $date = Factory::getDate($item->modified);
-            $timestamp = '?t='.$date->toUnix();
-        } else {
-            $timestamp = '';
-        } 
-		$imageFilenamePrefix = md5("Image".$item->id);
-		$imagePathPrefix = JUri::base(true).'/media/k2/items/cache/'.$imageFilenamePrefix;
-		if (JFile::exists(JPATH_SITE.'/media/k2/items/cache/'.$imageFilenamePrefix.'_Generic.jpg')) {
-			$item->imageGeneric = $imagePathPrefix.'_Generic.jpg'.$timestamp;
-			$item->imageXSmall  = $imagePathPrefix.'_XS.jpg'.$timestamp;
-			$item->imageSmall   = $imagePathPrefix.'_S.jpg'.$timestamp;
-			$item->imageMedium  = $imagePathPrefix.'_M.jpg'.$timestamp;
-			$item->imageLarge   = $imagePathPrefix.'_L.jpg'.$timestamp;
-			$item->imageXLarge  = $imagePathPrefix.'_XL.jpg'.$timestamp;
-		}
-        // Select the size to use
-        $image = 'imageSmall';
-		$item->image = $item->$image; 
-		// Render the query results
-		K2Model::addIncludePath(JPATH_SITE.'/components/com_k2/models');
-		$model = K2Model::getInstance('Item', 'K2Model');
-		$dispatcher = JDispatcher::getInstance();
-	    JPluginHelper::importPlugin('content');
-	    JPluginHelper::importPlugin('k2');
-		
-		$item->extra_fields = $model->getItemExtraFields($item->extra_fields, $item);
-		// Plugin rendering in extra fields
-		if (is_array($item->extra_fields)) {
-		    foreach ($item->extra_fields as $key => $extraField) {
-		        if ($extraField->type == 'textarea' || $extraField->type == 'textfield') {
-		            $tmp = new \stdClass;
-		            $tmp->text = $extraField->value;
-                    $dispatcher->trigger('onPrepareContent', array(&$tmp, &$params, $limitstart));
-	                $dispatcher->trigger('onK2PrepareContent', array(&$tmp, &$params, $limitstart));
-		            $extraField->value = $tmp->text;
-		        }
-		    }
-		}
-		
-		
-		$arr[0] = $item;			
 		return $arr;
 	}
 }

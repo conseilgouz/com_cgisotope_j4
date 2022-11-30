@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;					   
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -19,11 +20,11 @@ use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 PluginHelper::importPlugin('content');
 PluginHelper::importPlugin('cgisotope');
 
-$uri = JUri::getInstance();
+$uri = Uri::getInstance();
 $user = Factory::getUser();
 $app = JFactory::getApplication();
 $com_id = $app->input->getInt('Itemid');
-$comfield = ''.JURI::base(true).'/media/com_cgisotope/';
+$comfield = ''.URI::base(true).'/media/com_cgisotope/';
 
 $defaultdisplay = $this->iso_params->get('defaultdisplay', 'date_desc');
 $displaysortinfo = $this->iso_params->get('displaysortinfo', 'show');
@@ -229,7 +230,7 @@ if ($this->params->get('show_page_heading')) {
 	echo $this->escape($this->params->get('page_heading')); 
 	echo "</h1>";
 }
-if ($this->iso_params->get('intro') && (strlen(trim($this->iso_params->get('intro'))) > 0) ){
+if ($this->iso_params->get('intro') && (strlen(trim($this->iso_params->get('intro',''))) > 0) ){
 	// apply content plugins on weblinks
 	$item_cls = new stdClass;
 	$item_cls->text = $this->iso_params->get('intro');
@@ -291,7 +292,7 @@ if ($this->iso_params->get('btnrandom','false') != "false") {
 	$checked = "";
 }
 if ($this->iso_entree != "webLinks") {
-	if ((JPluginHelper::isEnabled('content', 'vote')) && ($this->iso_params->get('btnrating','true') != "false")) {
+	if ((PluginHelper::isEnabled('content', 'vote')) && ($this->iso_params->get('btnrating','true') != "false")) {
 		$sens = $this->iso_params->get('btnrating','true') == 'true' ? '+':'-'; 
 		$sens = $defaultdisplay=="rating_desc"? "-": $sens;
 		$sort_buttons_div .= '<button class="'.$button_bootstrap.$checked.' iso_button_rating" data-sort-value="'.$featured.'rating,category,title,date" data-init="'.$sens.'" data-sens="'.$sens.'" title="'.$libreverse.'">'.$librating.'</button>';
@@ -369,7 +370,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 					if ($catsfilterimg == "true") {
 						$catparam  = json_decode($this->cats_params[$key]);	
 						if ($catparam->image != "") {
-							$img = '<img src="'.JURI::root().$catparam->image.'"  
+							$img = '<img src="'.URI::root().$catparam->image.'"  
 							class="iso_cat_img" alt="'.$tagimage->image_alt.'" /> ';
 						}
 					}
@@ -407,12 +408,12 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 		        $aff_alias = $this->cats_alias[$key];
 				if (!is_null($aff)) {
 					$selected = "";
-					if ($this->default_tag == $aff_alias) {$selected = "selected";}
+					if ($this->default_cat == $aff_alias) {$selected = "selected";}
 					$options['']['items'][] = ModulesHelper::createOption($aff_alias,Text::_($aff));
 				}
 			}
 			$filter_cat_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';
-			$filter_cat_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => $value,'list.attr'   => implode(' ', $selectAttr)));
+			$filter_cat_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => null,'list.attr'   => implode(' ', $selectAttr)));
 
 			$filter_cat_div .= '</joomla-field-fancy-select>';
 			$filter_cat_div .= '</div>';			
@@ -479,10 +480,10 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 						$tagimage  = json_decode($this->tags_image[$aff_alias]);
                                                 if (property_exists($tagimage,'image_image_fulltext') || property_exists($tagimage,'image_intro')) {
                                                     if ($tagimage->image_intro != "") {
-							$img = '<img src="'.JURI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
+							$img = '<img src="'.URI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
 							class="iso_tag_img" alt="'.$tagimage->image_intro_alt.'" title="'.$tagimage->image_intro_caption.'"/> ';
                                                     } elseif ($tagimage->image_fulltext != "") {
-							$img = '<img src="'.JURI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
+							$img = '<img src="'.URI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
 							class="iso_tag_img" alt="'.$tagimage->image_fulltext_alt.'" title="'.$tagimage->image_fulltext_caption.'"/> ';
                                                     }
                                                 }
@@ -532,7 +533,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 				}
 			}
 			$filter_tag_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';
-			$filter_tag_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => $value,'list.attr'   => implode(' ', $selectAttr)));
+			$filter_tag_div .= HTMLHelper::_('select.groupedlist', $options, $name,  array('id'          => $name,'list.select' => null,'list.attr'   => implode(' ', $selectAttr)));
 
 			$filter_tag_div .= '</joomla-field-fancy-select>';
 			$filter_tag_div .= '</div>';
@@ -555,10 +556,10 @@ foreach ($this->list as $key=>$category) {
 				if (!$tagimage) continue;
                                 if ((!property_exists($tagimage,'image_fulltext')) || ($tagimage->image_fulltext == "") && ($tagimage->image_intro == ""))  continue;
         				if ($tagimage->image_intro != "") {
-						$tag_img .= '<img src="'.JURI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
+						$tag_img .= '<img src="'.URI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
 									class="iso_tag_img_art" alt="'.$tagimage->image_intro_alt.'" title="'.$tagimage->image_intro_caption.'"/> ';
 					} elseif ($tagimage->image_fulltext != "") {
-						$tag_img .=  '<img src="'.JURI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
+						$tag_img .=  '<img src="'.URI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
 								class="iso_tag_img_art" alt="'.$tagimage->image_fulltext_alt.'" title="'.$tagimage->image_fulltext_caption.'"/> ';
 				};
 			}
@@ -567,7 +568,7 @@ foreach ($this->list as $key=>$category) {
 		}
 		$cat_params = json_decode($this->cats_params[$item->catid]);
 		if (($cat_params) && ($cat_params->image != "")) {
-			$cat_img = "<img src='".JURI::root().$cat_params->image."' alt='".$cat_params->image_alt."' class='iso_cat_img_art'/>";
+			$cat_img = "<img src='".URI::root().$cat_params->image."' alt='".$cat_params->image_alt."' class='iso_cat_img_art'/>";
 		}
 		$field_value = "";
 		$field_cust = array();
@@ -614,7 +615,7 @@ foreach ($this->list as $key=>$category) {
 			$t = 'onclick=go_click("'.$this->iso_entree.'","'.$item->link.'")';
 			$c = 'isotope_pointer'; // add class cursor = pointer
 		}
-		$isotope_grid_div .=  '<div class="isotope_item iso_cat_'.$item->catid.' '.$tag_display.' '.$c.'" data-featured="'.$item->featured.'" data-title="'.$item->title.'" data-category="'.$data_cat.'" data-date="'.$ladate.'" data-click="'.$click.'" data-rating="'.$item->rating.'" data-id="'.$item->id.'" data-lang="'.$item->language.'" data-alpha="'.substr($item->title,0,1).'" '.$data_range.$t.'>';
+		$isotope_grid_div .=  '<div class="isotope_item iso_cat_'.$item->catid.' '.$tag_display.' '.$c.'" data-featured="'.$item->featured.'" data-title="'.$item->title.'" data-category="'.$data_cat.'" data-date="'.$ladate.'" data-click="'.$click.'" data-rating="'.$item->rating.'" data-id="'.$item->id.'" data-blog="'.$item->ordering.'" data-lang="'.$item->language.'" data-alpha="'.substr($item->title,0,1).'" '.$data_range.$t.'>';
 
 		$item->new = "";
 		if ($this->iso_params->get('btnnew','false') == 'true') {
@@ -871,7 +872,7 @@ if ($this->iso_params->get('pagination','true') == 'infinite') { ?>
 </div>
 <?php } ?>
 </div>
-<?php if (strlen(trim($this->iso_params->get('bottom'))) > 0) {
+<?php if (strlen(trim($this->iso_params->get('bottom',''))) > 0) {
 	// apply content plugins on weblinks
 	$item_cls = new stdClass;
 	$item_cls->text = $this->iso_params->get('bottom');

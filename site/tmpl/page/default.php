@@ -61,10 +61,11 @@ if  ($this->imgmaxwidth) {
 if  ($this->imgmaxheight) {
 	$wa->addInlineStyle('#isotope-main-'.$com_id.' .isotope_item img{ max-height:'.$this->imgmaxheight.'px}');
 }
-$min = ".min";
-if ((bool)Factory::getConfig()->get('debug')) $min = '';
-$wa->registerAndUseScript('cgisotope',$comfield.'js/init'.$min.'.js');
-//$document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js'); // pour test JS
+if ((bool)Factory::getConfig()->get('debug')) {
+	$document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js'); 
+} else {
+	$wa->registerAndUseScript('cgisotope',$comfield.'js/init.min.js');
+}
 $user = Factory::getUser();
 $userId = $user->get('id');
 
@@ -123,36 +124,7 @@ $this->pagination = array();
 $this->alpha = array(); 
 $this->calendar = array(); 
 
-if ($this->iso_entree == "k2") {
-	$db = Factory::getDbo();
-	$db->setQuery("SELECT enabled FROM #__extensions WHERE name = 'COM_K2'");
-	$is_enabled = $db->loadResult();        
-	if ($is_enabled != 1) { 
-		Factory::getApplication()->enqueueMessage('Where is K2 ?', 'error');	
-		return true;
-	} 
-	require_once(JPATH_SITE.'/components/com_k2/helpers/route.php');
-	require_once(JPATH_SITE.'/components/com_k2/helpers/utilities.php');
-	
-	$this->tags_list = array();
-	if (($this->iso_params->get('cat_or_tag') == "tags") || ($this->iso_params->get('cat_or_tag') == "cattags")) { 
-		$this->tags_list = $this->iso_params->get('tags_k2');
-	}
-	$this->categories = $this->iso_params->get('categories_k2');
-	if (is_null($this->categories)) {
-		$res = CGHelper:: getAllCategories_K2($this->iso_params);
-		$this->categories = array();
-		foreach ($res as $catid) {
-			if ($catid->count > 0) {
-				$this->categories[] = $catid->id;
-			}
-		}
-	}
-	$this->article_tags = array();
-	foreach ($this->categories as $catid) {
-		$this->list[$catid] = CGHelper::getCategory_K2($catid,$this->iso_params,$this);
-	}
-} elseif ($this->iso_entree == "webLinks") {
+if ($this->iso_entree == "webLinks") {
 	$this->categories = $this->iso_params->get('wl_categories');
 	$weblinks_params = JComponentHelper::getParams('com_weblinks');
 	$this->list = CGHelper::getWebLinks($this->iso_params,$weblinks_params,$this);
@@ -198,16 +170,7 @@ if ($defaultdisplay == "random") {$sortBy = "random"; $sortAscending = "false";}
 if ($this->iso_params->get('btnfeature','false') != "false") { // featured always first
 	$sortBy = 'featured,'.$sortBy;
 }
-if ($this->iso_entree == "k2") {
-	$this->default_cat = $this->iso_params->get('default_cat_k2','');
-	$this->default_tag = $this->iso_params->get('default_tag_k2','');
-	if (($this->default_cat != "") && ($this->default_cat != "none"))  {
-		$this->default_cat = $this->cats_alias[$this->default_cat];
-	}
-	if (($this->default_tag != "") && ($this->default_tag != "none"))  {
-		$this->default_tag = $this->tags_alias[$this->default_tag];
-	}
-} elseif ($this->iso_entree == "webLinks") {
+if ($this->iso_entree == "webLinks") {
 	$this->default_cat = $this->iso_params->get('default_cat_wl','');
 	if (($this->default_cat != "") && ($this->default_cat != "none"))  {
 		$this->default_cat = $this->cats_alias[$this->iso_params->get('default_cat_wl')];
@@ -236,32 +199,7 @@ if (($this->displayrange == "true") && ($this->rangestep == "auto")) {
 }
 
 $this->default_field = "";
-if ($this->iso_entree == "k2") {
-	$this->displayfiltercat = $this->iso_params->get('displayfiltercat','button');
-	$this->displayfiltertags = $this->iso_params->get('displayfiltertags','button');
-	$this->searchmultiex = "false";
-	if ($this->displayfiltercat == "multiex"){
-		$this->searchmultiex = "true";
-	}
-	$document->addScriptOptions('cg_isotope_'.$com_id, 
-		array('entree' => $this->iso_entree,'article_cat_tag' => $this->article_cat_tag,
-			  'default_cat' => $this->default_cat,
-		      'default_tag' => $this->default_tag,
-			  'layout' => $this->iso_layout,'nbcol' => $this->iso_nbcol,
-			  'background' => $this->iso_params->get("backgroundcolor","#eee"),
-			  'imgmaxwidth' => $this->iso_params->get('introimg_maxwidth','0'),
-			  'imgmaxheight' => $this->iso_params->get('introimg_maxheight','0'),
-			  'sortby' => $sortBy, 'ascending' => $sortAscending,
-			  'searchmultiex' => $this->searchmultiex, 'liball' => Text::_('CG_ISO_LIBALL'),
-  			  'language_filter' => $this->language_filter,
-			  'displayfiltertags'=> $this->displayfiltertags, 'displayfiltercat' => $this->displayfiltercat,
-			  'displayalpha'=>$this->displayalpha,'limit_items' => $this->iso_params->get('limit_items','0'),
-			  'libmore' => Text::_('SSISO_LIBMORE'), 'libless' => Text::_('SSISO_LIBLESS'), 'readmore' => $this->iso_params->get("readmore","false"),
-			  'empty' => $this->iso_params->get("empty","false"),
-			  'pagination' => $this->iso_pagination,'page_count' => $this->page_count,'infinite_btn' => $this->iso_params->get("infinite_btn","false"),
-			  'button_bootstrap' => $button_bootstrap));
-	
-} elseif (($this->article_cat_tag == "fields") || ($this->article_cat_tag == "catfields") || ($this->article_cat_tag == "tagsfields") || ($this->article_cat_tag == "cattagsfields")) {
+if (($this->article_cat_tag == "fields") || ($this->article_cat_tag == "catfields") || ($this->article_cat_tag == "tagsfields") || ($this->article_cat_tag == "cattagsfields")) {
 	$this->splitfields = $this->iso_params->get('displayfiltersplitfields','false'); 
 	$this->displayfilterfields =  $this->iso_params->get('displayfilterfields','button');
 	$this->displayfiltercat = $this->iso_params->get('displayfiltercat','button'); 
@@ -325,9 +263,7 @@ PluginHelper::importPlugin('cgisotope');
 Factory::getApplication()->triggerEvent('onCGIsotopeBefore', array ('com_cgisotope.article', $this)); 		
 ?>
 <?php 
-if ($this->iso_entree == "k2") {
-	echo $this->loadTemplate('k2'); 
-} elseif (($this->article_cat_tag == "fields") || ($this->article_cat_tag == "catfields") || ($this->article_cat_tag == "tagsfields") || ($this->article_cat_tag == "cattagsfields"))  {
+if (($this->article_cat_tag == "fields") || ($this->article_cat_tag == "catfields") || ($this->article_cat_tag == "tagsfields") || ($this->article_cat_tag == "cattagsfields"))  {
 	echo $this->loadTemplate('fields');
 } else {
 	echo $this->loadTemplate('cat_tags');
