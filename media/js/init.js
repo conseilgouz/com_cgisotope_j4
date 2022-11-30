@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.21
+* Version			: 3.0.22
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -1546,7 +1546,7 @@ function set_family(me,$parent,child,sortValue,$type) {
 							} else {
 								oneval = $vals[$j].getAttribute('data-sort-value');
 							}
-							if (oneval != "*") newparents.push(onval);
+							if (oneval != "*") newparents.push(oneval);
 						}
 					}
 				}
