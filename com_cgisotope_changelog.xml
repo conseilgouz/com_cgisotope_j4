@@ -4,7 +4,7 @@
 		<type>component</type>
 		<version>3.0.22</version>
         <note>
-            <item>Update : 30/12/2022</item>
+            <item>Update : 30/11/2022</item>
         </note>
 		<fix>
             <item>Error onval undefined in init.js</item>
@@ -15,7 +15,7 @@
 		<type>component</type>
 		<version>3.0.21</version>
         <note>
-            <item>Update : 30/12/2022</item>
+            <item>Update : 30/11/2022</item>
         </note>
 		<fix>
             <item>Remove JQuery : AJAX Call</item>
