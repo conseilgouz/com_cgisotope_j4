@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.13
+* Version			: 3.0.23
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -14,6 +14,7 @@ use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Access\Access;
 
 $document = Factory::getDocument();
 
@@ -81,6 +82,13 @@ $this->language = $this->iso_params->get('language','*');
 $this->iso_entree = $this->iso_params->get('iso_entree', 'webLinks');
 $this->article_cat_tag = $this->iso_params->get('cat_or_tag',$this->iso_entree == "webLinks"?'cat':'tags'); 
 $this->tags_list = $this->iso_params->get('tags',array());
+// check authorised tags
+$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
+foreach ($this->tags_list as $key=>$atag) {
+	if (!CGHelper::getTagAccess($atag,$authorised)) {
+		unset($this->tags_list[$key]); // not authorized : remove it
+	}
+}
 $this->fields_list = $this->iso_params->get('displayfields');
 $this->iso_pagination = $this->iso_params->get('pagination','false');
 $this->page_count = $this->iso_params->get('page_count','0');

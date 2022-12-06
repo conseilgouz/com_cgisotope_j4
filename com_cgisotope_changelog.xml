@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.0.23</version>
+        <note>
+            <item>Update : 06/12/2022</item>
+        </note>
+		<fix>
+            <item>Check tags level</item>
+            <item>Suppress notice on line 439</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.0.22</version>
         <note>
             <item>Update : 30/11/2022</item>

@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.16
+* Version			: 3.0.23
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -378,15 +378,15 @@ $filter_tag_div= "";
 					$img = "";
 					if ($tagsfilterimg == "true") {
 						$tagimage  = json_decode($this->tags_image[$aff_alias]);
-                                                if (property_exists($tagimage,'image_image_fulltext') || property_exists($tagimage,'image_intro')) {
-                                                    if ($tagimage->image_intro != "") {
+                        if (is_object($tagimage) && (property_exists($tagimage,'image_fulltext') || property_exists($tagimage,'image_intro'))) {
+							if ($tagimage->image_intro != "") {
 							$img = '<img src="'.URI::root().$tagimage->image_intro.'" style="float:'.$tagimage->float_intro.'" 
 							class="iso_tag_img" alt="'.$tagimage->image_intro_alt.'" title="'.$tagimage->image_intro_caption.'"/> ';
-                                                    } elseif ($tagimage->image_fulltext != "") {
+                            } elseif ($tagimage->image_fulltext != "") {
 							$img = '<img src="'.URI::root().$tagimage->image_fulltext.'" style="float:'.$tagimage->float_fulltext.'" 
 							class="iso_tag_img" alt="'.$tagimage->image_fulltext_alt.'" title="'.$tagimage->image_fulltext_caption.'"/> ';
-                                                    }
-                                                }
+                            }
+                        }
 					}
 					$checked = "";
 					if ($this->default_tag == $aff_alias) {$checked = "is-checked";}
