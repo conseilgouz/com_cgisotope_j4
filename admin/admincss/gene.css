@@ -1,8 +1,8 @@
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.1.0
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -10,28 +10,28 @@
 	margin-left: 1em;
 	margin-right: 1em;
 }
-#gene_tab .control-group:nth-of-type(1){ /* title */
+#gene_tab .control-group:nth-of-type(2){ /* title */
 	float:left;width:35%;
 }
-#gene_tab .control-group:nth-of-type(2){ /* state */
+#gene_tab .control-group:nth-of-type(3){ /* state */
 	float:left;width:25%;
 }
-#gene_tab .control-group:nth-of-type(3){ /* language */
+#gene_tab .control-group:nth-of-type(4){ /* language */
 	float:right;width:25%;
 }
-#gene_tab .control-group:nth-of-type(4){ /* introtext */
+#gene_tab .control-group:nth-of-type(5){ /* introtext */
 	clear:both;width:100%;
 }
-#gene_tab .control-group:nth-of-type(4) .controls, /* Intro */
-#gene_tab .control-group:nth-of-type(5) .controls{ /* Bottom */
+#gene_tab .control-group:nth-of-type(5) .controls, /* Intro */
+#gene_tab .control-group:nth-of-type(6) .controls{ /* Bottom */
 	width:90%;
 }
 /*#gene_tab .control-group:nth-of-type(1) .control-label {width:5em}*/
-#gene_tab .control-group:nth-of-type(2) .control-label {width:5em}
 #gene_tab .control-group:nth-of-type(3) .control-label {width:5em}
+#gene_tab .control-group:nth-of-type(4) .control-label {width:5em}
 
-#gene_tab .control-group:nth-of-type(4) .control-label {width:7em}
 #gene_tab .control-group:nth-of-type(5) .control-label {width:7em}
+#gene_tab .control-group:nth-of-type(6) .control-label {width:7em}
 
 #gene_tab .alert-success {font-size:120%;
 text-align:center}

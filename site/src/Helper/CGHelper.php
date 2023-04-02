@@ -94,7 +94,7 @@ class CGHelper  extends ComponentHelper{
 		{
 			foreach ($items as $item)
 			{ // link to update click counter (visits)
-					$item->link	= Route::_('index.php?option=com_weblinks&task=weblink.go&catid=' . $id . ':'.$alias.'&id=' . $item->id.':'.$item->alias);
+					$item->link	= 'index.php?option=com_weblinks&task=weblink.go&catid=' . $id . ':'.$alias.'&id=' . $item->id.':'.$item->alias;
 					$images  = json_decode($item->images);
 					$item->introimg = ""; 			// image d'introduction
 					if (!empty($images->image_first)) { // first img exists

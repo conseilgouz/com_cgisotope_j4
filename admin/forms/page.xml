@@ -4,7 +4,8 @@
 		<inlinehelp button="show"/>     
 	</config>
 
-	<fieldset name="gene_tab" label="CG_ISO_GENE_TAB">
+	<fieldset name="gene_tab" label="CG_ISO_GENE_TAB" addfieldprefix="ConseilGouz\Component\CGIsotope\Administrator\Field">
+		<field name="version" type="version"  margintop="-4em" extension="com_cgisotope"/>
 		<field name="id" type="hidden" default="0"
 			readonly="true" class="readonly"
 			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
