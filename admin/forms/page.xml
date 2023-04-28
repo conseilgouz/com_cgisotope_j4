@@ -223,6 +223,12 @@
 					<option value="">CG_ISO_LIBALL</option>
 					<option value="none">CG_ISO_LIBNONE</option>
 			</field>
+			<field	showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" name="tagsmissinghidden"
+				type="radio" class="btn-group btn-group-yesno half left" default="false" 
+				label="CG_ISO_TAGSMISSINGHIDDEN" description="CG_ISO_TAGSMISSINGHIDDENDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
 			<field showon="cat_or_tag:tags,cattags[AND]iso_entree:k2"
 				name="tags_k2" type="k2tags" label="ISO_K2_TAGS" description="ISO_K2_TAGS_DESC"/>
 			<field	name="displayfiltertags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields"

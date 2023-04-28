@@ -87,6 +87,7 @@ class PageModel extends AdminModel {
 		$data->splitfieldscolumn = $compl['splitfieldscolumn'];
         $data->splitfieldstitle = $compl['splitfieldstitle'];
         $data->displayfilterfields = $compl['displayfilterfields'];
+        $data->tagsmissinghidden = $compl['tagsmissinghidden'];
         $data->tagsfilterorder = $compl['tagsfilterorder'];
         $data->tagsfilterimg = $compl['tagsfilterimg'];
         $data->tagsfilterparent = $compl['tagsfilterparent'];

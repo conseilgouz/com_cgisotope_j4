@@ -122,6 +122,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['splitfieldscolumn'] = $compl['splitfieldscolumn'];
             $page_params['splitfieldstitle'] = $compl['splitfieldstitle'];
             $page_params['displayfilterfields'] = $compl['displayfilterfields'];
+            $page_params['tagsmissinghidden'] = $compl['tagsmissinghidden'];
             $page_params['tagsfilterorder'] = $compl['tagsfilterorder'];
             $page_params['tagsfilterimg'] = $compl['tagsfilterimg'];
             $page_params['tagsfilterparent'] = $compl['tagsfilterparent'];

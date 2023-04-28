@@ -1,9 +1,9 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.23
+* Version			: 3.1.2
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -92,7 +92,7 @@ class CGHelper  extends ComponentHelper{
 		$items= $db->loadObjectList();
 		if ($items)
 		{
-			foreach ($items as $item)
+			foreach ($items as $itemkey=>$item)
 			{ // link to update click counter (visits)
 					$item->link	= 'index.php?option=com_weblinks&task=weblink.go&catid=' . $id . ':'.$alias.'&id=' . $item->id.':'.$item->alias;
 					$images  = json_decode($item->images);
@@ -120,7 +120,30 @@ class CGHelper  extends ComponentHelper{
 					} else { // no intro img needed
 						$item->description = self::cleanIntrotext($item->description,$params);
 					}
-					// JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
+					$tag_ok = false;
+					if (!$params->get('tagsmissinghidden') || ($params->get('tagsmissinghidden') == "false") ||  
+						!$params->get('tags') || !sizeOf($params->get('tags'))) { // don't check tags list
+						$tag_ok = true; 
+					}
+					$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
+					$article_tags[$item->id] = self::getWebLinkTags($item->id,$authorised); // weblink's tags
+					foreach ($article_tags[$item->id] as $tag) { 
+						if (!$tag_ok && in_array($tag->tagid,$params->get('tags'))) { // check tags list ?
+							$tag_ok = true; // tag in params list
+						}
+						if (!in_array($tag->tag, $tags)) {
+							$tags[]=$tag->tag;
+							$tags_alias[$tag->tag] = $tag->alias;
+							$tags_image[$tag->alias] = $tag->images;
+							$tags_note[$tag->alias] = $tag->note;
+							$tags_parent[$tag->alias] = $tag->parent_title;
+							$tags_parent_alias[$tag->alias] = $tag->parent_alias;
+						}
+					}
+					if (!$tag_ok) { // no tag for this article in tags list
+						unset($items[$itemkey]); // don't show it
+						continue;
+					}
 					$test = FieldsHelper::getFields('com_weblinks.weblink',$item);
 					foreach ($test as $field) {
 						
@@ -185,18 +208,6 @@ class CGHelper  extends ComponentHelper{
 							}	
 						}
 					}					
-					$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
-					$article_tags[$item->id] = self::getWebLinkTags($item->id,$authorised); // article's tags
-					foreach ($article_tags[$item->id] as $tag) { 
-						if (!in_array($tag->tag, $tags)) {
-							$tags[]=$tag->tag;
-							$tags_alias[$tag->tag] = $tag->alias;
-							$tags_image[$tag->alias] = $tag->images;
-							$tags_note[$tag->alias] = $tag->note;
-							$tags_parent[$tag->alias] = $tag->parent_title;
-							$tags_parent_alias[$tag->alias] = $tag->parent_alias;
-						}
-					}
 					$info_cat = self::getCategoryName($item->catid);
 					if (!in_array($info_cat[0]->alias,$cats_alias)) {
 					    $cats_lib[$item->catid] = $info_cat[0]->title;
@@ -308,7 +319,7 @@ class CGHelper  extends ComponentHelper{
 		PluginHelper::importPlugin('cgisotope');
 		Factory::getApplication()->triggerEvent('onCGIsotopeFilter', array ('com_cgisotope.article', &$items));
 		
-		foreach ($items as &$item)
+		foreach ($items as $itemkey=>&$item)
 		{
 			$images  = json_decode($item->images);			
 			$item->introimg = ""; // image d'introduction
@@ -381,15 +392,27 @@ class CGHelper  extends ComponentHelper{
 			}
 			$item->displayReadmore  = $item->alternative_readmore;
 			$iso->article_tags[$item->id] = self::getArticleTags($item->id,$authorised); // article's tags
+			$tag_ok = false;
+			if (!$params->get('tagsmissinghidden') || ($params->get('tagsmissinghidden') == "false") ||  
+				!$params->get('tags') || !sizeOf($params->get('tags'))) { // don't check tags list
+			    $tag_ok = true; 
+			}
 			foreach ($iso->article_tags[$item->id] as $tag) { 
-				if (!in_array($tag->tag, $iso->tags)) {
-					$iso->tags[]=$tag->tag;
-					$iso->tags_alias[$tag->tag] = $tag->alias;
-					$iso->tags_image[$tag->alias] = $tag->images;
-					$iso->tags_note[$tag->alias] = $tag->note; 
-					$iso->tags_parent[$tag->alias] = $tag->parent_title;					
-					$iso->tags_parent_alias[$tag->alias] = $tag->parent_alias;					
-				}
+			    if (!$tag_ok && in_array($tag->tagid,$params->get('tags'))) {// check tags list ?
+			        $tag_ok = true; // tag in params list
+			    }
+        		if (!in_array($tag->tag, $iso->tags)) {
+    				$iso->tags[]=$tag->tag;
+	       			$iso->tags_alias[$tag->tag] = $tag->alias;
+			    	$iso->tags_image[$tag->alias] = $tag->images;
+				   	$iso->tags_note[$tag->alias] = $tag->note; 
+				   $iso->tags_parent[$tag->alias] = $tag->parent_title;					
+				   $iso->tags_parent_alias[$tag->alias] = $tag->parent_alias;					
+			    }
+			}
+			if (!$tag_ok) { // no tag for this article in tags list
+			    unset($items[$itemkey]); // don't show it
+			    continue;
 			}
 			$params_fields = $params->get('displayfields');  // fields 
 			// JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
@@ -589,7 +612,7 @@ class CGHelper  extends ComponentHelper{
 	public static function getArticleTags($id,$authorised) {
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('tags.title as tag, tags.alias as alias, tags.images as images, tags.note as note, parent.title as parent_title, parent.alias as parent_alias')
+		$query->select('tags.title as tag, tags.alias as alias, tags.images as images, tags.note as note, parent.title as parent_title, parent.alias as parent_alias,tags.id as tagid')
 			->from('#__contentitem_tag_map as map ')
 			->innerJoin('#__content as c on c.id = map.content_item_id') 
 			->innerJoin('#__tags as tags on tags.id = map.tag_id')
@@ -602,7 +625,7 @@ class CGHelper  extends ComponentHelper{
 	public static function getWebLinkTags($id,$authorised) {
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('tags.title as tag, tags.alias as alias, tags.images as images, tags.note as note,parent.title as parent_title, parent.alias as parent_alias ')
+		$query->select('tags.title as tag, tags.alias as alias, tags.images as images, tags.note as note,parent.title as parent_title, parent.alias as parent_alias,tags.id as tagid')
 			->from('#__contentitem_tag_map as map ')
 			->innerJoin('#__weblinks as w on w.id = map.content_item_id') 
 			->innerJoin('#__tags as tags on tags.id = map.tag_id')
