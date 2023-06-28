@@ -268,9 +268,10 @@ class CGHelper  extends ComponentHelper{
 		$articles->setState('list.start', $iso->start);
 		$articles->setState('list.limit', $iso->limit);
 		// $articles->setState('filter.published', 1);
-		$access     = ComponentHelper::getParams('com_content')->get('show_noauth');
+		$access     = true; // check user access level
 		$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
-		$articles->setState('filter.access', true); // check access
+		$articles->setState('filter.access', $access); // check access
+		$articles->setState('filter.viewlevels', $authorised);
 		$catids = $iso->categories;
 		$articles->setState('filter.category_id', $catids);		
 		$articles->setState('filter.category_id.include', true);
