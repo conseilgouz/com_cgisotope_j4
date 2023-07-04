@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.1.2
+* Version			: 3.2.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -51,9 +51,9 @@ class CGHelper  extends ComponentHelper{
 		$table = $model->getTable();
 		$table->load((int)$id);
 		$lesparams = json_decode($table->page_params,true);
+		$lesparams['layouts'] = $table->sections;
+		$lesparams['fieldslinks'] = $table->fieldslinks;
 		$params = new Registry(json_encode($lesparams));
-        $params->layouts = $table->sections;
-		$params->fieldslinks = $table->fieldslinks;
 		$params->set('language',$table->language);
 		return $params;
     }
