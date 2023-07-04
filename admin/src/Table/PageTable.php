@@ -1,9 +1,9 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 3.0.9
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.2.0
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -141,6 +141,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['displaycalendar'] = $compl['displaycalendar'];
             $page_params['calendarfields'] = $compl['calendarfields'];
             $page_params['empty'] = $compl['empty'];
+            $page_params['cookieduration'] = $compl['cookieduration'];
             $page_params['css'] = $compl['css'];
             $page_params['btnsubtitle'] = $compl['btnsubtitle'];
             $page_params['btnnew'] = $compl['btnnew'];

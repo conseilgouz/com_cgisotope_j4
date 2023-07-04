@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.2.0</version>
+        <note>
+            <item>Update : 04/07/2023</item>
+        </note>
+		<fix>
+            <item>PHP 8.2 : suppress notices</item>
+		</fix>
+		<addition>
+			<item>New parameter : cookie duration</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.1.3</version>
         <note>
             <item>Update : 28/06/2023</item>

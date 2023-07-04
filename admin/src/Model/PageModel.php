@@ -1,9 +1,9 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 3.0.9
+* CG Isotope Component  - Joomla 4.x Component 
+* Version			: 3.2.0
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -112,6 +112,7 @@ class PageModel extends AdminModel {
 		$data->displaycalendar = $compl['displaycalendar'];
 		$data->calendarfields = $compl['calendarfields'];
         $data->empty = $compl['empty'];
+        $data->cookieduration = $compl['cookieduration'];
 		$data->btnsubtitle = $compl['btnsubtitle'];
 		$data->btnnew = $compl['btnnew'];
 		$data->new_limit = $compl['new_limit'];

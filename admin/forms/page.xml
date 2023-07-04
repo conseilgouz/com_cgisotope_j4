@@ -156,6 +156,15 @@
 				<option value="true">JYES</option> 
 				<option value="false">JNO</option> 
 			</field>
+			<field	name="cookieduration"
+				type="list" class="btn-group right half" default="0"
+				label="CG_ISO_COOKIEDURATION" description="CG_ISO_COOKIEDURATIONDESC" >
+				<option value="-1">JNONE</option> 
+				<option value="0">CG_ISO_COOKIE_SESSION</option>
+				<option value="1d">CG_ISO_COOKIE_1D</option>
+				<option value="1w">CG_ISO_COOKIE_1W</option>
+				<option value="1m">CG_ISO_COOKIE_1M</option>
+			</field>
 <field	name="notefiltercatinfo"	type="note" label="CG_ISO_FILTERCATINFONOTE" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success clear half"/>
 			<field name="default_cat" showon="cat_or_tag:cat,cattags,catfields,cattagsfields[AND]iso_entree:articles"
 					type="category" multiple="false" extension="com_content" 

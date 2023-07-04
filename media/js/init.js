@@ -1,8 +1,8 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.24
+* Version			: 3.2.0
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -1269,7 +1269,23 @@ function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : '';
 }
 function CG_Cookie_Set(id,param,b) {
-	var expires = "";
+	var expires;
+	duration = options.cookieduration;
+    var d = new Date();
+	if( (typeof duration === 'undefined') || (duration == 0) ) expires = ""; // default duration : session
+	else if (duration == '-1') expires = ";Max-Age=0;"; // no cookie
+	else if (duration == '1d') { // 1 day
+		d.setTime(d.getTime() + (1*24*60*60*1000));
+		expires = ";expires="+ d.toUTCString();
+	} 
+	else if (duration == '1w') { // 1 week
+		d.setTime(d.getTime() + (7*24*60*60*1000));
+		expires = ";expires="+ d.toUTCString();
+	}
+	else if (duration == '1m') { // 1 month
+		d.setTime(d.getTime() + (30*24*60*60*1000));
+		expires = ";expires="+ d.toUTCString();
+	}
 	$secure = "";
 	if (window.location.protocol == "https:") $secure="secure;"; 
 	lecookie = getCookie(cookie_name);

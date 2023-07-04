@@ -1,9 +1,9 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.0.23
+* Version			: 3.2.0
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -63,7 +63,7 @@ if ($displaybootstrap == 'true') {
 	$button_bootstrap = "btn btn-sm ";
 }
 //==============================LAYOUTS======================================//
-$layouts_prm = json_decode($this->iso_params->layouts);
+$layouts_prm = json_decode($this->iso_params->get('layouts'));
 $layouts = [];
 $layouts_order = [];
 // Default values 
