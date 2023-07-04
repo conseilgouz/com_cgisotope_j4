@@ -553,7 +553,7 @@ class CGHelper  extends ComponentHelper{
 		} else {
 			$obj->render = $value;
 		}
-		$params_links = json_decode($params->fieldslinks);
+		$params_links = json_decode($params->get('fieldslinks'));
 		if ($params_links) { // fields links
 	  	  $model = Factory::getApplication()->bootComponent('com_fields')
 			->getMVCFactory()->createModel('Field', 'Administrator', ['ignore_request' => true]);
