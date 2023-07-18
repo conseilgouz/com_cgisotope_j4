@@ -1,9 +1,9 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 3.2.1
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -15,16 +15,17 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 // HTMLHelper::_('behavior.tooltip');
 HTMLHelper::_('behavior.multiselect');
 
-$user		= JFactory::getUser();
+$user		= Factory::getUser();
 $userId		= $user->get('id');
 $canOrder	= ContentHelper::getActions('com_cgisotope');
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_cgisotope&view=import'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_cgisotope&view=import'); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
 	<div id="j-sidebar-container" class="span2">
 		<?php echo $this->sidebar; ?>
@@ -96,7 +97,7 @@ $canOrder	= ContentHelper::getActions('com_cgisotope');
                         $lang->language = $module['language'];
                         $lang->language_image = str_replace('-','_',strtolower((string)$module['language']));
 						$lang->language_title = $module['language'];
-                        echo JLayoutHelper::render('joomla.content.language', $lang); ?>
+                        echo LayoutHelper::render('joomla.content.language', $lang); ?>
                 </td>
 				<td>
 				      <?php echo HTMLHelper::_('jgrid.published', $module['published'], $i, 'import.', false, 'cb'); ?>                  

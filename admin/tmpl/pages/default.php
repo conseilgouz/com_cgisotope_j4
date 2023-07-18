@@ -1,9 +1,9 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 3.2.1
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -16,6 +16,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Layout\LayoutHelper;
 
 // JHtml::_('behavior.tooltip');
 HTMLHelper::_('behavior.multiselect');
@@ -27,7 +28,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 $canOrder	= ContentHelper::getActions('com_cgisotope');
 $saveOrder	= $listOrder=='ordering';
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_cgisotope&view=pages'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_cgisotope&view=pages'); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
 	<div id="j-sidebar-container" class="span2">
 		<?php echo $this->sidebar; ?>
@@ -101,7 +102,7 @@ $saveOrder	= $listOrder=='ordering';
 			?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="center">
-					<?php echo JHtml::_('grid.id', $i, $page->id); ?>
+					<?php echo HtmlHelper::_('grid.id', $i, $page->id); ?>
 				</td>
 				<td class="center">
                     <a href="<?php echo Route::_('index.php?option=com_cgisotope&task=page.edit&id='.(int) $page->id); ?>">
@@ -130,7 +131,7 @@ $saveOrder	= $listOrder=='ordering';
 						echo $text; ?>                     
 				</td>
                 <td align="center">
-                    <?php echo JLayoutHelper::render('joomla.content.language', $page); ?>
+                    <?php echo LayoutHelper::render('joomla.content.language', $page); ?>
                 </td>
 				<td class="center">
 					<?php echo HTMLHelper::_('jgrid.published', $page->state, $i, 'pages.', $canChange, 'cb'); ?>

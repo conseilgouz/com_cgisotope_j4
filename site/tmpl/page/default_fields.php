@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.0
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 3.2.1
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -11,9 +11,10 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;					   
 use Joomla\CMS\Plugin\PluginHelper;
-use \Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Modules\Administrator\Helper\ModulesHelper;
+use Joomla\CMS\Session\Session;
 use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 
 PluginHelper::importPlugin('content');
@@ -864,7 +865,7 @@ $width = $layouts["iso"]->div_width;
 if ($this->iso_params->get('readmore','false') =='iframe') {
    echo '<div id="isotope_an_article" class="isotope_an_article col-md-'.$width.' col-12 isotope-hide" ><button type="button" class="close">X</button><iframe src="" id="isotope_article_frame"></iframe></div>'; 
 } elseif ($this->iso_params->get('readmore','false') =='ajax') {
-	echo '<input id="token" type="hidden" name="' . JSession::getFormToken() . '" value="1" />';
+	echo '<input id="token" type="hidden" name="' . Session::getFormToken() . '" value="1" />';
 	echo '<div id="isotope_an_article" class="isotope_an_article col-md-'.$width.' col-12 isotope-hide" ></div>'; 
 }
 ?>

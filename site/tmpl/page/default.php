@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.0
+* CG Isotope Component  - Joomla 4.x/5x Component 
+* Version			: 3.2.1
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -12,9 +12,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Access\Access;
+use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
 
@@ -63,7 +65,7 @@ if  ($this->imgmaxheight) {
 	$wa->addInlineStyle('#isotope-main-'.$com_id.' .isotope_item img{ max-height:'.$this->imgmaxheight.'px}');
 }
 if ((bool)Factory::getConfig()->get('debug')) {
-	$document->addScript(''.JURI::base(true).'/media/com_cgisotope/js/init.js'); 
+	$document->addScript(''.URI::base(true).'/media/com_cgisotope/js/init.js'); 
 } else {
 	$wa->registerAndUseScript('cgisotope',$comfield.'js/init.min.js');
 }
@@ -107,7 +109,7 @@ if  ($this->displayoffcanvas == "hamburger") {
 $this->displaybootstrap = $this->iso_params->get('bootstrapbutton','false'); 
 $button_bootstrap = "isotope_button";
 if ($this->displaybootstrap == 'true') { 
-	\Joomla\CMS\HTML\HTMLHelper::_('bootstrap.button', '.selector');
+	HTMLHelper::_('bootstrap.button', '.selector');
 	$button_bootstrap = "btn btn-sm ";
 }
 $this->minrange = '';
@@ -134,7 +136,7 @@ $this->calendar = array();
 
 if ($this->iso_entree == "webLinks") {
 	$this->categories = $this->iso_params->get('wl_categories');
-	$weblinks_params = JComponentHelper::getParams('com_weblinks');
+	$weblinks_params = ComponentHelper::getParams('com_weblinks');
 	$this->list = CGHelper::getWebLinks($this->iso_params,$weblinks_params,$this);
 	if (!$this->list) return false; // on a eu une erreur: on sort
 } else { 
