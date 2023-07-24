@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.2.2</version>
+        <note>
+            <item>Update : 18/07/2023</item>
+        </note>
+		<fix>
+            <item>use Joomla\Filesystem instead of Joomla\CMS\Filesystem classes in script.php</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.2.1</version>
         <note>
             <item>Update : 18/07/2023</item>
