@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 3.2.1
+* Version			: 3.2.3
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -480,8 +480,10 @@ $filter_tag_div= "";
 					if ($this->default_cat == $aff_alias) {$checked = "is-checked";}
 					$img="";
 					if ($catsfilterimg == "true") {
-						$catparam  = json_decode($this->cats_params[$key]);	
-						if ($catparam->image != "") {
+						$catparams = "";
+						if ($this->cats_params[$key])
+							$catparam  = json_decode($this->cats_params[$key]);	
+						if ($catparams && ($catparam->image != "")) {
 							$img = '<img src="'.URI::root().$catparam->image.'"  
 							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> '; // pascal
 						}

@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.2.3</version>
+        <note>
+            <item>Update : 28/08/2023</item>
+        </note>
+		<fix>
+            <item>suppress notice : Deprecated: json_decode() : passing null</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.2.2</version>
         <note>
             <item>Update : 18/07/2023</item>
