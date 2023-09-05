@@ -687,7 +687,7 @@ foreach ($this->list as $key=>$category) {
 		if ($canEdit) {
 				$isotope_grid_div .=  '<span class="edit-icon">';
 				$isotope_grid_div .=  '<a href="index.php?option=com_content&task=article.edit&a_id='.$item->id.'&return='.base64_encode($uri).'">';
-				$isotope_grid_div .=  '<img src="media/system/images/edit.png" alt="modifier" class="iso-img-max-width"></a>';
+				$isotope_grid_div .=  '<span class="icon-edit" aria-hidden="true"></span>';//'<img src="media/system/images/edit.png" alt="modifier" class="iso-img-max-width"></a>';
 				$isotope_grid_div .=  '</span>';
 		}
 		

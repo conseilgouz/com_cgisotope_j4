@@ -9,6 +9,7 @@
 		<fix>
             <item>suppress warning : Undefined property: stdClass::$image</item>
 			<item>init.js : options conflict with other CG Extensions</item>
+			<item>replace edit.png by class="icon-edit"</item>
 		</fix>
 	</changelog>
 	<changelog>
