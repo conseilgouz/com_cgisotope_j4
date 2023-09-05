@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.0
+* Version			: 3.2.4
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -9,7 +9,7 @@
 var $close,grid_toggle,iso_article,iso,me,
 	empty_message,items_limit, sav_limit,
 	iso_height,iso_width,article_frame;
-var resetToggle,options,myid;
+var resetToggle,options_iso,myid;
 var qsRegex,asc,sort_by,filters;
 var rangeSlider,range_init,range_sel,min_range,max_range;
 var cookie_name;
@@ -25,17 +25,17 @@ for(var i=0; i<mains.length; i++) {
 		console.error('Joomla.getOptions not found!\nThe Joomla core.js file is not being loaded.');
 		return false;
 	}
-	options = Joomla.getOptions('cg_isotope_'+myid);
-	if (typeof options === 'undefined' ) {return false}
+	options_iso = Joomla.getOptions('cg_isotope_'+myid);
+	if (typeof options_iso === 'undefined' ) {return false}
 	cookie_name = "cg_isotope_"+myid;
-	iso_cat_k2(myid,options);
+	iso_cat_k2(myid);
 	}
 
 grid_toggle = document.querySelector('.isotope_grid')
 iso_article = document.querySelector('.isotope_an_article')
 iso_div = document.querySelector('.isotope-main .isotope-div')
 article_frame=document.querySelector('iframe#isotope_article_frame')
-if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
+if ((options_iso.readmore == 'ajax') || (options_iso.readmore == 'iframe'))  {
 	iso_height = grid_toggle.offsetHeight;
 	iso_width = grid_toggle.offsetWidth;
 	readmoretitles =  document.querySelectorAll('.isotope-readmore-title');
@@ -51,7 +51,7 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 				removeClass(iso_article,'isotope-hide');
 				iso_article.offsetHeight ='auto';
 				addClass(iso_article,'article-loading');
-				if (options.readmore == 'ajax') {
+				if (options_iso.readmore == 'ajax') {
 					document.querySelector("#isotope_an_article").innerHTML = '';
 					var mytoken = document.getElementById("token");
 					token = mytoken.getAttribute("name");
@@ -74,7 +74,7 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 					var mytoken = document.getElementById("token");
 					token = mytoken.getAttribute("name");
 					$.ajax({
-						data: { [token]: "1", task: "display", format: "json", article: this.dataset['articleid'],entree: options.entree },
+						data: { [token]: "1", task: "display", format: "json", article: this.dataset['articleid'],entree: options_iso.entree },
 						success: function(result, status, xhr) { 
 							removeClass(iso_article,'article-loading');
 							iso_article.style.height = iso_height;
@@ -84,7 +84,7 @@ if ((options.readmore == 'ajax') || (options.readmore == 'iframe'))  {
 						},
 						error: function(message) {console.log(message.responseText)}
 					});	*/
-				} else if (options.readmore == 'iframe') {	
+				} else if (options_iso.readmore == 'iframe') {	
 	/* iFrame */
 					if (iso_height == 0) iso_height="100vh";
 					article_frame.style.height = 0;
@@ -219,15 +219,15 @@ function displayArticle(result) {
 		}
 	}
 }
-function iso_cat_k2 (myid,options) {
+function iso_cat_k2 (myid) {
 	var parent = 'cat';
 	me = "#isotope-main-"+myid+" ";
-	items_limit = options.limit_items;
-	sav_limit = options.limit_items;
-	empty_message = (options.empty == "true");
+	items_limit = options_iso.limit_items;
+	sav_limit = options_iso.limit_items;
+	empty_message = (options_iso.empty == "true");
 	filters = {};
-	asc = (options.ascending == "true");
-	sort_by = options.sortby;
+	asc = (options_iso.ascending == "true");
+	sort_by = options_iso.sortby;
 	if (sort_by.indexOf("featured") !== -1) { // featured 
 		sortValue = sort_by.split(',');
 		asc = {};
@@ -235,21 +235,21 @@ function iso_cat_k2 (myid,options) {
 			if ( sortValue[i] == "featured"){  // featured always first
 				asc[sortValue[i]] = false ;
 			} else {
-				asc[sortValue[i]] = (options.ascending == "true");
+				asc[sortValue[i]] = (options_iso.ascending == "true");
 			}
 		}
 	}
-	if (options.limit_items == 0) { // no limit : hide show more button
+	if (options_iso.limit_items == 0) { // no limit : hide show more button
 		document.querySelector(me+'.iso_button_more').style.display = "none";
 	}
-	if ((options.default_cat == "") || (options.default_cat == null) || (typeof options.default_cat === 'undefined'))
+	if ((options_iso.default_cat == "") || (options_iso.default_cat == null) || (typeof options_iso.default_cat === 'undefined'))
 		filters['cat'] = ['*']
 	else 
-		filters['cat'] = [options.default_cat];
-	if ((options.default_tag == "") || (options.default_tag == null) || (typeof options.default_tag === 'undefined'))
+		filters['cat'] = [options_iso.default_cat];
+	if ((options_iso.default_tag == "") || (options_iso.default_tag == null) || (typeof options_iso.default_tag === 'undefined'))
 		filters['tags'] = ['*']
 	else 
-		filters['tags'] = [options.default_tag];
+		filters['tags'] = [options_iso.default_tag];
 	filters['lang'] = ['*'];
 	filters['alpha'] = ['*'];
 	var $cookie = getCookie(cookie_name);
@@ -257,25 +257,25 @@ function iso_cat_k2 (myid,options) {
 		$arr = $cookie.split('&');
 		$arr.forEach(splitCookie);
 	}
-	if ((options.layout == "masonry") || (options.layout == "fitRows") || (options.layout == "packery"))
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["width"] = (100 / parseInt(options.nbcol)-2)+"%" ;
-	if (options.layout == "vertical") 
+	if ((options_iso.layout == "masonry") || (options_iso.layout == "fitRows") || (options_iso.layout == "packery"))
+		document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["width"] = (100 / parseInt(options_iso.nbcol)-2)+"%" ;
+	if (options_iso.layout == "vertical") 
 		document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["width"] = "100%";
-	document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["background"] = options.background;
-	if (parseInt(options.imgmaxheight) > 0) 
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item img').style["max-height"] = options.imgmaxheight + "px";
-	if (parseInt(options.imgmaxwidth) > 0) 
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item img').style["max-width"] = options.imgmaxwidth + "px";
+	document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["background"] = options_iso.background;
+	if (parseInt(options_iso.imgmaxheight) > 0) 
+		document.querySelector('#isotope-main-' + myid + ' .isotope_item img').style["max-height"] = options_iso.imgmaxheight + "px";
+	if (parseInt(options_iso.imgmaxwidth) > 0) 
+		document.querySelector('#isotope-main-' + myid + ' .isotope_item img').style["max-width"] = options_iso.imgmaxwidth + "px";
 
-	if (options.displayrange == "true") {
+	if (options_iso.displayrange == "true") {
 		if (!min_range) {
-			min_range = parseInt(options.minrange);
-			max_range = parseInt(options.maxrange);
+			min_range = parseInt(options_iso.minrange);
+			max_range = parseInt(options_iso.maxrange);
 		}
 		rangeSlider = new rSlider({
 			target: '#rSlider',
-			values: {min:parseInt(options.minrange), max:parseInt(options.maxrange)},
-			step: parseInt(options.rangestep),
+			values: {min:parseInt(options_iso.minrange), max:parseInt(options_iso.maxrange)},
+			step: parseInt(options_iso.rangestep),
 			set: [min_range,max_range],
 			range: true,
 			tooltip: true,
@@ -291,7 +291,7 @@ function iso_cat_k2 (myid,options) {
 	iso = new Isotope(grid,{ 
 			itemSelector: 'none',
 			percentPosition: true,
-			layoutMode: options.layout,
+			layoutMode: options_iso.layout,
 			getSortData: {
 				title: '[data-title]',
 				category: '[data-category]',
@@ -323,7 +323,7 @@ function iso_cat_k2 (myid,options) {
 	iso_div.addEventListener("refresh", function(){
  	  iso.arrange();
 	});
-    if (options.pagination == 'infinite') { 
+    if (options_iso.pagination == 'infinite') { 
 		// --------------> infinite scroll <----------------
 		var elem = Isotope.data('.isotope_grid');
 		var infScroll = new InfiniteScroll('.isotope_grid',{
@@ -336,10 +336,10 @@ function iso_cat_k2 (myid,options) {
         
 		function getPath() {
 			currentpage = this.loadCount;
-			return '?start='+(currentpage+1)*options.page_count;
+			return '?start='+(currentpage+1)*options_iso.page_count;
 		}
 		let more = document.querySelector(me+'.iso_button_more');		
-		if (options.infinite_btn == "true") {
+		if (options_iso.infinite_btn == "true") {
 			infScroll.option({button:'.iso_button_more',loadOnScroll: false});
 			let $viewMoreButton = document.querySelector('.iso_button_more');
 			more.style.display = "block";
@@ -496,51 +496,51 @@ function iso_cat_k2 (myid,options) {
 		});
 	})
 	}
-	if  (options.displayfiltertags == "listmulti") 	{ 
+	if  (options_iso.displayfiltertags == "listmulti") 	{ 
 		events_listmulti('tags');
 	}
-	if (options.displayfiltercat == "listmulti") {
+	if (options_iso.displayfiltercat == "listmulti") {
 		events_listmulti('cat');
 	}
-	if  (options.displayfilterfields == "listmulti")	{ 
+	if  (options_iso.displayfilterfields == "listmulti")	{ 
 		events_listmulti('fields');
 	}
-	if  ((options.displayfiltercat == "list") || (options.displayfiltercat == "listex")) { 
+	if  ((options_iso.displayfiltercat == "list") || (options_iso.displayfiltercat == "listex")) { 
 		events_list('cat');
 	} 
-	if  ((options.displayfiltertags == "list") || (options.displayfiltertags == "listex")) { 
+	if  ((options_iso.displayfiltertags == "list") || (options_iso.displayfiltertags == "listex")) { 
 		events_list('tags');
 	} 
-	if  ((options.displayfilterfields == "list") || (options.displayfilterfields == "listex")) { 
+	if  ((options_iso.displayfilterfields == "list") || (options_iso.displayfilterfields == "listex")) { 
 		events_list('fields');
 	} 
-	if ((options.displayfiltercat == "multi") || (options.displayfiltercat == "multiex")  ) {
+	if ((options_iso.displayfiltercat == "multi") || (options_iso.displayfiltercat == "multiex")  ) {
 		events_multibutton('cat')
 	}
-	if ((options.displayfiltertags == "multi") || (options.displayfiltertags == "multiex")  ) {
+	if ((options_iso.displayfiltertags == "multi") || (options_iso.displayfiltertags == "multiex")  ) {
 		events_multibutton('tags')
 	}
-	if ((options.displayfilterfields == "multi") || (options.displayfilterfields == "multiex")) { 
+	if ((options_iso.displayfilterfields == "multi") || (options_iso.displayfilterfields == "multiex")) { 
 		events_multibutton('fields');
 	}
-	if (options.language_filter == "multi") { 
+	if (options_iso.language_filter == "multi") { 
 		events_multibutton('lang')	}
-	if (options.displayalpha == "multi") { 
+	if (options_iso.displayalpha == "multi") { 
 		events_multibutton('alpha')
 	}
-	if (options.displayfiltercat == "button"){
+	if (options_iso.displayfiltercat == "button"){
 		events_button('cat');
 	}
-	if (options.displayfiltertags == "button") { 
+	if (options_iso.displayfiltertags == "button") { 
 		events_button('tags');
 	}
-	if (options.displayfilterfields == "button") { 
+	if (options_iso.displayfilterfields == "button") { 
 		events_button('fields');
 	}
-	if (options.language_filter == "button") { 
+	if (options_iso.language_filter == "button") { 
 		events_button('lang');
 	}
-	if (options.displayalpha == "button") { 
+	if (options_iso.displayalpha == "button") { 
 		events_button('alpha');
 	}
 	more = document.querySelector(me+'.iso_button_more');
@@ -551,10 +551,10 @@ function iso_cat_k2 (myid,options) {
 				e.preventDefault();		
 				if (items_limit > 0) {
 					items_limit = 0; // no limit
-					this.textContent = options.libless;
+					this.textContent = options_iso.libless;
 				} else {
-					items_limit = options.limit_items; // set limit
-					this.textContent = options.libmore;
+					items_limit = options_iso.limit_items; // set limit
+					this.textContent = options_iso.libmore;
 				}
 				updateFilterCounts();
 			});
@@ -723,7 +723,7 @@ function update_sort_buttons($this) {
 }
 /*------- infinite scroll : update buttons list------------*/
 function infinite_buttons(appended_list) {
-	if (options.displayalpha != 'false') {
+	if (options_iso.displayalpha != 'false') {
 	// alpha buttons list
 		for (x=0;x < appended_list.length-1;x++) {
 			alpha = appended_list[x].attributes['data-alpha'].value;
@@ -732,7 +732,7 @@ function infinite_buttons(appended_list) {
 				buttons = document.querySelector(me+'.filter-button-group-alpha');
 				var abutton = document.createElement('button');
 				abutton.classList.add('btn');
-				abutton.classList.add(options.button_bootstrap.substr(4,100).trim());
+				abutton.classList.add(options_iso.button_bootstrap.substr(4,100).trim());
 				abutton.classList.add('iso_button_alpha_'+alpha);
 				abutton.setAttribute('data-sort-value',alpha);
 				abutton.title = alpha;
@@ -768,7 +768,7 @@ function grid_filter($this) {
 			rangeResult = (parseInt(lerange) >= parseInt(ranges[0])) && (parseInt(lerange) <= parseInt(ranges[1]));
 		}
 	}
-	if ((options.article_cat_tag != "fields") && (options.article_cat_tag != "catfields") && (options.article_cat_tag != "tagsfields") && (options.article_cat_tag != "cattagsfields")) {
+	if ((options_iso.article_cat_tag != "fields") && (options_iso.article_cat_tag != "catfields") && (options_iso.article_cat_tag != "tagsfields") && (options_iso.article_cat_tag != "cattagsfields")) {
 		if ((filters['cat'].indexOf('*') != -1) && (filters['tags'].indexOf('*') != -1)) { return searchResult && rangeResult && true};
 		count = 0;
 		if (filters['cat'].indexOf('*') == -1) { // on a demandé une classe
@@ -785,7 +785,7 @@ function grid_filter($this) {
 				count += 1;
 			}
 		}
-		if (options.searchmultiex == "true")	{
+		if (options_iso.searchmultiex == "true")	{
 			lgth = filters['cat'].length + filters['tags'].length;
 			if ((filters['tags'].indexOf('*') != -1) || (filters['cat'].indexOf('*') != -1)) {lgth = lgth - 1;}
 			return searchResult && rangeResult && (count == lgth) ;
@@ -834,7 +834,7 @@ function grid_filter($this) {
 				}
 			}
 		}
-		if (options.searchmultiex == "true")	{ // multi-select on grouped buttons
+		if (options_iso.searchmultiex == "true")	{ // multi-select on grouped buttons
 			lgth = 0;
 			for (x in filters) {
 				if ( (x == 'cat') || (x == 'lang') || (x == 'alpha') ||(x == 'tags')) continue;
@@ -1169,14 +1169,14 @@ function filter_list($this,evt,params) {
 					addClass(items[index],'iso_hide_elem');
 				}
 			};
-			if (index < items_limit && options.pagination != 'infinite') { // unnecessary button
+			if (index < items_limit && options_iso.pagination != 'infinite') { // unnecessary button
 				addClass(more,'iso_hide_elem');
 			} else { // show more button required
 				removeClass(more,'iso_hide_elem');
 			}
 		} 
 		// hide show see less button
-		if ((items_limit == 0) && (sav_limit > 0) && options.pagination != 'infinite') { 
+		if ((items_limit == 0) && (sav_limit > 0) && options_iso.pagination != 'infinite') { 
 			for(var index=0;index < itemElems.length;index++) {
 				if (hasClass(itemElems[index],'iso_hide_elem')) {
 					count_items -=1;
@@ -1270,7 +1270,7 @@ function getCookie(name) {
 }
 function CG_Cookie_Set(id,param,b) {
 	var expires;
-	duration = options.cookieduration;
+	duration = options_iso.cookieduration;
     var d = new Date();
 	if( (typeof duration === 'undefined') || (duration == 0) ) expires = ""; // default duration : session
 	else if (duration == '-1') expires = ";Max-Age=0;"; // no cookie
@@ -1362,7 +1362,7 @@ function splitCookie(item) {
 			for (x=0;x < val.length-1;x++) {
 				values = val[x].split("<");
 				if (std_parents.indexOf(values[0]) != -1) { // not a custom field
-					if ( (values[0] == "tags" && options.displayfiltertags == 'listmulti') || (values[0] == "cat" && options.displayfiltercat == 'listmulti')) { // liste multi select	
+					if ( (values[0] == "tags" && options_iso.displayfiltertags == 'listmulti') || (values[0] == "cat" && options_iso.displayfiltercat == 'listmulti')) { // liste multi select	
 						var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
 						var choicesInstance = elChoice.choicesInstance;
 						filters[values[0]] = values[1].split(',');
@@ -1396,8 +1396,8 @@ function splitCookie(item) {
 								filterButtons[f].classList.remove('is-checked');
 							}
 							for(v=0;v < filters[values[0]].length;v++) {
-								if ( ((values[0] == "tags") && (options.displayfiltertags == 'list') ) ||
-									((values[0] == "cat") && (options.displayfiltercat == 'list')) ) {
+								if ( ((values[0] == "tags") && (options_iso.displayfiltertags == 'list') ) ||
+									((values[0] == "cat") && (options_iso.displayfiltercat == 'list')) ) {
 									var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
 									var choicesInstance = elChoice.choicesInstance;
 									choicesInstance.setChoiceByValue(filters[values[0]][v]);
@@ -1414,9 +1414,9 @@ function splitCookie(item) {
 									addClass($button,'is-checked');
 									if (hasClass($button.parentNode.parentNode,"offcanvas-body"))  { // need clone
 										$type ='button'; // assume button
-										if ((values[0] == "cat" && (options.displayfiltercat == "multi" || options.displayfiltercat == "multiex")) ||
-										    (values[0] == "tags" && (options.displayfiltertags == "multi" || options.displayfiltercat == "multiex")) || 
-											(values[0] == "alpha" && (options.displayalpha == "multi" || options.displayalpha == "multiex")) ) {
+										if ((values[0] == "cat" && (options_iso.displayfiltercat == "multi" || options_iso.displayfiltercat == "multiex")) ||
+										    (values[0] == "tags" && (options_iso.displayfiltertags == "multi" || options_iso.displayfiltercat == "multiex")) || 
+											(values[0] == "alpha" && (options_iso.displayalpha == "multi" || options_iso.displayalpha == "multiex")) ) {
 												$type = 'multi';
 										}
 										child = null;
@@ -1429,7 +1429,7 @@ function splitCookie(item) {
 						}
 					}
 				} else { //fields
-					if (options.displayfilterfields == 'listmulti') { // liste multi select		
+					if (options_iso.displayfilterfields == 'listmulti') { // liste multi select		
 						var elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
 						var choicesInstance = elChoice.choicesInstance;
 						filters[values[0]] = values[1].split(',');
@@ -1458,7 +1458,7 @@ function splitCookie(item) {
 						}
 						filters[values[0]] = values[1].split(',');
 						for(v=0;v < filters[values[0]].length;v++) {
-							if ((options.displayfilterfields == 'list') ||(options.displayfilterfields == 'listex')) {
+							if ((options_iso.displayfilterfields == 'list') ||(options_iso.displayfilterfields == 'listex')) {
 								elChoice = document.querySelector('joomla-field-fancy-select#isotope-select-'+values[0]);
 								choicesInstance = elChoice.choicesInstance;
 								filters[values[0]] = values[1].split(',');

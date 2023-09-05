@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.2.4</version>
+        <note>
+            <item>Update : 05/09/2023</item>
+        </note>
+		<fix>
+            <item>suppress warning : Undefined property: stdClass::$image</item>
+			<item>init.js : options conflict with other CG Extensions</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.2.3</version>
         <note>
             <item>Update : 28/08/2023</item>
