@@ -160,6 +160,7 @@ class PageTable extends Table implements VersionableTableInterface
             $perso = $input->getRaw('jform', 'perso', 'post', 'array');		
             $page_params['perso'] = $perso['perso'];
             $page_params['intro'] = $perso['intro'];
+            $page_params['middle'] = $perso['middle'];
             $page_params['bottom'] = $perso['bottom']; 
 	// texteara with special html tags to keep	
             $custom = $input->getRaw('jform', 'customjs', 'post', 'array');		

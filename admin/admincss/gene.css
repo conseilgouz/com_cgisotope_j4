@@ -1,6 +1,6 @@
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.1.0
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 3.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -23,7 +23,8 @@
 	clear:both;width:100%;
 }
 #gene_tab .control-group:nth-of-type(5) .controls, /* Intro */
-#gene_tab .control-group:nth-of-type(6) .controls{ /* Bottom */
+#gene_tab .control-group:nth-of-type(6) .controls, /* middle */
+#gene_tab .control-group:nth-of-type(7) .controls{ /* Bottom */
 	width:90%;
 }
 /*#gene_tab .control-group:nth-of-type(1) .control-label {width:5em}*/
@@ -32,6 +33,7 @@
 
 #gene_tab .control-group:nth-of-type(5) .control-label {width:7em}
 #gene_tab .control-group:nth-of-type(6) .control-label {width:7em}
+#gene_tab .control-group:nth-of-type(7) .control-label {width:7em}
 
 #gene_tab .alert-success {font-size:120%;
 text-align:center}

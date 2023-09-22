@@ -44,6 +44,7 @@ class PageModel extends AdminModel {
         // split general parameters
 		$compl = new Registry($data->page_params);
 		$data->intro = $compl['intro'];
+		$data->middle = $compl['middle'];
 		$data->bottom = $compl['bottom']; 
         $data->iso_entree = $compl['iso_entree'];
         $data->categories = $compl['categories'];

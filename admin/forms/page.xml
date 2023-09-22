@@ -27,6 +27,8 @@
 		</field>
 		<field name="intro" type="editor" label="CG_ISO_INTRO" description="CG_ISO_INTRO_DESC" cols="400" rows="4" filter="safehtml" 
 			default=""/>	
+		<field name="middle" type="editor" label="CG_ISO_MIDDLE" description="CG_ISO_MIDDLE_DESC" cols="400" rows="4" filter="safehtml" 
+			default=""/>	
 		<field name="bottom" type="editor" label="CG_ISO_BOTTOM" description="CG_ISO_BOTTOM_DESC" cols="400" rows="4" filter="safehtml" 
 			default=""/>	
 		</fieldset>
