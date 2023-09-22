@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 3.2.4
+* Version			: 3.3.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -545,7 +545,17 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
  }
 //============================= isotope grid =============================================//
 $width = $layouts["iso"]->div_width;
-$isotope_grid_div = '<div class="isotope_grid col-md-'.$width.' col-12" style="padding:0">'; // bootstrap : suppression du padding pour isotope
+$isotope_grid_div = "";
+if ($this->iso_params->get('middle') && (strlen(trim($this->iso_params->get('middle',''))) > 0) ){
+	// apply content plugins on weblinks
+	$item_cls = new stdClass;
+	$item_cls->text = $this->iso_params->get('middle');
+	$item_cls->params = $this->params;
+    $item_cls->id= $com_id;
+	Factory::getApplication()->triggerEvent('onContentPrepare', array ('com_cgisotope.content', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
+	$isotope_grid_div = 	$item_cls->text;	
+}
+$isotope_grid_div .= '<div class="isotope_grid col-md-'.$width.' col-12" style="padding:0">'; // bootstrap : suppression du padding pour isotope
 foreach ($this->list as $key=>$category) {
 	foreach ($category as $item) {
 		$tag_display = "";
@@ -727,8 +737,10 @@ foreach ($this->list as $key=>$category) {
 			$item_cls->params = $this->iso_params;
 			Factory::getApplication()->triggerEvent('onCGIsotopeRender', array ('com_cgisotope.article', &$item_cls,&$item_cls->params, 0)); 		
 			$perso = 	$item_cls->text;	
-			
+   
 			$isotope_grid_div .= $perso;
+
+		//	$isotope_grid_div .= $perso;
 			if ($this->iso_params->get('readmore','false') !='false') {
 				$isotope_grid_div .= '<p class="isotope-readmore">';
 				$isotope_grid_div .= '<a class="isotope-readmore-title"  data-articleid="'.$item->id.'" data-href="'.$item->link.'" href="'.$item->link.'">';
