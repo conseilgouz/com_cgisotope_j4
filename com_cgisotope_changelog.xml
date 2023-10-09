@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.3.1</version>
+        <note>
+            <item>Update : 09/10/2023</item>
+        </note>
+		<fix>
+            <item>wrong item style handling (background, width, ...)</item>
+			<item>Fields : onCGIsotopeRender not working</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.3.0</version>
         <note>
             <item>Update : 22/09/2023</item>

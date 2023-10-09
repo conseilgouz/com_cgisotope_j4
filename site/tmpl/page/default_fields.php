@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 3.3.0
+* Version			: 3.3.1
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -759,6 +759,7 @@ foreach ($this->list as $key=>$category) {
 		$item_cls->text = $perso;
 		$item_cls->params = $this->iso_params;
 		Factory::getApplication()->triggerEvent('onCGIsotopeRender', array ('com_cgisotope.article', &$item_cls,&$item_cls->params, 0)); 		
+		$perso = 	$item_cls->text;	
 		
 		$isotope_grid_div .=  $perso;
 		if ($this->iso_params->get('readmore','false') !='false') { 

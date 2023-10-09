@@ -1,6 +1,6 @@
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.4
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 3.3.1
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -257,16 +257,21 @@ function iso_cat_k2 (myid) {
 		$arr = $cookie.split('&');
 		$arr.forEach(splitCookie);
 	}
-	if ((options_iso.layout == "masonry") || (options_iso.layout == "fitRows") || (options_iso.layout == "packery"))
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["width"] = (100 / parseInt(options_iso.nbcol)-2)+"%" ;
-	if (options_iso.layout == "vertical") 
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["width"] = "100%";
-	document.querySelector('#isotope-main-' + myid + ' .isotope_item').style["background"] = options_iso.background;
-	if (parseInt(options_iso.imgmaxheight) > 0) 
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item img').style["max-height"] = options_iso.imgmaxheight + "px";
-	if (parseInt(options_iso.imgmaxwidth) > 0) 
-		document.querySelector('#isotope-main-' + myid + ' .isotope_item img').style["max-width"] = options_iso.imgmaxwidth + "px";
-
+	$items = document.querySelectorAll('#isotope-main-' + myid + ' .isotope_item');
+	for (var i=0; i< $items.length;i++) {
+		if ((options_iso.layout == "masonry") || (options_iso.layout == "fitRows") || (options_iso.layout == "packery"))
+			$items[i].style.width = (100 / parseInt(options_iso.nbcol)-2)+"%" ;
+		if (options_iso.layout == "vertical") 
+			$items[i].style.width = "100%";
+		$items[i].style.background = options_iso.background;
+	}
+	$imgs = document.querySelectorAll('#isotope-main-' + myid + ' .isotope_item img');
+	for (var i=0; i< $items.length;i++) {
+		if (parseInt(options_iso.imgmaxheight) > 0) 
+			$imsg[i].style.maxHeight = options_iso.imgmaxheight + "px";
+		if (parseInt(options_iso.imgmaxwidth) > 0) 
+			$imgs[i].style.maxWidth = options_iso.imgmaxwidth + "px";
+	}
 	if (options_iso.displayrange == "true") {
 		if (!min_range) {
 			min_range = parseInt(options_iso.minrange);
