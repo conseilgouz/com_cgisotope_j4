@@ -268,7 +268,7 @@ function iso_cat_k2 (myid) {
 	$imgs = document.querySelectorAll('#isotope-main-' + myid + ' .isotope_item img');
 	for (var i=0; i< $items.length;i++) {
 		if (parseInt(options_iso.imgmaxheight) > 0) 
-			$imsg[i].style.maxHeight = options_iso.imgmaxheight + "px";
+			$imgs[i].style.maxHeight = options_iso.imgmaxheight + "px";
 		if (parseInt(options_iso.imgmaxwidth) > 0) 
 			$imgs[i].style.maxWidth = options_iso.imgmaxwidth + "px";
 	}
