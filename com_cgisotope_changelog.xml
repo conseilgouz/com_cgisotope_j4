@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>3.3.4</version>
+        <note>
+            <item>Update : 16/10/2023</item>
+        </note>
+		<fix>
+            <item>Undefined JLanguageHelper</item>
+			<item>Remove unused function getArticle in DisplayController</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.3.3</version>
         <note>
             <item>Update : 13/10/2023</item>

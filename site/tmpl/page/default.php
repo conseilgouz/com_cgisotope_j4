@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5x Component 
-* Version			: 3.2.1
+* Version			: 3.3.4
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 // no direct access
@@ -17,6 +17,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Access\Access;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Language\LanguageHelper;
 
 $document = Factory::getDocument();
 
@@ -78,7 +79,7 @@ if ($this->iso_params->get("pagination","false") != 'false' ) {
 }
 $this->language_filter = $this->iso_params->get('language_filter','false');
 if ($this->language_filter != 'false') { // language filter
-	$this->languagelist = JLanguageHelper::getLanguages();
+	$this->languagelist = LanguageHelper::getLanguages();
 }
 $this->language = $this->iso_params->get('language','*');
 $this->iso_entree = $this->iso_params->get('iso_entree', 'webLinks');
