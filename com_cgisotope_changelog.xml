@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.0.0</version>
+        <note>
+            <item>Update : 02/11/2023</item>
+        </note>
+		<fix>
+            <item>Custom fields : render empty in Joomla 5.0</item>
+		</fix>
+		<change>
+			<item>init.js : CGISotope object</item>
+		</change>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>3.3.4</version>
         <note>
             <item>Update : 16/10/2023</item>

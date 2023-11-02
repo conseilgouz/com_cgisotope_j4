@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.0
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 4.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -549,7 +549,9 @@ class CGHelper  extends ComponentHelper{
 		if ($field->type == 'color') {
 			$obj->render = $value;
 		} elseif (!is_array($field->value)) { 
-			$obj->render = '<span class="iso_field_'.$field_alias.'">'.Factory::getApplication()->triggerEvent('onCustomFieldsPrepareField', array ($context, $item,$field))[0].'</span>'; 
+		    $atext = Factory::getApplication()->triggerEvent('onCustomFieldsPrepareField', array ($context, $item,$field))[0];
+		    if (!$atext) $atext = $field->value;
+		    $obj->render = '<span class="iso_field_'.$field_alias.'">'.$atext.'</span>'; 
 		} else {
 			$obj->render = $value;
 		}

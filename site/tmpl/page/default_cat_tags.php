@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 3.3.0
+* Version			: 4.0.0
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -251,7 +251,7 @@ if ($displaysort != "hide") {
 $awidth = $layouts["sort"]->div_width;
 if (!property_exists($layouts["sort"],'offcanvas')) $layouts["sort"]->offcanvas = "false";
 if ($layouts["sort"]->offcanvas == "true") $awidth = 12;
-$sort_buttons_div = '<div class="isotope_button-group sort-by-button-group col-md-'.$awidth.' col-12 '.$layouts["sort"]->div_align.'">';
+$sort_buttons_div = '<div class="isotope_button-group sort-by-button-group col-md-'.$awidth.' col-12 '.$layouts["sort"]->div_align.'" data="'.$com_id.'">';
 $checked = " is-checked ";
 $featured = "";
 if ($this->iso_params->get('btnfeature','false') != "false") { // featured articles always displayed first
@@ -308,9 +308,9 @@ if ($displaysearch == "true") {
 	$awidth = $layouts["search"]->div_width;
 	if (!property_exists($layouts["search"],'offcanvas')) $layouts["search"]->offcanvas = "false";
 	if ($layouts["search"]->offcanvas == "true") $awidth = 12;
-	$search_div .= '<div class="iso_search col-md-'.$awidth.' col-12 '.$layouts["search"]->div_align.'" >';
-	$search_div .= '<input type="text" class="quicksearch " placeholder="'.$libsearch.'" style="width:80%;float:left">';
-	$search_div .= '<i class="ison-cancel-squared " title="'.$libsearchclear.'" style="width:20%;float:right"></i>';
+	$search_div .= '<div class="iso_search col-md-'.$awidth.' col-12 '.$layouts["search"]->div_align.'" data="'.$com_id.'" >';
+	$search_div .= '<input type="text" class="quicksearch " placeholder="'.$libsearch.'" style="width:80%;float:left" >';
+	$search_div .= '<i class="ison-cancel-squared " title="'.$libsearchclear.'" style="width:20%;float:right" ></i>';
 	$search_div .= '</div>';
 }
 //============================filter div===============================================//
@@ -758,7 +758,7 @@ if ($displayrange == "true") {
 	if (!property_exists($layouts["range"],'offcanvas')) $layouts["range"]->offcanvas = "false";
 	if ($layouts["range"]->offcanvas == "true") $awidth = 12;
     $isotope_range_div = '<div class="iso_range col-md-'.$awidth.' col-12 '.$layouts["range"]->div_align.'">';
-    $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-12 col-md-12"><input type="text" id="rSlider"/></div>';
+    $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-12 col-md-12"><input type="text" id="rSlider" data="'.$com_id.'"/></div>';
     $isotope_range_div .= '</div>';
 }
 // ============================alpha div ==============================================//
@@ -824,7 +824,7 @@ foreach ($layouts_order as $layout) {
 	    echo '<div class="offcanvas offcanvas-'.$this->offcanvaspos.'"  tabindex="-1" id="offcanvas_isotope" aria-labelledby="offcanvas_isotopeLabel" data-bs-scroll="true">';
 		$liboff = Text::_('CG_ISO_LIBFILTER');
 		echo '<div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvas_isotopeLabel">'.$liboff.'</h5>';
-	    echo '<button type="button" class="btn ison-cancel-squared" title="'.Text::_('CG_ISO_CLEAR_FILTER').'">'.Text::_('CG_ISO_CLEAR_FILTER').'</button>';
+	    echo '<button type="button" class="btn ison-cancel-squared" title="'.Text::_('CG_ISO_CLEAR_FILTER').'" data="'.$com_id.'">'.Text::_('CG_ISO_CLEAR_FILTER').'</button>';
 	    echo '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" title="'.Text::_('CG_ISO_CLOSE').'"></button>';
      	echo '</div><div class="offcanvas-body">';
 	}
