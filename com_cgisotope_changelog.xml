@@ -2,7 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
-		<version>4.0.0</version>
+		<version>4.2.0</version>
+        <note>
+            <item>Update : 03/11/2023</item>
+        </note>
+		<change>
+            <item>Same init.js for module and component</item>
+		</change>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
+		<version>4.0.1</version>
         <note>
             <item>Update : 03/11/2023</item>
         </note>

@@ -1,10 +1,14 @@
 /**
-* CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.0.0
-* Package			: CG ISotope
+* CG Isotope Component/ Simple Isotope module for Joomla 4.x/5.x
+* Version			: 4.2.0
+* Package			: CG ISotope/Simple Isotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
+*/
+/* note : difference between module and component
+	options call
+	ajax : component : data in result, module : data in result.data.data
 */
 
 var cgisotope = [];
@@ -14,14 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
 mains = document.querySelectorAll('.isotope-main');
 for(var i=0; i<mains.length; i++) {
 	let $oneiso = mains[i];
+	// is it a module or a component
+	let ismodule = false;
+	if ($oneiso.getAttribute("ismodule") && ($oneiso.getAttribute("ismodule") == "true")) 
+		ismodule = true;
+	
 	isoid = $oneiso.getAttribute("data");
 	if (typeof Joomla === 'undefined' || typeof Joomla.getOptions === 'undefined') {
 		console.error('Joomla.getOptions not found!\nThe Joomla core.js file is not being loaded.');
 		return false;
 	}
-	options_iso = Joomla.getOptions('cg_isotope_'+isoid);
+	if (ismodule)
+		options_iso = Joomla.getOptions('mod_simple_isotope_'+isoid);
+	else
+		options_iso = Joomla.getOptions('cg_isotope_'+isoid);
 	if (typeof options_iso === 'undefined' ) {return false}
-	
+	options_iso.ismodule = ismodule;
 	cgisotope[isoid] = new CGIsotope(isoid,options_iso)
 	cgisotope[isoid].goisotope(isoid);
 }
@@ -102,7 +114,11 @@ function CGIsotope(isoid,options) {
 						document.querySelector("#isotope_an_article").innerHTML = '';
 						var mytoken = document.getElementById("token");
 						token = mytoken.getAttribute("name");
-						url = '?'+token+'=1&option=com_cgisotope&task=display&article='+ this.dataset['articleid']+'&entree=articles&format=json';
+						if ($myiso.options.ismodule) {
+							url = '?option=com_ajax&module=simple_isotope&article='+ this.dataset['articleid']+'&entree=articles&data=readmore&format=json&id='+$myiso.isoid;
+						} else {
+							url = '?'+token+'=1&option=com_cgisotope&task=display&article='+ this.dataset['articleid']+'&entree=articles&format=json';
+						}
 						Joomla.request({
 							method : 'POST',
 							url : url,
@@ -508,8 +524,9 @@ CGIsotope.prototype.goisotope = function(isoid) {
 }// end of goisotope
 CGIsotope.prototype.displayArticle = function(result) {
 	var html ='';
-	// Joomla 4.0 : replace result.data by result
+	// Component : result, module : result.data.data
     if (result.success) {
+		if (this.options.ismodule) result = result.data.data; // module ajax
 		for (var i=0; i<result.length; i++) {
             html += '<h1>'+result[i].title+'<button type="button" class="close">X</button></h1>';
 			html +=result[i].fulltext;
