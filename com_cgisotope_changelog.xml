@@ -9,6 +9,9 @@
 		<fix>
             <item>Update Site controllers</item>
 		</fix>
+		<change>
+            <item>script.php : mini J4.0, php 8.0</item>
+		</change>
 	</changelog>
 	<changelog>
 		<element>com_cgisotope</element>
