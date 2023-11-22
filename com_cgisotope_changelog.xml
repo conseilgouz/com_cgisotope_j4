@@ -7,7 +7,7 @@
             <item>Update : 22/11/2023</item>
         </note>
 		<fix>
-            <item>Update Site controllers</item>
+            <item>Update Site controllers : remove J3 obsolete code</item>
 		</fix>
 		<change>
             <item>script.php : mini J4.0, php 8.0</item>
