@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 // require_once JPATH_COMPONENT.'/controller.php';
 class PageController extends BaseController
 {
-	public function getModel($name = 'Page', $prefix = 'CGIsotopeModel')
+	public function getModel($name = 'Page', $prefix = 'CGIsotopeModel',$config = [])
 	{
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;

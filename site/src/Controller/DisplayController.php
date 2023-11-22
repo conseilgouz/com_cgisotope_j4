@@ -12,11 +12,12 @@ namespace ConseilGouz\Component\CGIsotope\Site\Controller;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Language\Text;
+use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 
 class DisplayController extends BaseController {
 
     public function display($cachable = false, $urlparams = false) {
-        require_once JPATH_COMPONENT . '/src/Helper/CGHelper.php';
+        // require_once JPATH_COMPONENT . '/src/Helper/CGHelper.php';
 
         $view = Factory::getApplication()->input->getCmd('view', 'page');
         Factory::getApplication()->input->set('view', $view);
