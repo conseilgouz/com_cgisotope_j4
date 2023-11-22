@@ -1,7 +1,7 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 3.2.1
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 4.2.2
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -16,8 +16,8 @@ use Joomla\Filesystem\Folder;
 
 class com_cgisotopeInstallerScript
 {
-	private $min_joomla_version      = '3.10';
-	private $min_php_version         = '7.2';
+	private $min_joomla_version      = '4.0';
+	private $min_php_version         = '8.0';
 	private $name                    = 'CG Isotope';
 	private $exttype                 = 'component';
 	private $extname                 = 'cgisotope';
