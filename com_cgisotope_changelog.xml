@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.4</version>
+        <note>
+            <item>Update : 23/11/2023</item>
+        </note>
+		<fix>
+            <item>missing COM_CGISOTOPE_PAGES_N_ITEMS_CHECKED_IN in language files</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.3</version>
         <note>
             <item>Update : 23/11/2023</item>
@@ -10,6 +21,7 @@
             <item>admin pages : add unlock button</item>
 		</addition>
 	</changelog>
+	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
 		<version>4.2.2</version>
