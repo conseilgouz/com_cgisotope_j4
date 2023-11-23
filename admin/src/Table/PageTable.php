@@ -171,7 +171,8 @@ class PageTable extends Table implements VersionableTableInterface
         }
         $data->state = $this->state;
 		$data->language = $this->language;
-		
+		$data->checked_out = 0;
+		$data->checked_out_time = null;
         if ($exists) { // update
             return $db->updateObject($table, $data, 'id');
         }

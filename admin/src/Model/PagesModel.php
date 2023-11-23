@@ -28,6 +28,7 @@ class PagesModel extends ListModel
 				'sections', 't.sections',
 				'fieldslinks', 't.fieldslinks',
 				'language','t.language',
+				'checked_out','t.checked_out',
 				'page_params', 't.page_params');
 		}
 
@@ -40,7 +41,7 @@ class PagesModel extends ListModel
 		$query	= $db->getQuery(true);
 
 		// Select the required fields from the table.
-		$query->select('t.id, t.title, t.state,t.page_params, t.sections, t.language');
+		$query->select('t.id, t.title, t.state,t.page_params, t.sections, t.language,t.checked_out');
 		// Join over the language
 		$query->select('l.title AS language_title, l.image AS language_image')
 			->join('LEFT', $db->quoteName('#__languages', 'l') . ' ON l.lang_code = t.language');

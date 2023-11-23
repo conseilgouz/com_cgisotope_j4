@@ -2,6 +2,16 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.3</version>
+        <note>
+            <item>Update : 23/11/2023</item>
+        </note>
+		<addition>
+            <item>admin pages : add unlock button</item>
+		</addition>
+	</changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.2</version>
         <note>
             <item>Update : 22/11/2023</item>

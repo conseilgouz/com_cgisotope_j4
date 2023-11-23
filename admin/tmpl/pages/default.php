@@ -110,6 +110,10 @@ $saveOrder	= $listOrder=='ordering';
 					</a>
 				</td>
 				<td class="center">
+					<?php if ($page->checked_out) : ?>
+                         <?php $checkoutUser = Factory::getUser($page->checked_out);
+                         echo HTMLHelper::_('jgrid.checkedout', $i, $checkoutUser->name, $page->checked_out_time, 'pages.', $canChange); ?>
+                    <?php endif; ?>
 					<a href="<?php echo Route::_('index.php?option=com_cgisotope&task=page.edit&id='.(int) $page->id); ?>">
                     <?php echo $this->escape($page->title); ?>                     
 					</a>
