@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.0.0
+* Version			: 4.2.5
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 namespace ConseilGouz\Component\CGIsotope\Site\Helper;
@@ -763,6 +763,13 @@ class CGHelper  extends ComponentHelper{
 		    $perso = substr($perso,0,$replace_deb).$content.substr($perso,$replace_deb + $replace_len);
 		}
 		return $perso;
+	}
+	// Check a tag is in the selected tags list
+	public static function checkTagSet($tag,$filter) {
+		foreach($filter as $onefilter) {
+			if ($onefilter[0]->tag == $tag) return true;
+		}
+		return false;
 	}
 //---------------------------------------------------- Create Fields buttons	----------------------------------------------// 
 	public static function create_buttons($fields, $group_lib,$onefilter,$params,$col_width,$button_bootstrap,$splitfieldstitle,$group_title,$group_id) {

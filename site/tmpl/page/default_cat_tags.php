@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.0.0
+* Version			: 4.2.5
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -67,7 +67,7 @@ $width = 1;
 $line = 1;
 $pos = 0;
 if ($displaysort != "hide") {
-	$values = new stdClass();
+	$values = new \stdClass();
 	$values->div = "sort";
 	$values->div_line = $line;
 	$values->div_pos = "1";
@@ -79,7 +79,7 @@ if ($displaysort != "hide") {
 	$layouts['sort'] = $values;
 }
 if ($displaysearch == "true") {
-	$values = new stdClass();
+	$values = new \stdClass();
 	$values->div = "search";
 	$pos += 1;
 	$values->div_pos = $pos;
@@ -91,7 +91,7 @@ if ($displaysearch == "true") {
 	$layouts['search'] = $values;
 }
 if ($article_cat_tag == 'cattags') {
-	$values = new stdClass();
+	$values = new \stdClass();
 	$values->div = "cat";
 	$pos += 1;
 	if ($width + 6 > 12) {
@@ -106,7 +106,7 @@ if ($article_cat_tag == 'cattags') {
 	$values->div_align="";
 	$values->offcanvas = "false";
 	$layouts['cat'] = $values;
-	$values = new stdClass();
+	$values = new \stdClass();
 	$values->div = "tag";
 	$pos += 1;
 	if ($width + 6 > 12) {
@@ -179,7 +179,7 @@ if ($displayalpha != "false") {
 	$layouts['alpha'] = $values;
 }
 if ($language_filter != "false") { // php 8
-	$values = new stdClass();
+	$values = new \stdClass();
 	$values->div = "lang";
 	$line +=1;
 	$values->div_line = $line;
@@ -189,7 +189,7 @@ if ($language_filter != "false") { // php 8
 	$values->offcanvas = "false";
 	$layouts['lang'] = $values;
 }
-$values = new stdClass();
+$values = new \stdClass();
 $values->div = "iso";
 $line +=1;
 $values->div_line = $line;
@@ -233,7 +233,7 @@ if ($this->params->get('show_page_heading')) {
 }
 if ($this->iso_params->get('intro') && (strlen(trim($this->iso_params->get('intro',''))) > 0) ){
 	// apply content plugins on weblinks
-	$item_cls = new stdClass;
+	$item_cls = new \stdClass;
 	$item_cls->text = $this->iso_params->get('intro');
 	$item_cls->params = $this->params;
     $item_cls->id= $com_id;
@@ -355,7 +355,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 			$awidth = $layouts["cat"]->div_width;
 			if (!property_exists($layouts["cat"],'offcanvas')) $layouts["cat"]->offcanvas = "false";
 			if ($layouts["cat"]->offcanvas == "true") $awidth = 12;
-    	    $filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$awidth.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat">';
+    	    $filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$awidth.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat" data="'.$com_id.'">';
 			$checked = "";
 			if ($this->default_cat == "") {
 				$checked = "is-checked";
@@ -400,7 +400,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 			$awidth = $layouts["cat"]->div_width;
 			if (!property_exists($layouts["cat"],'offcanvas')) $layouts["cat"]->offcanvas = "false";
 			if ($layouts["cat"]->offcanvas == "true") $awidth = 12;
-			$filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$awidth.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat">';
+			$filter_cat_div .= '<div class="isotope_button-group filter-button-group-cat col-md-'.$awidth.' col-12 '.$layouts["cat"]->div_align.'" data-filter-group="cat" data="'.$com_id.'">';
 			$name = 'isotope-select-cat';
 			$options = array();
 			$options['']['items'][] = ModulesHelper::createOption('',$liball);
@@ -456,7 +456,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 			if (!property_exists($layouts["tag"],'offcanvas')) $layouts["tag"]->offcanvas = "false";
 			if ($layouts["tag"]->offcanvas == "true") $awidth = 12;
 			if ($tagsfilterparent != "true") {
-        		$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
+        		$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags" data="'.$com_id.'">';
 				$filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_tout '.$checked.'" data-sort-value="*" />'.$liball.'</button>';
 			} else {
         		$filter_tag_div .= '<div class="col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'">';
@@ -469,7 +469,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 				if (($tagsfilterparent == "true") && ($cur_parent != $parent) )  {
 					if ($cur_parent != '') $filter_tag_div .= "</div>";
 					$cur_parent = $parent;
-					$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags" data-filter-group="tags">';
+					$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags" data-filter-group="tags" data="'.$com_id.'">';
 					if ($tagsfilterparentlabel == "true") {
 						$filter_tag_div .= '<p class="iso_tags_parent_title">'.$this->tags_parent[$alias[$filter]].'</p>';
 					}
@@ -517,7 +517,7 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 				$multiple = "  placeholder='".$libmulti."'";
 				$selectAttr = array(' multiple');
 			}
-			$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$layouts["tag"]->div_width.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags">';
+			$filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$layouts["tag"]->div_width.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags" data="'.$com_id.'">';
 			// $filter_tag_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
 			$name = 'isotope-select-tags';
 			$options = array();
@@ -548,21 +548,27 @@ $width = $layouts["iso"]->div_width;
 $isotope_grid_div = "";
 if ($this->iso_params->get('middle') && (strlen(trim($this->iso_params->get('middle',''))) > 0) ){
 	// apply content plugins on weblinks
-	$item_cls = new stdClass;
+	$item_cls = new \stdClass;
 	$item_cls->text = $this->iso_params->get('middle');
 	$item_cls->params = $this->params;
     $item_cls->id= $com_id;
 	Factory::getApplication()->triggerEvent('onContentPrepare', array ('com_cgisotope.content', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
 	$isotope_grid_div = 	$item_cls->text;	
 }
-$isotope_grid_div .= '<div class="isotope_grid col-md-'.$width.' col-12" style="padding:0">'; // bootstrap : suppression du padding pour isotope
+$isotope_grid_div .= '<div class="isotope_grid col-md-'.$width.' col-12" style="padding:0" data="'.$com_id.'">'; // bootstrap : suppression du padding pour isotope
 foreach ($this->list as $key=>$category) {
 	foreach ($category as $item) {
 		$tag_display = "";
 		$tag_img = "";
 		$cat_img = "";
 		if (($article_cat_tag  == "tags") || ($article_cat_tag  == "cattags")) { // filtre tag
+		    $isdefined = false; // supposed not found
+		    if ($this->params->get('tagsmissinghidden','false') == 'false') $isdefined = true; // don't check => ok 
 			foreach ($this->article_tags[$item->id] as $tag) {
+			    // ignore tags not defined in the tags list if tagsmissinghidden param is set
+			    if ($this->tags_list && (count($this->tags_list) > 0) && ($this->params->get('tagsmissinghidden','false') == 'true')) {
+			         $isdefined = CGHelper::checkTagSet($tag->tag,$filters['tags']) || $isdefined;
+			    }
 				$tag_display .= " ".$this->tags_alias[$tag->tag];
 				$tagimage  = json_decode($this->tags_image[$this->tags_alias[$tag->tag]]);
 				if (!$tagimage) continue;
@@ -575,6 +581,7 @@ foreach ($this->list as $key=>$category) {
 								class="iso_tag_img_art" alt="'.$tagimage->image_fulltext_alt.'" title="'.$tagimage->image_fulltext_caption.'"/> ';
 				};
 			}
+			if (!$isdefined) continue; // not in list : ignore it
 		} else { // filtre catgories
 		    $tag_display =  $this->iso_entree == "webLinks"? $this->cats_alias[$item->catid] : $item->category_alias;
 		}
@@ -671,7 +678,7 @@ foreach ($this->list as $key=>$category) {
 			}
 			// apply content plugins on weblinks
 			$app = Factory::getApplication(); // Joomla 4.0
-			$item_cls = new stdClass;
+			$item_cls = new \stdClass;
 			$item_cls->id = $item->id;
 			$item_cls->text = $perso;
 			$item_cls->params = $this->iso_params;
@@ -724,14 +731,14 @@ foreach ($this->list as $key=>$category) {
 			$perso = CGHelper::checkNoField($perso); // suppress empty fields
 			// apply content plugins
 			$app = Factory::getApplication(); // Joomla 4.0
-			$item_cls = new stdClass;
+			$item_cls = new \stdClass;
 			$item_cls->id = $item->id;
 			$item_cls->text = $perso;
 			$item_cls->params = $this->iso_params;
 			$app->triggerEvent('onContentPrepare', array ('com_content.article', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
 			$perso = 	$item_cls->text;	
 			// additionnal perso in isotope plugin
-			$item_cls = new stdClass;
+			$item_cls = new \stdClass;
 			$item_cls->id = $item->id;
 			$item_cls->text = $perso;
 			$item_cls->params = $this->iso_params;
@@ -757,7 +764,7 @@ if ($displayrange == "true") {
 	$awidth = $layouts["range"]->div_width;
 	if (!property_exists($layouts["range"],'offcanvas')) $layouts["range"]->offcanvas = "false";
 	if ($layouts["range"]->offcanvas == "true") $awidth = 12;
-    $isotope_range_div = '<div class="iso_range col-md-'.$awidth.' col-12 '.$layouts["range"]->div_align.'">';
+    $isotope_range_div = '<div class="iso_range col-md-'.$awidth.' col-12 '.$layouts["range"]->div_align.'" data="'.$com_id.'">';
     $isotope_range_div .= '<div class="col-12"><label title="'.$this->rangedesc.'">'.$this->rangelabel.'</label></div><div class="col-12 col-md-12"><input type="text" id="rSlider" data="'.$com_id.'"/></div>';
     $isotope_range_div .= '</div>';
 }
@@ -767,7 +774,7 @@ if ($displayalpha != "false") {
 	$awidth = $layouts["alpha"]->div_width;
 	if (!property_exists($layouts["alpha"],'offcanvas')) $layouts["alpha"]->offcanvas = "false";	
 	if ($layouts["alpha"]->offcanvas == "true") $awidth = 12;
-    $isotope_alpha_div = '<div class="isotope_button-group filter-button-group-alpha iso_alpha col-md-'.$awidth.' col-12 '.$layouts["alpha"]->div_align.'" data-filter-group="alpha">';
+    $isotope_alpha_div = '<div class="isotope_button-group filter-button-group-alpha iso_alpha col-md-'.$awidth.' col-12 '.$layouts["alpha"]->div_align.'" data-filter-group="alpha" data="'.$com_id.'">';
 	$isotope_alpha_div .= CGHelper::create_alpha_buttons($this,$button_bootstrap);
     $isotope_alpha_div .= '</div>';
 }
@@ -777,14 +784,11 @@ if (($language_filter == "button") || ($language_filter == "multi")) {
 	$awidth = $layouts["lang"]->div_width;
 	if (!property_exists($layouts["lang"],'offcanvas')) $layouts["lang"]->offcanvas = "false";	
 	if ($layouts["lang"]->offcanvas == "true") $awidth = 12;
-    $isotope_lang_div = '<div class="isotope_button-group iso_lang col-md-'.$awidth.' col-12 '.$layouts["lang"]->div_align.'" data-filter-group="lang">';
+    $isotope_lang_div = '<div class="isotope_button-group iso_lang col-md-'.$awidth.' col-12 '.$layouts["lang"]->div_align.'" data-filter-group="lang" data="'.$com_id.'">';
 	$isotope_lang_div .= CGHelper::create_language_buttons($this,$button_bootstrap);
     $isotope_lang_div .= '</div>';
 }
 //=====================================layouts==============================================//
-?>
-<?php
-
 ksort($layouts_order,  SORT_STRING | SORT_FLAG_CASE | SORT_NATURAL ); // order
 $val = 0;
 $offcanvas = false;
@@ -890,7 +894,7 @@ if ($this->iso_params->get('pagination','true') == 'infinite') { ?>
 </div>
 <?php if (strlen(trim($this->iso_params->get('bottom',''))) > 0) {
 	// apply content plugins on weblinks
-	$item_cls = new stdClass;
+	$item_cls = new \stdClass;
 	$item_cls->text = $this->iso_params->get('bottom');
 	$item_cls->params = $this->params;
     $item_cls->id= $com_id;
