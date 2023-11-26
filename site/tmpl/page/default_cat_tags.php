@@ -824,7 +824,7 @@ foreach ($layouts_order as $layout) {
 		} else {
 			echo '<span class="navbar-toggler-text">'.Text::_('CG_ISO_LIBFILTER').'</span>';
 		}
-	    echo '</a><div id="clonedbuttons"></div></div>';
+	    echo '</a><div id="clonedbuttons" data="'.$com_id.'"></div></div>';
 	    echo '<div class="offcanvas offcanvas-'.$this->offcanvaspos.'"  tabindex="-1" id="offcanvas_isotope" aria-labelledby="offcanvas_isotopeLabel" data-bs-scroll="true">';
 		$liboff = Text::_('CG_ISO_LIBFILTER');
 		echo '<div class="offcanvas-header"><h5 class="offcanvas-title" id="offcanvas_isotopeLabel">'.$liboff.'</h5>';
