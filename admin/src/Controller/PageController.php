@@ -1,10 +1,10 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 4.2.7
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\Controller;
@@ -71,7 +71,7 @@ class PageController extends FormController
 	 */
 	public function cancel($key = null)
 	{
-		// $result = parent::cancel();
+		parent::cancel();
 		$app = Factory::getApplication();
 		$return = Uri::base().'index.php?option=com_cgisotope&view=pages';
 		$app->redirect($return);

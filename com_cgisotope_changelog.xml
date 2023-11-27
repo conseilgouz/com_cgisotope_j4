@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.7</version>
+        <note>
+            <item>Update : 27/11/2023</item>
+        </note>
+		<fix>
+            <item>Admin : Unlock CG Isotope page on page close</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.6</version>
         <note>
             <item>Update : 26/11/2023</item>
