@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.2.7
+* Version			: 4.2.8
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -67,17 +67,6 @@ class PageController extends FormController
 		return false;
 	
 	}
-	/**
-	 */
-	public function cancel($key = null)
-	{
-		parent::cancel();
-		$app = Factory::getApplication();
-		$return = Uri::base().'index.php?option=com_cgisotope&view=pages';
-		$app->redirect($return);
-		return true;
-	}
-
     public function save($key = null, $urlVar = null)
     {       
         // Check for request forgeries.

@@ -1,10 +1,10 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.0
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Version			: 4.2.8
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\Table;
@@ -171,8 +171,10 @@ class PageTable extends Table implements VersionableTableInterface
         }
         $data->state = $this->state;
 		$data->language = $this->language;
-		$data->checked_out = 0;
-		$data->checked_out_time = null;
+		if ($task == "save") { // save & close : reset checkout
+		  $data->checked_out = 0;
+		  $data->checked_out_time = null;
+		}
         if ($exists) { // update
             return $db->updateObject($table, $data, 'id');
         }
