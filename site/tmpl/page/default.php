@@ -161,6 +161,21 @@ if ($this->iso_entree == "webLinks") {
 	}
 	$this->list[] = CGHelper::getItems($this->categories,$this->iso_params,$this,$this->pagination);
 }
+// pagination : check tags_list to add missing tags in the list
+if (sizeof($this->tags_list) && ($this->iso_params->get("pagination","false") != 'false')) {
+	$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
+	$missings = CGHelper::getMissingTags($this->tags_list,$authorised);
+	foreach ($missings as $tag) { 
+		if (!in_array($tag->tag, $this->tags)) {
+			$this->tags[]=$tag->tag;
+			$this->tags_alias[$tag->tag] = $tag->alias;
+			$this->tags_image[$tag->alias] = $tag->images;
+			$this->tags_note[$tag->alias] = $tag->note; 
+			$this->tags_parent[$tag->alias] = $tag->parent_title;					
+			$this->tags_parent_alias[$tag->alias] = $tag->parent_alias;					
+		}
+	}
+}
 //-------------------- parameters to send to JS ---------------------------------------//
 $defaultdisplay = $this->iso_params->get('defaultdisplay', 'date_desc');
 $sortBy = "";$sortAscending = "";

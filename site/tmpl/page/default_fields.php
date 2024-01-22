@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.2.6
+* Version			: 4.3.11
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 defined('_JEXEC') or die;
@@ -597,7 +597,7 @@ $filter_tag_div= "";
 			$group_id = $onegroup[$first]->field_id;
 			$filter_div .=  '<div class="'.$col_width.'  isotope_button-group filter-button-group-fields class_fields_'.$group_lib.' '.$layouts["field"]->div_align.'" data-filter-group="'.$group_lib.'" data-group-id="'.$group_id.'" data="'.$com_id.'">';
 			
-			$filter_div .= CGHelper::create_buttons( $this->fields,$group_lib,$onegroup,$this->iso_params,$col_width,$button_bootstrap,$splitfieldstitle,$group_label[$group_lib],$group_id);
+			$filter_div .= CGHelper::create_buttons( $this->fields,$group_lib,$onegroup,$this->iso_params,$col_width,$button_bootstrap,$splitfieldstitle,$group_label[$group_lib],$group_id,$com_id);
 			$filter_div .= "</div>";
 		}
 		if ($this->iso_params->get('splitfieldscolumn','false') == "true") {
@@ -608,7 +608,7 @@ $filter_tag_div= "";
 		$width = $layouts['field']->div_width;
 		$col_width = "col-md-".$width." col-12";
 	    $filter_div .=  '<div class="'.$col_width.'  isotope_button-group filter-button-group-fields class_fields_'.$group_lib.'" data-filter-group="'.$group_lib.'" data="'.$com_id.'">';
-	    $filter_div .=  CGHelper::create_buttons( $this->fields,'fields',$this->fields,$this->iso_params,$col_width,$button_bootstrap,'false','fields',0);
+	    $filter_div .=  CGHelper::create_buttons( $this->fields,'fields',$this->fields,$this->iso_params,$col_width,$button_bootstrap,'false','fields',0,$com_id);
 		$filter_div .= "</div>";
 	}
  } 
@@ -632,7 +632,7 @@ foreach ($this->list as $key=>$category) {
 		$cat_img = "";
 		if (($article_cat_tag  == "tagsfields") || ($article_cat_tag  == "cattagsfields")) { // filtre tag
 		    $isdefined = false; // supposed not found
-		    if ($this->params->get('tagsmissinghidden','false') == 'false') $isdefined = true; // don't check => ok 
+		    if (($this->params->get('tagsmissinghidden','false') == 'false') || ($this->iso_params->get('pagination','false') != 'false') ) $isdefined = true; // don't check => ok 
 			foreach ($this->article_tags[$item->id] as $tag) {
 			    // ignore tags not defined in the tags list if tagsmissinghidden param is set
 			    if ($this->tags_list && (count($this->tags_list) > 0) && ($this->params->get('tagsmissinghidden','false') == 'true')) {

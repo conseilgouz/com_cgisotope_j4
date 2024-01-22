@@ -2,6 +2,21 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.11</version>
+        <note>
+            <item>Update : 22/01/2024</item>
+        </note>
+		<fix>
+			<item>No pagination : readmore article button not showing if limit items is set</item>
+			<item>Ignore limit items if pagination is set</item>
+			<item>Pagination : show all selected tags even if no matching article is displayed at the moment</item>
+			<item>Infinite : hide show more/less message if not required</item>
+			<item>Fields : error in js if Display Fields Label is set</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.8</version>
         <note>
             <item>Update : 27/11/2023</item>

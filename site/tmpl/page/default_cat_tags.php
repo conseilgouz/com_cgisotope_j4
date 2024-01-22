@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.2.5
+* Version			: 4.3.11
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 defined('_JEXEC') or die;
@@ -563,7 +563,7 @@ foreach ($this->list as $key=>$category) {
 		$cat_img = "";
 		if (($article_cat_tag  == "tags") || ($article_cat_tag  == "cattags")) { // filtre tag
 		    $isdefined = false; // supposed not found
-		    if ($this->params->get('tagsmissinghidden','false') == 'false') $isdefined = true; // don't check => ok 
+		    if ( ($this->params->get('tagsmissinghidden','false') == 'false') || ($this->iso_params->get('pagination','false') != 'false') ) $isdefined = true; // don't check => ok 
 			foreach ($this->article_tags[$item->id] as $tag) {
 			    // ignore tags not defined in the tags list if tagsmissinghidden param is set
 			    if ($this->tags_list && (count($this->tags_list) > 0) && ($this->params->get('tagsmissinghidden','false') == 'true')) {

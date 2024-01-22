@@ -1,8 +1,8 @@
 /**
 * CG Isotope Component/ Simple Isotope module for Joomla 4.x/5.x
-* Version			: 4.3.6
+* Version			: 4.3.9
 * Package			: CG ISotope/Simple Isotope
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -233,7 +233,7 @@ CGIsotope.prototype.goisotope = function(isoid) {
 	}); // end of Isotope definition
 	imagesLoaded(grid, function() {
 		$myiso = cgisotope[this.elements[0].getAttribute('data')];
-		$myiso.iso.arrange();
+		$myiso.updateFilterCounts();
 		if ($myiso.sort_by == "random") {
 			$myiso.iso.shuffle();
 		}
@@ -282,10 +282,10 @@ CGIsotope.prototype.goisotope = function(isoid) {
 		let more = document.querySelector($myiso.me+'.iso_button_more');		
 		if ($myiso.options.infinite_btn == "true") {
 			infScroll.option({button:'.iso_button_more',loadOnScroll: false});
-			let $viewMoreButton = document.querySelector('.iso_button_more');
+																	
 			more.style.display = "block";
 			['click', 'touchstart'].forEach(type => {
-				$viewMoreButton.addEventListener( type, function(e) {
+				more.addEventListener( type, function(e) {
 					e.stopPropagation();
 					e.preventDefault();		
 				// load next page
@@ -293,17 +293,17 @@ CGIsotope.prototype.goisotope = function(isoid) {
 					// enable loading on scroll
 					infScroll.option({loadOnScroll: true});
 				// hide button
-					$viewMoreButton.style.display = "none";
+					this.style.display = "none";
 					event.preventDefault();
 				});
 			})
 		} else {
-			more.style.display = "hide";
+			more.style.display = "none";
 		}
 		infScroll.on( 'append', function( body, path, items, response ) {
 			// console.log(`Appended ${items.length} items on ${path}`);
 			$myiso.infinite_buttons(items);
-			// iso.arrange();
+			$myiso.iso.arrange();
 		 });
 	}
 	// --------------> end of infinite scroll <----------------
@@ -371,7 +371,7 @@ CGIsotope.prototype.goisotope = function(isoid) {
 		$myiso.quicksearch.addEventListener('keyup',e => {
 			this.qsRegex = new RegExp( this.quicksearch.value, 'gi' );
 			this.CG_Cookie_Set(this.isoid,'search',this.quicksearch.value);
-			this.iso.arrange();
+					  
 			this.updateFilterCounts();
 		});
 	}
@@ -434,7 +434,7 @@ CGIsotope.prototype.goisotope = function(isoid) {
 				$buttons[i].remove(); 
 			}
 			isoobj.update_cookie_filter();
-			isoobj.iso.arrange();
+						
 			isoobj.updateFilterCounts();
 			if (isoobj.quicksearch) {
 				isoobj.quicksearch.focus();
@@ -884,7 +884,7 @@ CGIsotope.prototype.filter_list = function($this,evt,params) {
 			$this.filters[$parent] = ['*'] ;
 			choicesInstance.setChoiceByValue('')
 			$this.update_cookie_filter();
-			$this.iso.arrange(); 
+						
 			$this.updateFilterCounts();
 		}	
 		return;
@@ -913,7 +913,7 @@ CGIsotope.prototype.filter_list = function($this,evt,params) {
 		}
 	}
 	$this.update_cookie_filter();
-	$this.iso.arrange(); 
+					  
 	$this.updateFilterCounts();
 }
 	// ----- Filter MultiSelect List
@@ -999,7 +999,7 @@ CGIsotope.prototype.filter_list_multi = function($this,evt,params) {
 			choicesInstance.hideDropdown();
 		}
 		$this.update_cookie_filter();
-		$this.iso.arrange(); 
+					   
 		$this.updateFilterCounts();
 	}
      
@@ -1059,7 +1059,7 @@ CGIsotope.prototype.filter_button = function(obj,evt) {
 			}
 		}
 		$myiso.update_cookie_filter();
-		$myiso.iso.arrange(); 
+						
 		$myiso.updateFilterCounts();
 	}
 CGIsotope.prototype.filter_multi = function(obj,evt) {
@@ -1140,7 +1140,7 @@ CGIsotope.prototype.filter_multi = function(obj,evt) {
 			}	
 		}
 		$myiso.update_cookie_filter();
-		$myiso.iso.arrange(); 
+						
 		$myiso.updateFilterCounts();
 	}
 CGIsotope.prototype.set_buttons_multi = function(obj) {

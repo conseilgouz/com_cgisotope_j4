@@ -625,6 +625,19 @@ class CGHelper  extends ComponentHelper{
 		$db->setQuery($query);
 		return $db->loadObjectList();
 	}
+	// pagination : add tags information from tags_list
+	public static function getMissingTags($tags_list,$authorised) {
+	    $db = Factory::getDbo();
+	    $query = $db->getQuery(true);
+	    $query->select('DISTINCT tags.title as tag, tags.alias as alias, tags.note as note, tags.images as images, parent.title as parent_title, parent.alias as parent_alias, tags.id')
+	    ->from('#__contentitem_tag_map as map ')
+	    ->innerJoin('#__tags as tags on tags.id = map.tag_id')
+	    ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
+	    ->where('tags.id IN ('.implode(',',$tags_list).') AND map.type_alias like "com_content%" AND tags.access IN ('.implode(',',$authorised).')')
+	    ;
+	    $db->setQuery($query);
+	    return $db->loadObjectList();
+	}	
 	public static function getWebLinkTags($id,$authorised) {
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true);
@@ -772,7 +785,7 @@ class CGHelper  extends ComponentHelper{
 		return false;
 	}
 //---------------------------------------------------- Create Fields buttons	----------------------------------------------// 
-	public static function create_buttons($fields, $group_lib,$onefilter,$params,$col_width,$button_bootstrap,$splitfieldstitle,$group_title,$group_id) {
+	public static function create_buttons($fields, $group_lib,$onefilter,$params,$col_width,$button_bootstrap,$splitfieldstitle,$group_title,$group_id, $comid = 0) {
 
 
 	    $params_fields = $params->get('displayfields',array());
@@ -795,7 +808,7 @@ class CGHelper  extends ComponentHelper{
 		$result = "";
 		if  (($displayfilterfields == "button")  || ($displayfilterfields == "multi") || ($displayfilterfields == "multiex")) {
 			 if ($splitfieldstitle == "true") {
-				$result .= "<p class='iso_fields_title ".$col_width."' data-filter-group='".$group_lib."' data-group-id='".$group_id."' data-group-id='".$group_id."'>". Text::_($group_title)."<br/>";
+				$result .= "<p class='iso_fields_title ".$col_width."' data-filter-group='".$group_lib."' data-group-id='".$group_id."' data-group-id='".$group_id."' data='".$comid."'>". Text::_($group_title)."<br/>";
 			 }
 			 $first_time = true;
 		     foreach ($onefilter as $key=>$filter) {
