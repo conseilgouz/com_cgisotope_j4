@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.2.5
+* Version			: 4.2.13
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -24,6 +24,7 @@ use Joomla\CMS\Access\Access;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Site\Model\ArticlesModel;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
+use Joomla\Component\Weblinks\Site\Helper\RouteHelper as WeblinkRouter;
 use \Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
 use Joomla\CMS\Application\ApplicationHelper;
 use  Joomla\CMS\Filter\OutputFilter as FilterOutput;
@@ -94,7 +95,9 @@ class CGHelper  extends ComponentHelper{
 		{
 			foreach ($items as $itemkey=>$item)
 			{ // link to update click counter (visits)
-					$item->link	= 'index.php?option=com_weblinks&task=weblink.go&catid=' . $id . ':'.$alias.'&id=' . $item->id.':'.$item->alias;
+					// $item->link	= 'index.php?option=com_weblinks&task=weblink.go&catid=' . $id . ':'.$alias.'&id=' . $item->id.':'.$item->alias;
+					$item->link = Route::_(WeblinkRouter::getWeblinkRoute($item->id, $id, $item->language));
+					$item->link .= '&task=weblink.go'; // force open weblink 
 					$images  = json_decode($item->images);
 					$item->introimg = ""; 			// image d'introduction
 					if (!empty($images->image_first)) { // first img exists
