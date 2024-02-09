@@ -2,13 +2,24 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.14</version>
+        <note>
+            <item>Update : 08/02/2024</item>
+        </note>
+		<fix>
+			<item>Weblinks : invalid char in link</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.13</version>
         <note>
             <item>Update : 08/02/2024</item>
         </note>
-		<addition>
+		<fix>
 			<item>Weblinks : invalid router in multilanguage mode</item>
-		</addition>
+		</fix>
 	</changelog>
 	<changelog>
 		<element>com_cgisotope</element>
