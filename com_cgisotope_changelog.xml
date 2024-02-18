@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.15</version>
+        <note>
+            <item>Update : 18/02/2024</item>
+        </note>
+		<fix>
+			<item>Infinite paging : ignore cookie</item>
+			<item>Infinite paging : alpha buttons : recreate event listeners</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.14</version>
         <note>
             <item>Update : 08/02/2024</item>
