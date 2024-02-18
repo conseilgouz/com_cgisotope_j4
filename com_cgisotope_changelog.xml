@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.16</version>
+        <note>
+            <item>Update : 18/02/2024</item>
+        </note>
+		<fix>
+			<item>Infinite paging : alpha buttons : remove event listeners on single button</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.15</version>
         <note>
             <item>Update : 18/02/2024</item>
