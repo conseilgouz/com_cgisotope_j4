@@ -1,9 +1,9 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5x Component 
+* Version			: 4.2.18
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -29,6 +29,7 @@ class PagesModel extends ListModel
 				'fieldslinks', 't.fieldslinks',
 				'language','t.language',
 				'checked_out','t.checked_out',
+				'checked_out_time','t.checked_out_time',
 				'page_params', 't.page_params');
 		}
 
@@ -41,7 +42,7 @@ class PagesModel extends ListModel
 		$query	= $db->getQuery(true);
 
 		// Select the required fields from the table.
-		$query->select('t.id, t.title, t.state,t.page_params, t.sections, t.language,t.checked_out');
+		$query->select('t.id, t.title, t.state,t.page_params, t.sections, t.language,t.checked_out,t.checked_out_time');
 		// Join over the language
 		$query->select('l.title AS language_title, l.image AS language_image')
 			->join('LEFT', $db->quoteName('#__languages', 'l') . ' ON l.lang_code = t.language');

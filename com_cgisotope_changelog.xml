@@ -2,6 +2,18 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.18</version>
+        <note>
+            <item>Update : 03/05/2024</item>
+        </note>
+		<fix>
+			<item>Bootstrap buttons alignment : add button width in isotope.css</item>
+			<item>Locked page : suppress notice checked_out_time undefined</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.17</version>
         <note>
             <item>Update : 23/02/2024</item>
