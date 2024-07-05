@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.2.19</version>
+        <note>
+            <item>Update : 05/07/2024</item>
+        </note>
+		<fix>
+			<item>Truncate : use truncateComplex to handle self closing tags</item>
+		</fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.2.18</version>
         <note>
             <item>Update : 03/05/2024</item>
