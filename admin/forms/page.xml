@@ -277,6 +277,13 @@
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
+			<field showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields" name="tagsfiltercount"
+				type="radio" class="btn-group btn-group-yesno clear" default="false" 
+				label="CG_ISO_TAGSFILTERCOUNT" 
+				description="CG_ISO_TAGSFILTERCOUNTDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
 <field	name="notefilterfieldsinfo"	type="note" label="CG_ISO_FILTERFIELDSINFONOTE" showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles" class="alert-success clear half"/>
 
 			<field showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles"

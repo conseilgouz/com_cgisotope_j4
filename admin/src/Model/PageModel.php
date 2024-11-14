@@ -91,6 +91,7 @@ class PageModel extends AdminModel {
         $data->tagsmissinghidden = $compl['tagsmissinghidden'];
         $data->tagsfilterorder = $compl['tagsfilterorder'];
         $data->tagsfilterimg = $compl['tagsfilterimg'];
+        $data->tagsfiltercount = $compl['tagsfiltercount'];
         $data->tagsfilterparent = $compl['tagsfilterparent'];
         $data->tagsfilterparentlabel = $compl['tagsfilterparentlabel'];
         $data->catfilteralias = $compl['catfilteralias'];

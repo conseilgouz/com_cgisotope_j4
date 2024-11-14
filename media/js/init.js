@@ -280,10 +280,9 @@ CGIsotope.prototype.goisotope = function(isoid) {
 			currentpage = this.loadCount;
 			return '?start='+(currentpage+1)*$myiso.options.page_count; 
 		}
-		let more = document.querySelector($myiso.me+'.iso_button_more');		
+		let more = document.querySelector($myiso.me+'.iso_button_more');
 		if ($myiso.options.infinite_btn == "true") {
 			infScroll.option({button:'.iso_button_more',loadOnScroll: false});
-																	
 			more.style.display = "block";
 			['click', 'touchstart'].forEach(type => {
 				more.addEventListener( type, function(e) {
@@ -328,7 +327,7 @@ CGIsotope.prototype.goisotope = function(isoid) {
 				};
 				waitForEl(function () {
 					document.querySelector(selector); // do something with selector
-				}, 3);		
+				}, 3);
 			})
 		})
 	// set default buttons in cloned area
@@ -342,7 +341,7 @@ CGIsotope.prototype.goisotope = function(isoid) {
 					agroup = document.querySelectorAll($myiso.me+'.filter-button-group-'+grouptype[g]+' button'); 
 					for (var i=0; i< agroup.length;i++) {
 						if (agroup[i].getAttribute('data-sort-value') == $myiso.filters[grouptype[g]]) {
-							$myiso.create_clone_button(grouptype[g],$myiso.filters[grouptype[g]],agroup[i].textContent,optionstype[g],'');
+							$myiso.create_clone_button(grouptype[g],$myiso.filters[grouptype[g]],agroup[i].textContent,agroup[i].title,optionstype[g],'');
 							$myiso.create_clone_listener($myiso.filters[grouptype[g]]);
 						}
 					}
@@ -615,7 +614,7 @@ CGIsotope.prototype.events_listmulti = function(component) {
 				sel = savefilter;
 				lib = choicesInstance.getValue()[0].label;
 				child = null;
-				this.create_clone_button(component,sel,lib,'list',child);
+				this.create_clone_button(component,sel,lib,'','list',child);
 				this.create_clone_listener(sel);
 			}
 		}
@@ -643,7 +642,7 @@ CGIsotope.prototype.events_list = function(component) {
 			sel = this.filters[component];
 			lib = choicesInstance.getValue().label;
 			child = null;
-			this.create_clone_button(component,sel,lib,'list',child);
+			this.create_clone_button(component,sel,lib,'','list',child);
 			this.create_clone_listener(sel);
 		}
 	}	
@@ -915,7 +914,7 @@ CGIsotope.prototype.filter_list = function($this,evt,params) {
 	}
 	if (sortValue == '')   {
 		choicesInstance.removeActiveItems();
-		choicesInstance.setChoiceByValue('')		
+		choicesInstance.setChoiceByValue('');
 		$this.filters[$parent] = ['*'];
 		$buttons = document.querySelectorAll('#clonedbuttons [data-filter-group="'+$parent+'"]');
 		for (var i=0; i< $buttons.length;i++) { // remove buttons
@@ -931,7 +930,7 @@ CGIsotope.prototype.filter_list = function($this,evt,params) {
 			clone_exist = document.querySelector(this.me+'#clonedbuttons button[data-sort-value="'+$this.filters[$parent]+'"]');
 			if (!clone_exist) {
 				lib = evt.detail.choice.label;
-				$this.create_clone_button($parent,sortValue,lib,'list','');
+				$this.create_clone_button($parent,sortValue,lib,'','list','');
 				$this.create_clone_listener(sortValue);
 			}
 		}
@@ -973,7 +972,7 @@ CGIsotope.prototype.filter_list_multi = function($this,evt,params) {
 					remval = $this.filters[$parent][i];
 					choicesInstance.setChoiceByValue(remval);
 					asel = choicesInstance.getValue()[i];
-					$this.create_clone_button($parent,remval,asel.label,'list_multi','');
+					$this.create_clone_button($parent,remval,asel.label,'','list_multi','');
 					$this.create_clone_listener(remval);
 				}
 			} else {
@@ -1014,7 +1013,7 @@ CGIsotope.prototype.filter_list_multi = function($this,evt,params) {
 					if ($this.filters[$parent].indexOf(sel) != -1) clone_exist = true
 					// clone_exist = document.querySelector(this.me+'#clonedbuttons button[data-sort-value="'+this.filters[$parent]+'"]');
 					if (!clone_exist) {
-						$this.create_clone_button($parent,sel,lib,'list_multi','');
+						$this.create_clone_button($parent,sel,lib,'','list_multi','');
 						$this.create_clone_listener(sel);
 					}
 				}
@@ -1064,7 +1063,8 @@ CGIsotope.prototype.filter_button = function(obj,evt) {
 			}
 			if (sortValue != '*') { // don't clone all button
 				lib = evt.srcElement.innerHTML;
-				$myiso.create_clone_button($parent,sortValue,lib,'button',child);
+                title = evt.srcElement.title;
+				$myiso.create_clone_button($parent,sortValue,lib,title,'button',child);
 				$myiso.create_clone_listener(sortValue);
 			}
 		}
@@ -1115,7 +1115,8 @@ CGIsotope.prototype.filter_multi = function(obj,evt) {
 			    if (evt.srcElement.localName == "img")
 					lib = evt.srcElement.outerHTML+evt.srcElement.nextSibling.textContent;
 				else lib = evt.srcElement.innerHTML;
-				$myiso.create_clone_button($parent,sortValue,lib,'multi',child);
+                title = evt.srcElement.title;
+				$myiso.create_clone_button($parent,sortValue,lib,title,'multi',child);
 				$myiso.create_clone_listener(sortValue);
 			} else { // remove cloned button
 				if (sortValue != "*") {
@@ -1239,7 +1240,7 @@ CGIsotope.prototype.updateFilterCounts = function() {
 		this.iso.arrange();
 	}
 // -- Create a clone button
-CGIsotope.prototype.create_clone_button = function($parent,$sel,$lib,$type,child) {
+CGIsotope.prototype.create_clone_button = function($parent,$sel,$lib,$title,$type,child) {
 	buttons = document.querySelector('#clonedbuttons');
 	var abutton = document.createElement('button');
 	abutton.classList.add('btn');
@@ -1254,7 +1255,7 @@ CGIsotope.prototype.create_clone_button = function($parent,$sel,$lib,$type,child
 		abutton.title = $lib.substr($lib.indexOf(">") + 1)
 	}
 	else {
-		abutton.title = $lib;
+		abutton.title = $title;
 	}
 	abutton.innerHTML = $lib;
 	buttons.prepend(abutton);
@@ -1428,7 +1429,7 @@ CGIsotope.prototype.splitCookie = function(isoid,item) {
 									lib = choicesInstance.getValue()[c].label;
 									sel = choicesInstance.getValue()[c].value;
 									child = null;
-									this.create_clone_button(values[0],sel,lib,'list_multi',child);
+									this.create_clone_button(values[0],sel,lib,'','list_multi',child);
 									this.create_clone_listener(sel);
 								}
 							}
@@ -1455,7 +1456,7 @@ CGIsotope.prototype.splitCookie = function(isoid,item) {
 										sel = this.filters[values[0]][v];
 										lib = choicesInstance.getValue().label;
 										child = null;
-										this.create_clone_button(values[0],sel,lib,'list',child);
+										this.create_clone_button(values[0],sel,lib,'','list',child);
 										this.create_clone_listener(sel);
 									}
 								} else {
@@ -1471,7 +1472,8 @@ CGIsotope.prototype.splitCookie = function(isoid,item) {
 										}
 										child = null;
 										lib = $button.innerHTML;
-										this.create_clone_button(values[0],this.filters[values[0]][v],lib,$type,child);
+                                        title = $button.title;
+										this.create_clone_button(values[0],this.filters[values[0]][v],lib,title,$type,child);
 										this.create_clone_listener(this.filters[values[0]][v]);
 									}
 								}
@@ -1496,7 +1498,7 @@ CGIsotope.prototype.splitCookie = function(isoid,item) {
 									lib = choicesInstance.getValue()[c].label;
 									sel = choicesInstance.getValue()[c].value;
 									child=null;
-									this.create_clone_button(values[0],sel,lib,'list',child);
+									this.create_clone_button(values[0],sel,lib,'','list',child);
 									this.create_clone_listener(sel);
 								}
 							}
@@ -1521,7 +1523,7 @@ CGIsotope.prototype.splitCookie = function(isoid,item) {
 										lib = choicesInstance.getValue().label;
 										sel = choicesInstance.getValue().value;
 										child=null;
-										this.create_clone_button(values[0],sel,lib,'list',child);
+										this.create_clone_button(values[0],sel,lib,'','list',child);
 										this.create_clone_listener(sel);
 									}
 								}
@@ -1536,7 +1538,8 @@ CGIsotope.prototype.splitCookie = function(isoid,item) {
 								if (this.hasClass(obj.parentNode.parentNode.parentNode,"offcanvas-body"))  { // need clone
 									$type ='button'; 
 									lib = obj.innerHTML;
-									this.create_clone_button(values[0],this.filters[values[0]][v],lib,$type,child);
+                                    title = obj.title;
+									this.create_clone_button(values[0],this.filters[values[0]][v],lib,title,$type,child);
 									this.create_clone_listener(this.filters[values[0]][v]);
 								}
 							}
