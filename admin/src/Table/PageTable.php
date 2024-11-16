@@ -126,6 +126,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['tagsfilterorder'] = $compl['tagsfilterorder'];
             $page_params['tagsfilterimg'] = $compl['tagsfilterimg'];
             $page_params['tagsfiltercount'] = $compl['tagsfiltercount'];
+            $page_params['tagsfilterlink'] = $compl['tagsfilterlink'];
             $page_params['tagsfilterparent'] = $compl['tagsfilterparent'];
             $page_params['tagsfilterparentlabel'] = $compl['tagsfilterparentlabel'];
             $page_params['catfilteralias'] = $compl['catfilteralias'];

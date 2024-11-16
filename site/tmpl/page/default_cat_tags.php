@@ -35,7 +35,7 @@ $displayfiltertags =  $this->iso_params->get('displayfiltertags', 'button');
 $tagsfilterorder = $this->iso_params->get('tagsfilterorder', 'false');
 $tagsfilterimg =  $this->iso_params->get('tagsfilterimg', 'false');
 $tagsfiltercount =  $this->iso_params->get('tagsfiltercount', 'false');
-
+$tagsfilterlink =  $this->iso_params->get('tagsfilterlink', 'false');
 $tagsfilterparent =  $this->iso_params->get('tagsfilterparent', 'false');
 $tagsfilterparentlabel =  $this->iso_params->get('tagsfilterparentlabel', 'false');
 
@@ -666,7 +666,24 @@ foreach ($this->list as $key => $category) {
         }
         $itemtags = "";
         foreach ($this->article_tags[$item->id] as $tag) {
-            $itemtags .= '<span class="iso_tag_'.$this->tags_alias[$tag->tag].'"><a href="'.$this->tags_link[$tag->alias].'">'.(($itemtags == "") ? $tag->tag : "<span class='iso_tagsep'><span>-</span></span>".$tag->tag).'</a></span>';
+            $iso_link_cls == "";
+            $iso_link_sort == "";
+            if ($tagsfilterlink == 'joomla') { // joomla link to tag component
+                $iso_link_cls = $this->tags_link[$tag->alias] ? " iso_tag_link" : "";
+            }
+            if ($tagsfilterlink == 'iso') { // isotope filtering
+                $iso_link_sort = ' data-sort-value="'.$tag->alias.'"';
+                $iso_link_cls = ' iso_tag_link';
+            }
+            $itemtags .= '<span class="iso_tag_'.$this->tags_alias[$tag->tag].$iso_link_cls.'"'.$iso_link_sort.'>';
+            if ($tagsfilterlink == 'joomla') { // joomla link to tag component
+                $itemtags .= '<a href="'.$this->tags_link[$tag->alias].'"  target="_blank">';
+            }
+            $itemtags .= ($itemtags == "") ? $tag->tag : "<span class='iso_tagsep'><span> - </span></span>".$tag->tag;
+            if ($tagsfilterlink == 'joomla') { // joomla link to tag component
+                $itemtags .= '</a>';
+            }
+            $itemtags .= '</span>';
         }
 
         $ladate = $this->iso_entree == "webLinks" ? $item->created : $item->displayDate;

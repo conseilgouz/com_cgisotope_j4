@@ -414,3 +414,12 @@ div.itemExtraFields ul li span.itemExtraFieldsLabel {
 	.offstart{ right:-25%}
 	
 }
+.isotope_button-group .tag-count.badge.bg-info {margin-left:10px}
+
+/* tags with links */
+a .iso_tagsep span{display:none}
+.iso-tags .iso_tag_link::after {
+    margin-left:10px;
+    margin-right:10px;
+    content: '\2022';
+}

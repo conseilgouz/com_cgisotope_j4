@@ -1,6 +1,6 @@
 /**
 * CG Isotope Component/ Simple Isotope module for Joomla 4.x/5.x
-* Version			: 4.2.17 CG Isotope / 4.3.17 Simple Isotope
+* Version			: 4.3.0 CG Isotope / 4.3.17 Simple Isotope
 * Package			: CG ISotope/Simple Isotope
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -490,6 +490,9 @@ CGIsotope.prototype.goisotope = function(isoid) {
 	if ($myiso.options.displayalpha == "button") { 
 		$myiso.events_button('alpha');
 	}
+//	if ($myiso.options.taglink == "joomla") { 
+		$myiso.events_tags();
+//	}
 	more = document.querySelector($myiso.me+'.iso_button_more');
 	if (more) {
 		['click', 'touchstart'].forEach(type => {
@@ -662,7 +665,7 @@ CGIsotope.prototype.remove_events_button = function(component) {
 }
 CGIsotope.prototype.listenbutton= function(evt){
 	evt.stopPropagation();
-	evt.preventDefault();	
+	evt.preventDefault();
 	id = evt.currentTarget.parentNode.getAttribute('data');
 	cgisotope[id].filter_button(evt.currentTarget,evt);
 	mygroup= evt.currentTarget.parentNode.querySelectorAll('button' );
@@ -682,6 +685,30 @@ CGIsotope.prototype.events_button = function(component) {
 			agroup[i].addEventListener(type,this.listenbutton);
 		})
 	};
+}
+CGIsotope.prototype.listentags= function(evt){
+    val = evt.currentTarget.getAttribute('data-sort-value');
+    if (!val) return;
+	evt.stopPropagation();
+	evt.preventDefault();
+    id = evt.currentTarget.parentNode.parentNode.parentNode.getAttribute('data');
+    iso = cgisotope[isoid];
+    agroup= document.querySelectorAll(iso.me+'.filter-button-group-tags button');
+    agroup.forEach(abutton => {
+        if (abutton.getAttribute('data-sort-value') == val) {
+            abutton.click();
+        }
+    })
+}
+
+CGIsotope.prototype.events_tags = function() {
+	agroup= document.querySelectorAll(this.me+'.iso-tags span ');
+	for (var i=0; i< agroup.length;i++) {
+		['click', 'touchstart'].forEach(type => {
+			agroup[i].addEventListener(type,this.listentags);
+		})
+	};
+    
 }
 CGIsotope.prototype.listenmultibutton = function(evt){
 	evt.stopPropagation();
