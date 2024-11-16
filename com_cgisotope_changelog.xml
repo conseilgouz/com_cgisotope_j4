@@ -11,6 +11,9 @@
             <item>Tags : add clickable tag links</item>
             <item>Tags : new parameter : show-hide tag counters</item>
 		</addition>
+        <fix>
+            <item>JED Checker compatibility</item>
+        </fix>
 	</changelog>
 	<changelog>
 		<element>com_cgisotope</element>

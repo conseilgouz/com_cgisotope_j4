@@ -1,11 +1,9 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-* From              : isotope.metafizzy.co
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\View\Import;
 // No direct access
@@ -55,7 +53,7 @@ class HtmlView extends BaseHtmlView
 	{
         $canDo = ContentHelper::getActions('com_cgisotope');
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		ToolbarHelper::title(Text::_('COM_ISOTOPE_IMPORT'), 'page.png');
 
 		if ($canDo->get('core.create') || (count($user->getAuthorisedCategories('com_cgisotope', 'core.create'))) > 0 ) {

@@ -1,11 +1,10 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-* From              : isotope.metafizzy.co
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+*
 */
 namespace ConseilGouz\Component\CGIsotope\Site\View\Page;
 
@@ -18,7 +17,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Access\Access;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
-use Joomla\Component\Content\Site\Model\ArticleModel; // 4.0. compatibility
+use Joomla\Component\Content\Site\Model\ArticleModel;
 use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
 
 class JsonView extends BaseHtmlView {
@@ -47,7 +46,7 @@ class JsonView extends BaseHtmlView {
 
 		// Access filter
 		$access =ComponentHelper::getParams('com_content')->get('show_noauth');
-		$authorised = Access::getAuthorisedViewLevels(Factory::getUser()->get('id'));
+		$authorised = Access::getAuthorisedViewLevels(Factory::getApplication()->getIdentity()->id);
 		$model->setState('filter.access', $access);
 
 		// Filter by language

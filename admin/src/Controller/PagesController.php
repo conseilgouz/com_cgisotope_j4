@@ -1,23 +1,21 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
-* Version			: 2.3.3
+* CG Isotope Component  - Joomla 4.x/5.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-* From              : isotope.metafizzy.co
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\Controller;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\AdminController;
-use Joomla\CMS\Router\Route;
-use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\String\StringHelper;
+use Joomla\Utilities\ArrayHelper;
 use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 
 class PagesController extends AdminController
@@ -70,7 +68,7 @@ class PagesController extends AdminController
             $data->fieldslinks = $result->fieldslinks;
             $ret = $db->insertObject('#__cgisotope_page', $data,'id');
             if (!$ret) {
-                JError::raiseWarning(100, Text::_('COM_CGISOTOPE_ERROR_CREATE'));
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_CREATE'), 'warning')
                 return false;
             }
 		}
@@ -87,7 +85,6 @@ class PagesController extends AdminController
 	{
 	    // Check for request forgeries.
 	    $this->checkToken();
-		// require_once JPATH_COMPONENT . '/helpers/helper.php';		
 	    $task = $this->getTask();
 	    $pks = array();
 	    if ($task == 'export') {
@@ -203,13 +200,13 @@ class PagesController extends AdminController
         $db    = Factory::getDbo();
 		foreach ($files as &$file) {
 		    if ($file[type] != "application/json") {
-		        JError::raiseWarning(100, Text::_('COM_CGISOTOPE_ERROR_FILE_TYPE'));
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_FILE_TYPE'), 'warning')
 		        return false;
 		    }
             $strJsonFileContents = file_get_contents($file[tmp_name]);
             $result = json_decode($strJsonFileContents, true);
             if (!$result['cgisotope']) {
-                JError::raiseWarning(100, Text::_('COM_CGISOTOPE_ERROR_NOT_ISOTOPE'));
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_NOT_ISOTOPE'), 'warning')
                 return false;
             }
             $version = $result['cgisotope']; // version CG Isotope
@@ -223,7 +220,7 @@ class PagesController extends AdminController
             $data->fieldslinks = $result['fieldslinks'];
             $ret = $db->insertObject('#__cgisotope_page', $data,'id');
             if (!$ret) {
-                JError::raiseWarning(100, Text::_('COM_CGISOTOPE_ERROR_CREATE'));
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_CREATE'), 'warning')                
                 return false;
             }
 

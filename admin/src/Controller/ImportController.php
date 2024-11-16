@@ -1,10 +1,10 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.0.0 Component 
+* CG Isotope Component  - Joomla 4.x/5.x Component 
 * Version			: 3.0.12
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\Controller;
@@ -43,7 +43,7 @@ class ImportController extends FormController
             )->loadAssocList();
             if (count($result) != 1) {
                 $this->setMessage(Text::sprintf('CG_ISO_MODULE_SELECT_ERROR', $id), 'warning');
-                $this->setRedirect(JRoute::_('index.php?option=com_cgisotope&view=import', false));
+                $this->setRedirect(Route::_('index.php?option=com_cgisotope&view=import', false));
                 return false;
             }
             $data = new \stdClass;

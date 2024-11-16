@@ -4,7 +4,7 @@
 * Version			: 4.2.18
 * Package			: CG ISotope
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\Model;

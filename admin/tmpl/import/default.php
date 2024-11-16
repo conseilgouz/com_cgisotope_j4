@@ -1,11 +1,9 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 3.2.1
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-* From              : isotope.metafizzy.co
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
 defined('_JEXEC') or die;
@@ -21,8 +19,8 @@ use Joomla\CMS\Router\Route;
 // HTMLHelper::_('behavior.tooltip');
 HTMLHelper::_('behavior.multiselect');
 
-$user		= Factory::getUser();
-$userId		= $user->get('id');
+$user		= Factory::getApplication()->getIdentity();
+$userId		= $user->id;
 $canOrder	= ContentHelper::getActions('com_cgisotope');
 ?>
 <form action="<?php echo Route::_('index.php?option=com_cgisotope&view=import'); ?>" method="post" name="adminForm" id="adminForm">

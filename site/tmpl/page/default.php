@@ -1,11 +1,10 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5x Component
-* Version			: 3.3.4
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
-* From              : isotope.metafizzy.co
+*
 */
 // no direct access
 defined('_JEXEC') or die;
