@@ -278,7 +278,7 @@
 				<option value="false">JNO</option>
 			</field>
 			<field showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields" name="tagsfiltercount"
-				type="radio" class="btn-group btn-group-yesno half left" default="false" 
+				type="radio" class="btn-group btn-group-yesno clear half left" default="false" 
 				label="CG_ISO_TAGSFILTERCOUNT" 
 				description="CG_ISO_TAGSFILTERCOUNTDESC">
 				<option value="true">JYES</option>
