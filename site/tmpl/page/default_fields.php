@@ -448,6 +448,9 @@ if ($displayfilterfields != "hide") {
                 $parent = $res[0];
                 $aff = $filter;
                 $aff_alias = $alias[$filter];
+                if ($tagsfiltercount == 'true') {
+                    $aff .= ' ('.$this->tags_count[$aff_alias].')';
+                }
                 if (!is_null($aff)) {
                     $selected = "";
                     if ($this->default_tag == $aff_alias) {
