@@ -663,7 +663,7 @@ foreach ($this->list as $key => $category) {
                 }
             };
         }
-        $itemtags = "";
+        $itemtags = "<span class='iso-tags'>";
         foreach ($this->article_tags[$item->id] as $tag) {
             $iso_link_cls == "";
             $iso_link_sort == "";
@@ -678,13 +678,14 @@ foreach ($this->list as $key => $category) {
             if ($tagsfilterlink == 'joomla') { // joomla link to tag component
                 $itemtags .= '<a href="'.$this->tags_link[$tag->alias].'"  target="_blank">';
             }
-            $itemtags .= ($itemtags == "") ? $tag->tag : "<span class='iso_tagsep'><span> - </span></span>".$tag->tag;
+            $itemtags .= "<span class='iso_tagsep'><span> - </span></span>".$tag->tag;
             if ($tagsfilterlink == 'joomla') { // joomla link to tag component
                 $itemtags .= '</a>';
             }
             $itemtags .= '</span>';
         }
-
+        $itemtags .= '</span>';
+        
         $ladate = $this->iso_entree == "webLinks" ? $item->created : $item->displayDate;
         $data_cat = $this->iso_entree == "webLinks" ? $this->cats_alias[$item->catid] : $item->category_alias;
         if (isset($item->rating)) {
