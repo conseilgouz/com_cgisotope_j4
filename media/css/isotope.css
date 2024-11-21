@@ -418,8 +418,6 @@ div.itemExtraFields ul li span.itemExtraFieldsLabel {
 
 /* tags with links */
 .iso_tag_link .iso_tagsep span{display:none}
-.iso-tags .iso_tag_link::after {
-    margin-left:10px;
-    margin-right:10px;
-    content: '\2022';
+.iso-tags .iso_tag_link {
+    margin-right:5px;
 }

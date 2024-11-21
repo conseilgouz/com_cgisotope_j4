@@ -93,6 +93,7 @@ class PageModel extends AdminModel {
         $data->tagsfilterimg = $compl['tagsfilterimg'];
         $data->tagsfiltercount = $compl['tagsfiltercount'];
         $data->tagsfilterlink = $compl['tagsfilterlink'];
+        $data->tagsfilterlinkcls = $compl['tagsfilterlinkcls'];
         $data->tagsfilterparent = $compl['tagsfilterparent'];
         $data->tagsfilterparentlabel = $compl['tagsfilterparentlabel'];
         $data->catfilteralias = $compl['catfilteralias'];

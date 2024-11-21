@@ -35,6 +35,7 @@ $tagsfilterorder = $this->iso_params->get('tagsfilterorder', 'false');
 $tagsfilterimg =  $this->iso_params->get('tagsfilterimg', 'false');
 $tagsfiltercount =  $this->iso_params->get('tagsfiltercount', 'false');
 $tagsfilterlink =  $this->iso_params->get('tagsfilterlink', 'false');
+$tagsfilterlinkcls =  $this->iso_params->get('tagsfilterlinkcls', 'badge bg-info text-white');
 $tagsfilterparent =  $this->iso_params->get('tagsfilterparent', 'false');
 $tagsfilterparentlabel =  $this->iso_params->get('tagsfilterparentlabel', 'false');
 
@@ -667,26 +668,30 @@ foreach ($this->list as $key => $category) {
                 }
             };
         }
-        $itemtags = "<span class='iso-tags'>";
+        $itemtags = "<span class='iso-tags' data='".$com_id."'>";
         foreach ($this->article_tags[$item->id] as $tag) {
-            $iso_link_cls == "";
-            $iso_link_sort == "";
+            $iso_link_cls = "";
+            $iso_link_sort = "";
             if ($tagsfilterlink == 'joomla') { // joomla link to tag component
                 $iso_link_cls = $this->tags_link[$tag->alias] ? " iso_tag_link" : "";
             }
             if ($tagsfilterlink == 'iso') { // isotope filtering
                 $iso_link_sort = ' data-sort-value="'.$tag->alias.'"';
                 $iso_link_cls = ' iso_tag_link';
+                
             }
             $itemtags .= '<span class="iso_tag_'.$this->tags_alias[$tag->tag].$iso_link_cls.'"'.$iso_link_sort.'>';
             if ($tagsfilterlink == 'joomla') { // joomla link to tag component
-                $itemtags .= '<a href="'.$this->tags_link[$tag->alias].'"  target="_blank">';
+                $itemtags .= '<a href="'.$this->tags_link[$tag->alias].'"  target="_blank" class="'.$tagsfilterlinkcls.'">';
+            }
+            if ($tagsfilterlink == 'iso') { // isotope link 
+                $itemtags .= '<a href="" class="'.$tagsfilterlinkcls.'">';
             }
             $itemtags .= "<span class='iso_tagsep'><span> - </span></span>".$tag->tag;
-            if ($tagsfilterlink == 'joomla') { // joomla link to tag component
+            if ($tagsfilterlink == 'joomla' || $tagsfilterlink == 'iso') { // joomla link to tag component
                 $itemtags .= '</a>';
             }
-            $itemtags .= '</span>';
+            $itemtags .= '</span>'.$iso_link_end;
         }
         $itemtags .= '</span>';
         
