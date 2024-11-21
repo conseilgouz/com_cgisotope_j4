@@ -774,7 +774,7 @@ foreach ($this->list as $key => $category) {
             }
             $itemtags .= '</span>';
         }
-        $itemtags .= "</span>"
+        $itemtags .= "</span>";
         
         $ladate = $item->displayDate;
         $data_cat =  $item->category_alias;
