@@ -133,7 +133,7 @@ class CGHelper extends ComponentHelper
                 $authorised = Access::getAuthorisedViewLevels(Factory::getApplication()->getIdentity()->id);
                 $iso->article_tags[$item->id] = self::getWebLinkTags($item->id, $authorised); // weblink's tags
                 foreach ($iso->article_tags[$item->id] as $tag) {
-                    if (!$tag_ok && in_array($tag->tagid, $params->get('tags'))) { // check tags list ?
+                    if (!$tag_ok && in_array($tag->id, $params->get('tags'))) { // check tags list ?
                         $tag_ok = true; // tag in params list
                     }
                     if (!in_array($tag->tag, $iso->tags)) {
@@ -341,7 +341,7 @@ class CGHelper extends ComponentHelper
                     $tag_ok = true;
                 }
                 foreach ($iso->article_tags[$item->id] as $tag) {
-                    if (!$tag_ok && in_array($tag->tagid, $params->get('tags'))) {// check tags list ?
+                    if (!$tag_ok && in_array($tag->id, $params->get('tags'))) {// check tags list ?
                         $tag_ok = true; // tag in params list
                     }
                     if (!in_array($tag->tag, $iso->tags)) {
@@ -554,7 +554,7 @@ class CGHelper extends ComponentHelper
     }
     public static function getTagLink($tag)
     {
-        $link = Route::_(TagRouteHelper::getComponentTagRoute($tag->tagid . ':' . $tag->alias, $tag->language));
+        $link = Route::_(TagRouteHelper::getComponentTagRoute($tag->id . ':' . $tag->alias, $tag->language));
         return $link;
     }
 
@@ -587,7 +587,7 @@ class CGHelper extends ComponentHelper
     {
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
-        $query->select('tags.title as tag, tags.alias as alias, tags.images as images, tags.note as note,tags.language as language, parent.title as parent_title, parent.alias as parent_alias,tags.id as tagid')
+        $query->select('tags.title as tag, tags.alias as alias, tags.images as images, tags.note as note,tags.language as language, parent.title as parent_title, parent.alias as parent_alias,tags.id as id')
             ->from('#__contentitem_tag_map as map ')
             ->innerJoin('#__content as c on c.id = map.content_item_id')
             ->innerJoin('#__tags as tags on tags.id = map.tag_id')
@@ -615,7 +615,7 @@ class CGHelper extends ComponentHelper
     {
         $db = Factory::getContainer()->get(DatabaseInterface::class);
         $query = $db->getQuery(true);
-        $query->select('tags.title as tag, tags.alias as alias, tags.images as images,tags.language as language, tags.note as note,parent.title as parent_title, parent.alias as parent_alias,tags.id as tagid')
+        $query->select('tags.title as tag, tags.alias as alias, tags.images as images,tags.language as language, tags.note as note,parent.title as parent_title, parent.alias as parent_alias,tags.id as id')
             ->from('#__contentitem_tag_map as map ')
             ->innerJoin('#__weblinks as w on w.id = map.content_item_id')
             ->innerJoin('#__tags as tags on tags.id = map.tag_id')

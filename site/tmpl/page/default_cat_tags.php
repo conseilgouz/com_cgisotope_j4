@@ -564,12 +564,16 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
                     $parent = $res[0];
                     $aff = $filter;
                     $aff_alias = $alias[$filter];
+                    $tagcount = '';
+                    if ($tagsfiltercount == 'true') {
+                        $tagcount = ' ('.$this->tags_count[$aff_alias].') ';
+                    }
                     if (!is_null($aff)) {
                         $selected = "";
                         if ($this->default_tag == $aff_alias) {
                             $selected = "selected";
                         }
-                        $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff));
+                        $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff).$tagcount);
                     }
                 }
                 $filter_tag_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';
