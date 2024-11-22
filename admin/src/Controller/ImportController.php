@@ -97,6 +97,7 @@ class ImportController extends FormController
             $page_params['tagsfilterlinkcls'] = $mod_params->tagsfilterlinkcls;
             $page_params['catfilteralias'] = $mod_params->catfilteralias;
             $page_params['catsfilterimg'] = $mod_params->catsfilterimg;
+            $page_params['catsfiltercount'] = $mod_params->catsfiltercount;
             $page_params['bootstrapbutton'] = $mod_params->bootstrapbutton;
             $page_params['displaysearch'] = $mod_params->displaysearch;
 

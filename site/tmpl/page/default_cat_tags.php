@@ -30,6 +30,7 @@ $defaultdisplay = $this->iso_params->get('defaultdisplay', 'date_desc');
 $displaysortinfo = $this->iso_params->get('displaysortinfo', 'show');
 $article_cat_tag = $this->iso_params->get('cat_or_tag', $this->iso_entree == "webLinks" ? 'cat' : 'tags');
 $displayfiltercat = $this->iso_params->get('displayfiltercat', 'button');
+$catsfiltercount =  $this->iso_params->get('catsfiltercount', 'false');
 $displayfiltertags =  $this->iso_params->get('displayfiltertags', 'button');
 $tagsfilterorder = $this->iso_params->get('tagsfilterorder', 'false');
 $tagsfilterimg =  $this->iso_params->get('tagsfilterimg', 'false');
@@ -390,7 +391,11 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
 							class="iso_cat_img" alt="'.$tagimage->image_alt.'" /> ';
                             }
                         }
-                        $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>';
+                        $catcount = '';
+                        if ($catsfiltercount == 'true') {
+                            $catcount = '<span class="cat-count badge bg-info">'.$this->cats_count[$key].'</span>';
+                        }
+                        $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).$catcount.'</button>';
                     }
                 }
                 $filter_cat_div .= '</div>';
@@ -426,12 +431,16 @@ if (($displayfiltertags != "hide") || ($displayfiltercat != "hide")) {
                 foreach ($sortFilter as $key => $filter) {
                     $aff = $this->cats_lib[$key];
                     $aff_alias = $this->cats_alias[$key];
+                    $catcount = '';
+                    if ($catsfiltercount == 'true') {
+                        $catcount = ' ('.$this->cats_count[$key].') ';
+                    }
                     if (!is_null($aff)) {
                         $selected = "";
                         if ($this->default_cat == $aff_alias) {
                             $selected = "selected";
                         }
-                        $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff));
+                        $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff).$catcount);
                     }
                 }
                 $filter_cat_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';
@@ -691,7 +700,7 @@ foreach ($this->list as $key => $category) {
             if ($tagsfilterlink == 'joomla' || $tagsfilterlink == 'iso') { // joomla link to tag component
                 $itemtags .= '</a>';
             }
-            $itemtags .= '</span>'.$iso_link_end;
+            $itemtags .= '</span>';
         }
         $itemtags .= '</span>';
         

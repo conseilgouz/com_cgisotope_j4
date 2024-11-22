@@ -38,6 +38,7 @@ $tagsfilterparent =  $this->iso_params->get('tagsfilterparent', 'false');
 $tagsfilterparentlabel =  $this->iso_params->get('tagsfilterparentlabel', 'false');
 $filtersoffcanvas = $this->iso_params->get('offcanvas', 'false');
 $catsfilterimg =  $this->iso_params->get('catsfilterimg', 'false');
+$catsfiltercount =  $this->iso_params->get('catsfiltercount', 'false');
 $splitfields = $this->iso_params->get('displayfiltersplitfields', 'false');
 $splitfieldstitle = $this->iso_params->get('splitfieldstitle', 'false');
 $blocklink =  $this->iso_params->get('blocklink', 'false');
@@ -522,10 +523,14 @@ if ($displayfilterfields != "hide") {
                         }
                         if ($catparams && ($catparam->image != "")) {
                             $img = '<img src="'.URI::root().$catparam->image.'"  
-							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> '; // pascal
+							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> '; 
                         }
                     }
-                    $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'"  title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).'</button>';
+                    $catcount = '';
+                    if ($catsfiltercount == 'true') {
+                        $catcount = '<span class="cat-count badge bg-info">'.$this->cats_count[$key].'</span>';
+                    }
+                    $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'"  title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).$catcount.'</button>';
                 }
             }
             $filter_cat_div .= '</div>';
@@ -562,12 +567,16 @@ if ($displayfilterfields != "hide") {
             foreach ($sortFilter as $key => $filter) {
                 $aff = $this->cats_lib[$key];
                 $aff_alias = $this->cats_alias[$key];
+                $catcount = '';
+                if ($catsfiltercount == 'true') {
+                    $catcount = ' ('.$this->cats_count[$key].') ';
+                }
                 if (!is_null($aff)) {
                     $selected = "";
                     if ($this->default_cat == $aff_alias) {
                         $selected = "selected";
                     }
-                    $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff));
+                    $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff).$catcount);
                 }
             }
             $filter_cat_div .= '<joomla-field-fancy-select '.implode(' ', $attributes).'>';

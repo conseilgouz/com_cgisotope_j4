@@ -98,6 +98,7 @@ class PageModel extends AdminModel {
         $data->tagsfilterparentlabel = $compl['tagsfilterparentlabel'];
         $data->catfilteralias = $compl['catfilteralias'];
         $data->catsfilterimg = $compl['catsfilterimg'];
+        $data->catsfiltercount = $compl['catsfiltercount'];
         $data->bootstrapbutton = $compl['bootstrapbutton'];
         $data->displaysearch = $compl['displaysearch'];
         $data->displayrange = $compl['displayrange'];

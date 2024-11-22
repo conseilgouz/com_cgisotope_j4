@@ -131,6 +131,7 @@ $this->cats_lib = array();
 $this->cats_alias = array();
 $this->cats_params = array();
 $this->cats_note = array();
+$this->cats_count = array();
 $this->article_fields = array();
 $this->article_fields_names = array();
 $this->pagination = array();

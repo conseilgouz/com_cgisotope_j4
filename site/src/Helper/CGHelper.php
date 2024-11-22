@@ -162,6 +162,7 @@ class CGHelper extends ComponentHelper
                 if (!in_array(substr($item->title, 0, 1), $iso->alpha)) {
                     $iso->alpha[] = substr($item->title, 0, 1);
                 }
+                $iso->cats_count[$item->catid]++;
             }
             return $items;
         }
@@ -482,6 +483,7 @@ class CGHelper extends ComponentHelper
                     $iso->cats_note[$item->catid] = $infos[0]->note;
                     $iso->cats_params[$item->catid] = $infos[0]->params;
                 }
+                $iso->cats_count[$item->catid]++;
             }
             return $items;
         } else {
