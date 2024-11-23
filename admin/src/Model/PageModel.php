@@ -123,6 +123,7 @@ class PageModel extends AdminModel {
 		$data->new_limit = $compl['new_limit'];
 		$data->formatsortdate = $compl['formatsortdate'];
 		$data->formatotherdate = $compl['formatotherdate'];
+		$data->bracket = $compl['bracket'];
         $data->perso = $compl['perso'];
 		$data->css = $compl['css'];
         $data->customjs = $compl['customjs'];

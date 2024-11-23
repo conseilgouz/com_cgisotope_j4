@@ -152,6 +152,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['new_limit'] = $compl['new_limit'];
             $page_params['formatsortdate'] = $compl['formatsortdate'];
             $page_params['formatotherdate'] = $compl['formatotherdate'];
+            $page_params['bracket'] = $compl['bracket'];
             $page_params['btndate'] = $compl['btndate'];
             $page_params['btncat'] = $compl['btncat'];
             $page_params['btnalpha'] = $compl['btnalpha'];

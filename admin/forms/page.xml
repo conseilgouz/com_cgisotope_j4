@@ -554,6 +554,12 @@
 			<field name="formatotherdate" type="text" label="CG_ISO_FORMAT_OTHERDATE" description ="CG_ISO_FORMAT_OTHERDATE_DESC" 
 				default="d/m/Y" class="half right" />
 		    <field type="note" name="note1" label="CG_ISO_NOTE1" heading="p" class="clear"/>
+			<field	name="bracket"
+				type="radio" class="btn-group btn-group-yesno clear" default="bracket"
+				label="CG_ISO_BRACKET" description="CG_ISO_BRACKET_DESC" >
+				<option value="bracket">CG_ISO_BRACKET_STD</option> 
+				<option value="squarred">CG_ISO_BRACKET_SQUARRED</option> 
+			</field>
 			<field name="perso" type="textarea" label="CG_ISO_PERSO" description="CG_ISO_PERSO_DESC" cols="400" rows="4" filter="raw" 
 				default="{title}&lt;br&gt;{date} - {cat} - {visit} visites&lt;br&gt;{intro}"/>			
 			<field name="css" type="textarea" label="CG_ISO_CSS" description="CG_ISO_CSS_DESC" cols="400" rows="4" filter="raw" 

@@ -8,12 +8,12 @@
 */
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\Component\Modules\Administrator\Helper\ModulesHelper;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Component\Modules\Administrator\Helper\ModulesHelper;
 use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 
 PluginHelper::importPlugin('content');
@@ -750,6 +750,7 @@ foreach ($this->list as $key => $category) {
                         $afield .= $afield == "" ? $obj->render : ", ".$obj->render;
                     }
                     $field_cust['{'.$key_f.'}'] = (string)$afield; // php 8
+                    $field_cust['{field '.$obj->field_id.'}'] = (string)$afield; // field display value, PHP 8
                     $field_value .= " ".implode(' ', $tag_f);
                 } else { // one field
                     $obj = $this->fields[$tag_f];
@@ -757,6 +758,7 @@ foreach ($this->list as $key => $category) {
                         $field_value .= " ".$tag_f;
                     }
                     $field_cust['{'.$key_f.'}'] = (string)$obj->render; // field display value, php 8
+                    $field_cust['{field '.$obj->field_id.'}'] = (string)$obj->render; // field display value, PHP 8
                 }
                 if (($displayrange == "true") && ($key_f == $this->rangetitle)) {
                     $data_range = " data-range='".$obj->val."' ";
@@ -780,7 +782,7 @@ foreach ($this->list as $key => $category) {
                 $itemtags .= '<a href="'.$this->tags_link[$tag->alias].'"  target="_blank" class="'.$tagsfilterlinkcls.'">';
             }
             if ($tagsfilterlink == 'iso') { // isotope link 
-                $itemtags .= '<a href="" class="'.$tagsfilterlinkcls.'">';
+                $itemtags .= '<a href="" class="text-decoration-none '.$tagsfilterlinkcls.'">';
             }
             $itemtags .= "<span class='iso_tagsep'><span> - </span></span>".$tag->tag;
             if ($tagsfilterlink == 'joomla' || $tagsfilterlink == 'iso') { // joomla link to tag component
@@ -848,14 +850,20 @@ foreach ($this->list as $key => $category) {
         if (!is_numeric($choixdate)) {
             $libdate = $choixdate == "modified" ? $libupdated : ($choixdate == "created" ? $libcreated : $libpublished);
         }
+        $deb = '{';
+        $end = '}';
+        if ($this->iso_params->get('bracket', 'bracket') == 'squarred') {
+            $deb = '[';
+            $end = ']';
+        }
         $perso = $this->iso_params->get('perso');
         $perso = CGHelper::checkNullFields($perso, $item, $phocacount); // suppress null field if required
-        $arr_css = array("{id}" => $item->id,"{title}" => $title, "{cat}" => $this->cats_lib[$item->catid],"{date}" => $libdate.date($libdateformat, strtotime($item->displayDate)),"{create}" => HTMLHelper::_('date', $item->created, $libotherdateformat),"{pub}" => HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"{modif}" => HTMLHelper::_('date', $item->modified, $libotherdateformat), "{visit}" => $item->hits, "{intro}" => $item->displayIntrotext,"{stars}" => $rating,"{rating}" => $item->rating,"{ratingcnt}" => $item->rating_count,"{count}" => $phocacount,"{tagsimg}" => $tag_img, "{catsimg}" => $cat_img, "{link}" => $item->link, "{introimg}" => $item->introimg, "{subtitle}" => $item->subtitle, "{new}" => $item->new, "{tags}" => $itemtags,"{featured}" => $item->featured);
+        $arr_css = array("id" => $item->id,"title" => $title, "cat" => $this->cats_lib[$item->catid],"date" => $libdate.date($libdateformat, strtotime($item->displayDate)),"create" => HTMLHelper::_('date', $item->created, $libotherdateformat),"pub" => HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"modif" => HTMLHelper::_('date', $item->modified, $libotherdateformat), "visit" => $item->hits, "intro" => $item->displayIntrotext,"stars" => $rating,"rating" => $item->rating,"ratingcnt" => $item->rating_count,"count" => $phocacount,"tagsimg" => $tag_img, "catsimg" => $cat_img, "link" => $item->link, "introimg" => $item->introimg, "subtitle" => $item->subtitle, "new" => $item->new, "tags" => $itemtags,"featured" => $item->featured);
         foreach ($arr_css as $key_c => $val_c) {
-            $perso = str_replace($key_c, Text::_($val_c), $perso);
+            $perso = str_replace($deb.$key_c.$end, Text::_($val_c), $perso);
         }
         foreach ($field_cust as $key_f => $val_f) { // display fields values
-            $perso = str_replace($key_f, Text::_($val_f), $perso);
+            $perso = str_replace($deb.$key_f.$end, Text::_($val_f), $perso);
         }
         $perso = CGHelper::checkNoField($perso); // suppress empty fields
         // apply content plugins

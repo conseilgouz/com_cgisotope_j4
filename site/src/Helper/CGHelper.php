@@ -697,34 +697,34 @@ class CGHelper extends ComponentHelper
         return $count;
     }
     // look for {notnull}
-    public static function checkNullFields($perso, $item, $phocacount)
+    public static function checkNullFields($perso, $item, $phocacount, $deb = "{", $end = "}")
     {
-        $regexopen = '/\{(?:notnull)\b(.*)\}/siU';
+        $regexopen = '/\\'.$deb.'(?:notnull)\b(.*)\\'.$end.'/siU';
         if (!preg_match($regexopen, $perso)) {
             return $perso; // no update
         }
         while (preg_match($regexopen, $perso, $matches, PREG_OFFSET_CAPTURE)) {
             $replace_deb = $matches[0][1];
             $replace_len = strlen($matches[0][0]);
-            $regexclose = '/\{\/notnull\}/siU';
+            $regexclose = '/\\'.$deb.'\/notnull\\'.$end.'/siU';
             preg_match($regexclose, $perso, $matchesclose, PREG_OFFSET_CAPTURE);
             $content_deb = $replace_deb + $replace_len;
             $content_len = $matchesclose[0][1] - $content_deb;
             $content = substr($perso, $content_deb, $content_len);
             $replace_len += $content_len + strlen($matchesclose[0][0]);
-            if ((strpos($content, '{rating}') !== false) && ($item->rating == "0")) {
+            if ((strpos($content, $deb.'rating'.$end) !== false) && ($item->rating == "0")) {
                 $content = "";
             }
-            if ((strpos($content, '{ratingcnt}') !== false) && ($item->rating_count == "0")) {
+            if ((strpos($content, $deb.'ratingcnt'.$end) !== false) && ($item->rating_count == "0")) {
                 $content = "";
             }
-            if ((strpos($content, '{subtitle}') !== false) && ($item->subtitle == "")) {
+            if ((strpos($content, $deb.'subtitle'.$end) !== false) && ($item->subtitle == "")) {
                 $content = "";
             }
-            if ((strpos($content, '{new}') !== false) && ($item->new == "")) {
+            if ((strpos($content, $deb.'new'.$end) !== false) && ($item->new == "")) {
                 $content = "";
             }
-            if ((strpos($content, '{count}') !== false) && ($phocacount == '?')) {
+            if ((strpos($content, $deb.'count'.$end) !== false) && ($phocacount == '?')) {
                 $content = "";
             }
             $perso = substr($perso, 0, $replace_deb).$content.substr($perso, $replace_deb + $replace_len);
@@ -732,22 +732,23 @@ class CGHelper extends ComponentHelper
         return $perso;
     }
     // look for {nofield}
-    public static function checkNoField($perso)
+    public static function checkNoField($perso, $deb = '{', $end = '}')
     {
-        $regexopen = '/\{(?:nofield)\b(.*)\}/siU';
+        $regexopen = '/\\'.$deb.'(?:nofield)\b(.*)\\'.$end.'/siU';
         if (!preg_match($regexopen, $perso)) {
             return $perso; // no update
         }
         while (preg_match($regexopen, $perso, $matches, PREG_OFFSET_CAPTURE)) {
             $replace_deb = $matches[0][1];
             $replace_len = strlen($matches[0][0]);
-            $regexclose = '/\{\/nofield\}/siU';
+            $regexclose = '/\\'.$deb.'\/nofield\\'.$end.'/siU';
             preg_match($regexclose, $perso, $matchesclose, PREG_OFFSET_CAPTURE);
             $content_deb = $replace_deb + $replace_len;
             $content_len = $matchesclose[0][1] - $content_deb;
             $content = substr($perso, $content_deb, $content_len);
             $replace_len += $content_len + strlen($matchesclose[0][0]);
-            if (strpos($content, '{') !== false) {
+            if ((strpos($content, '{field ') !== false) ||
+                (strpos($content, $deb) !== false)) {
                 $content = "";
             }
             $perso = substr($perso, 0, $replace_deb).$content.substr($perso, $replace_deb + $replace_len);
