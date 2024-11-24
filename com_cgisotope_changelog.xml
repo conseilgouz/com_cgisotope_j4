@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.4.0</version>
+        <note>
+            <item>Update : 24/11/2024</item>
+        </note>
+        <addition>
+            <item>Customization : add content table fields and urls</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.3.8</version>
         <note>
             <item>Update : 23/11/2024</item>

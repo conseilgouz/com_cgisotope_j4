@@ -553,7 +553,8 @@
 				default="d/m/Y" class="half left" />
 			<field name="formatotherdate" type="text" label="CG_ISO_FORMAT_OTHERDATE" description ="CG_ISO_FORMAT_OTHERDATE_DESC" 
 				default="d/m/Y" class="half right" />
-		    <field type="note" name="note1" label="CG_ISO_NOTE1" heading="p" class="clear"/>
+            <field type="checkbox" name="see_notes" label="CG_ISO_SEE_PERSO" default="0" class="clear left" />
+		    <field showon="see_notes:1" type="note" name="note1" label="CG_ISO_NOTE1" heading="p" class="clear"/>
 			<field	name="bracket"
 				type="radio" class="btn-group btn-group-yesno clear" default="bracket"
 				label="CG_ISO_BRACKET" description="CG_ISO_BRACKET_DESC" >

@@ -754,20 +754,23 @@ foreach ($this->list as $key => $category) {
             } else {
                 $title = $item->title;
             }
-            $perso = $this->iso_params->get('perso');
-            $arr_css = array("title" => $title, "cat" => $this->cats_lib[$item->catid],"date" => $libcreated.date($libdateformat, strtotime($item->created)), "visit" => $item->hits, "intro" => $item->description,"tagsimg" => $tag_img,"catsimg" => $cat_img, "link" => $item->link, "introimg" => $item->introimg, "subtitle" => $item->subtitle, "new" => $item->new, "tags" => $itemtags,"featured" => $item->featured,"url" => $item->url);
             $deb = '{';
             $end = '}';
             if ($this->iso_params->get('bracket', 'bracket') == 'squarred') {
                 $deb = '[';
                 $end = ']';
             }
+            $perso = $this->iso_params->get('perso');
+            $arr_css = array("title" => $title, "cat" => $this->cats_lib[$item->catid],"date" => $libcreated.date($libdateformat, strtotime($item->created)), "visit" => $item->hits, "intro" => $item->description,"tagsimg" => $tag_img,"catsimg" => $cat_img, "tags" => $itemtags);
             foreach ($arr_css as $key_c => $val_c) {
                 $perso = str_replace($deb.$key_c.$end, Text::_($val_c), $perso);
             }
             foreach ($field_cust as $key_f => $val_f) { // affichage du contenu des champs personnalises
                 $perso = str_replace($deb.$key_f.$end, Text::_($val_f), $perso);
             }
+
+            $perso = CGHelper::checkDBFields($item, $perso, $deb, $end); // check if any field from db definition is left
+
             // apply content plugins on weblinks
             $item_cls = new \stdClass();
             $item_cls->id = $item->id;
@@ -802,13 +805,6 @@ foreach ($this->list as $key => $category) {
             for ($i = 1; $i <= $item->rating; $i++) {
                 $rating .= '<img src="'.$comfield.'images/icon.png" />';
             }
-            // plugin phocaount => parameter {count}
-            $phocacount = CGHelper::getArticlePhocaCount($item->fulltext);
-            $choixdate = $this->iso_params->get('choixdate', 'modified');
-            $libdate = "";
-            if (!is_numeric($choixdate)) {
-                $libdate = $choixdate == "modified" ? $libupdated : ($choixdate == "created" ? $libcreated : $libpublished);
-            }
             $perso = $this->iso_params->get('perso');
             $deb = '{';
             $end = '}';
@@ -816,8 +812,15 @@ foreach ($this->list as $key => $category) {
                 $deb = '[';
                 $end = ']';
             }
+            // plugin phocaount => parameter {count}
+            $phocacount = CGHelper::getArticlePhocaCount($item->fulltext);
+            $choixdate = $this->iso_params->get('choixdate', 'modified');
+            $libdate = "";
+            if (!is_numeric($choixdate)) {
+                $libdate = $choixdate == "modified" ? $libupdated : ($choixdate == "created" ? $libcreated : $libpublished);
+            }
             $perso = CGHelper::checkNullFields($perso, $item, $phocacount, $deb, $end); // suppress null field if required
-            $arr_css = array("id" => $item->id,"title" => $title, "cat" => $this->cats_lib[$item->catid],"date" => $libdate.date($libdateformat, strtotime($item->displayDate)),"create" => HTMLHelper::_('date', $item->created, $libotherdateformat),"pub" => HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"modif" => HTMLHelper::_('date', $item->modified, $libotherdateformat), "visit" => $item->hits, "intro" => $item->displayIntrotext,"stars" => $rating,"rating" => $item->rating,"ratingcnt" => $item->rating_count,"count" => $phocacount,"tagsimg" => $tag_img, "catsimg" => $cat_img, "link" => $item->link, "introimg" => $item->introimg, "subtitle" => $item->subtitle, "new" => $item->new, "tags" => $itemtags,"featured" => $item->featured);
+            $arr_css = array("title" => $title, "cat" => $this->cats_lib[$item->catid],"date" => $libdate.date($libdateformat, strtotime($item->displayDate)),"create" => HTMLHelper::_('date', $item->created, $libotherdateformat),"pub" => HTMLHelper::_('date', $item->publish_up, $libotherdateformat),"modif" => HTMLHelper::_('date', $item->modified, $libotherdateformat), "visit" => $item->hits, "intro" => $item->displayIntrotext,"stars" => $rating,"ratingcnt" => $item->rating_count,"count" => $phocacount,"tagsimg" => $tag_img, "catsimg" => $cat_img, "tags" => $itemtags);
             foreach ($arr_css as $key_c => $val_c) {
                 $perso = str_replace($deb.$key_c.$end, Text::_($val_c), $perso);
             }
@@ -825,6 +828,9 @@ foreach ($this->list as $key => $category) {
                 $perso = str_replace($deb.$key_f.$end, Text::_($val_f), $perso);
             }
             $perso = CGHelper::checkNoField($perso, $deb, $end); // suppress empty fields
+
+            $perso = CGHelper::checkDBFields($item, $perso, $deb, $end); // check if any field from db definition is left
+
             // apply content plugins
             $item_cls = new \stdClass();
             $item_cls->id = $item->id;
