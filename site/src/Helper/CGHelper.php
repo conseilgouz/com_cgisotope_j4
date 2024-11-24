@@ -754,7 +754,7 @@ class CGHelper extends ComponentHelper
             $content_len = $matchesclose[0][1] - $content_deb;
             $content = substr($perso, $content_deb, $content_len);
             $replace_len += $content_len + strlen($matchesclose[0][0]);
-            if ((strpos($content, '{field ') !== false) ||
+            if ((strpos($content, $deb.'field ') !== false) ||
                 (strpos($content, $deb) !== false)) {
                 $content = "";
             }
