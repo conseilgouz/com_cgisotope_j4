@@ -696,28 +696,38 @@ class CGHelper extends ComponentHelper
         }
         return $count;
     }
-    // look for {notnull}
+    // look for {notnull} or {!}
     public static function checkNullFields($perso, $item, $phocacount, $deb = "{", $end = "}")
     {
-        $regexopen = '/\\'.$deb.'(?:notnull)\b(.*)\\'.$end.'/siU';
+        $regexopen = '/\\'.$deb.'((?:notnull)\b(.*)|!)\\'.$end.'/siU';
         if (!preg_match($regexopen, $perso)) {
             return $perso; // no update
         }
         while (preg_match($regexopen, $perso, $matches, PREG_OFFSET_CAPTURE)) {
             $replace_deb = $matches[0][1];
             $replace_len = strlen($matches[0][0]);
-            $regexclose = '/\\'.$deb.'\/notnull\\'.$end.'/siU';
+            $regexclose = '/\\'.$deb.'\/'.$matches[1][0].'\\'.$end.'/siU';
             preg_match($regexclose, $perso, $matchesclose, PREG_OFFSET_CAPTURE);
             $content_deb = $replace_deb + $replace_len;
             $content_len = $matchesclose[0][1] - $content_deb;
             $content = substr($perso, $content_deb, $content_len);
             $replace_len += $content_len + strlen($matchesclose[0][0]);
-
             $regexone = '/\\'.$deb.'(.*)\\'.$end.'/siU';
             preg_match($regexone, $content, $matchesone, PREG_OFFSET_CAPTURE);
-            $field = $matchesone[1][0];
+            $one = $matchesone[1][0];
+            $onefield = explode(',', $one);
+            $field = $onefield[0];
+            $subfield = isset($onefield[1]) ? $onefield[1] : null ;
             if (isset($item->$field)) { // is a db field ?
-                if ($field == 'urls') {
+                if (isset($subfield)) { // sub field ?
+                    $content = $item->$field;
+                    $subs =  json_decode($content);
+                    if (empty($subs->$subfield)) {
+                        $content = "";
+                    } else {
+                        $content = $subs->$subfield;
+                    }
+                } elseif ($field == 'urls') {
                     $ret = self::getUrls($item->urls, $item->params);
                     if ($ret) {
                         $content = str_replace($matchesone[0][0], $ret, $content);
@@ -738,17 +748,18 @@ class CGHelper extends ComponentHelper
         }
         return $perso;
     }
-    // look for {nofield}
+    // look for {nofield} or {!f}
     public static function checkNoField($perso, $deb = '{', $end = '}')
     {
-        $regexopen = '/\\'.$deb.'(?:nofield)\b(.*)\\'.$end.'/siU';
+        $regexopen = '/\\'.$deb.'((?:nofield)\b(.*)|(?:!f)\b(.*))\\'.$end.'/siU';
         if (!preg_match($regexopen, $perso)) {
             return $perso; // no update
         }
         while (preg_match($regexopen, $perso, $matches, PREG_OFFSET_CAPTURE)) {
             $replace_deb = $matches[0][1];
             $replace_len = strlen($matches[0][0]);
-            $regexclose = '/\\'.$deb.'\/nofield\\'.$end.'/siU';
+
+            $regexclose = '/\\'.$deb.'\/'.$matches[1][0].'\\'.$end.'/siU';
             preg_match($regexclose, $perso, $matchesclose, PREG_OFFSET_CAPTURE);
             $content_deb = $replace_deb + $replace_len;
             $content_len = $matchesclose[0][1] - $content_deb;
@@ -775,11 +786,19 @@ class CGHelper extends ComponentHelper
         for ($i = $count_matches - 1; $i >= 0; $i--) {
             $replace_deb = $matches[0][$i][1];
             $replace_len = strlen($matches[0][$i][0]);
-            $field = $matches[1][$i][0];
+            $one = $matches[1][$i][0];
+            $onefield = explode(',', $one);
+            $field = $onefield[0];
+            $subfield = isset($onefield[1]) ? $onefield[1] : null ;
             $content = $matches[0][$i][0]; // keep content
             if (isset($item->$field)) { // is a db field ?
                 $content = $item->$field;
-                if ($field == 'urls') {
+                if (isset($subfield)) { // sub field ?
+                    $subs =  json_decode($content);
+                    if (!empty($subs->$subfield)) {
+                        $content = $subs->$subfield;
+                    }
+                } elseif ($field == 'urls') {
                     $content = self::getUrls($item->urls, $item->params);
                 }
             }
@@ -813,9 +832,12 @@ class CGHelper extends ComponentHelper
             // If no label is present, take the link
             $label = $label ?: $link;
 
-            // If no target is present, use the default
-            $target = $target ?: $params->get('target' . $id);
             $ret .= '<li class="iso_link_'.$id.'">';
+            // If no target is present, use the default
+            if (!$target && $target != 0) { // default
+                $comparams = ComponentHelper::getParams('com_content');
+                $target = $comparams->get('target'.$id);
+            }
             switch ($target) {
                 case 1:
                     // Open in a new window
