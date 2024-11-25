@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.4.2</version>
+        <note>
+            <item>Update : 25/11/2024</item>
+        </note>
+        <fix>
+            <item>fields : in fields filtering, fields tags are not replaced</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.4.1</version>
         <note>
             <item>Update : 25/11/2024</item>
@@ -12,6 +23,7 @@
         </addition>
         <fix>
             <item>custom display : using content general parameters for url targets</item>
+            <item>fields : in fields filtering, fields tags are not replaced</item>
         </fix>
 	</changelog>
 	<changelog>

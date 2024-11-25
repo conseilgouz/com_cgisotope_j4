@@ -523,7 +523,7 @@ if ($displayfilterfields != "hide") {
                         }
                         if ($catparams && ($catparam->image != "")) {
                             $img = '<img src="'.URI::root().$catparam->image.'"  
-							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> '; 
+							class="iso_cat_img" alt="'.$catparam->image_alt.'" /> ';
                         }
                     }
                     $catcount = '';
@@ -749,16 +749,16 @@ foreach ($this->list as $key => $category) {
                         $obj = $this->fields[$avalue];
                         $afield .= $afield == "" ? $obj->render : ", ".$obj->render;
                     }
-                    $field_cust['{'.$key_f.'}'] = (string)$afield; // php 8
-                    $field_cust['{field '.$obj->field_id.'}'] = (string)$afield; // field display value, PHP 8
+                    $field_cust[$key_f] = (string)$afield; // php 8
+                    $field_cust['field '.$obj->field_id] = (string)$afield; // field display value, PHP 8
                     $field_value .= " ".implode(' ', $tag_f);
                 } else { // one field
                     $obj = $this->fields[$tag_f];
                     if ((count($params_fields) == 0) ||  (in_array($obj->field_id, $params_fields))) {
                         $field_value .= " ".$tag_f;
                     }
-                    $field_cust['{'.$key_f.'}'] = (string)$obj->render; // field display value, php 8
-                    $field_cust['{field '.$obj->field_id.'}'] = (string)$obj->render; // field display value, PHP 8
+                    $field_cust[$key_f] = (string)$obj->render; // field display value, php 8
+                    $field_cust['field '.$obj->field_id] = (string)$obj->render; // field display value, PHP 8
                 }
                 if (($displayrange == "true") && ($key_f == $this->rangetitle)) {
                     $data_range = " data-range='".$obj->val."' ";
@@ -775,13 +775,13 @@ foreach ($this->list as $key => $category) {
             if ($tagsfilterlink == 'iso') { // isotope filtering
                 $iso_link_sort = ' data-sort-value="'.$tag->alias.'"';
                 $iso_link_cls = ' iso_tag_link';
-                
+
             }
             $itemtags .= '<span class="iso_tag_'.$this->tags_alias[$tag->tag].$iso_link_cls.'"'.$iso_link_sort.'>';
             if ($tagsfilterlink == 'joomla') { // joomla link to tag component
                 $itemtags .= '<a href="'.$this->tags_link[$tag->alias].'"  target="_blank" class="'.$tagsfilterlinkcls.'">';
             }
-            if ($tagsfilterlink == 'iso') { // isotope link 
+            if ($tagsfilterlink == 'iso') { // isotope link
                 $itemtags .= '<a href="" class="text-decoration-none '.$tagsfilterlinkcls.'">';
             }
             $itemtags .= "<span class='iso_tagsep'><span> - </span></span>".$tag->tag;
@@ -791,7 +791,7 @@ foreach ($this->list as $key => $category) {
             $itemtags .= '</span>'.$iso_link_end;
         }
         $itemtags .= '</span>';
-        
+
         $ladate = $item->displayDate;
         $data_cat =  $item->category_alias;
         $click = $item->hits;
@@ -868,7 +868,7 @@ foreach ($this->list as $key => $category) {
         $perso = CGHelper::checkNoField($perso); // suppress empty fields
 
         $perso = CGHelper::checkDBFields($item, $perso, $deb, $end); // check if any field from db definition is left
-        
+
         // apply content plugins
         $item_cls = new \stdClass();
         $item_cls->id = $item->id;
