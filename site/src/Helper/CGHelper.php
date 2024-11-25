@@ -354,6 +354,9 @@ class CGHelper extends ComponentHelper
                         $iso->tags_parent[$tag->alias] = $tag->parent_title;
                         $iso->tags_parent_alias[$tag->alias] = $tag->parent_alias;
                     }
+                    if (!isset($iso->tags_count[$tag->alias])) {
+                        $iso->tags_count[$tag->alias] = 0;
+                    }
                     $iso->tags_count[$tag->alias]++;
                 }
                 if (!$tag_ok) { // no tag for this article in tags list
@@ -482,6 +485,9 @@ class CGHelper extends ComponentHelper
                     $infos = self::getCategoryName($item->catid);
                     $iso->cats_note[$item->catid] = $infos[0]->note;
                     $iso->cats_params[$item->catid] = $infos[0]->params;
+                }
+                if (!isset($iso->cats_count[$item->catid])) {
+                    $iso->cats_count[$item->catid] = 0;
                 }
                 $iso->cats_count[$item->catid]++;
             }

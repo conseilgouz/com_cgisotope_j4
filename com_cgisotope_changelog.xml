@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.4.3</version>
+        <note>
+            <item>Update : 25/11/2024</item>
+        </note>
+        <fix>
+            <item>Suppress notice : undefined array key on line 357 or 486</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.4.2</version>
         <note>
             <item>Update : 25/11/2024</item>
