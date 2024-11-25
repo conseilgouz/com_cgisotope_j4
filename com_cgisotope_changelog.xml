@@ -7,7 +7,7 @@
             <item>Update : 25/11/2024</item>
         </note>
         <fix>
-            <item>Suppress notice : undefined array key on line 357 or 486</item>
+            <item>Suppress notice : CGHelper : undefined array key on line 357 or 486</item>
         </fix>
 	</changelog>
 	<changelog>
