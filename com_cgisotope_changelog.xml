@@ -112,7 +112,7 @@
             <item>Update : 21/11/2024</item>
         </note>
         <fix>
-            <item>0 syntax error, unexpected variable "$ladate"</item>
+            <item>0 syntax error, unexpected variable "ladate"</item>
         </fix>
 	</changelog>
 	<changelog>
