@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.2.2
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -11,6 +10,7 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 
@@ -33,18 +33,15 @@ class com_cgisotopeInstallerScript
 	}
     function preflight($type, $parent)
     {
-
 		if ( ! $this->passMinimumJoomlaVersion())
 		{
 			$this->uninstallInstaller();
-
 			return false;
 		}
 
 		if ( ! $this->passMinimumPHPVersion())
 		{
 			$this->uninstallInstaller();
-
 			return false;
 		}
 		// To prevent installer from running twice if installing multiple extensions
@@ -54,19 +51,6 @@ class com_cgisotopeInstallerScript
 		}
 		$xml = simplexml_load_file(JPATH_ADMIN . '/components/com_'.$this->extname.'/'.$this->extname.'.xml');
 		$this->previous_version = $xml->version;
-		
-    }
-    
-    function install($parent)
-    {
-    }
-    
-    function uninstall($parent)
-    {
-    }
-    
-    function update($parent)
-    {
     }
     
     function postflight($type, $parent)
@@ -102,11 +86,8 @@ class com_cgisotopeInstallerScript
 				File::delete($file);
 			}
 		}
-		
-		
-		
 		// remove obsolete update sites
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
@@ -161,7 +142,7 @@ class com_cgisotopeInstallerScript
 			JPATH_PLUGINS . '/system/' . $this->installerName . '/language',
 			JPATH_PLUGINS . '/system/' . $this->installerName,
 		]);
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__extensions')
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))
@@ -171,5 +152,16 @@ class com_cgisotopeInstallerScript
 		$db->execute();
 		Factory::getCache()->clean('_system');
 	}
-	
+    public function delete($files = [])
+    {
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                Folder::delete($file);
+            }
+
+            if (is_file($file)) {
+                File::delete($file);
+            }
+        }
+    }	
 }

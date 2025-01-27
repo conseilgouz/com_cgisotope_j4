@@ -2,6 +2,22 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.4.4</version>
+        <note>
+            <item>Update : 27/01/2025</item>
+        </note>
+        <addition>
+            <item>Add fields count display in fields buttons/list</item>
+        </addition>
+        <fix>
+            <item>Installation script : missing delete function</item>
+            <item>Fields : lost field name</item>
+            <itel>Joomla 6.x compatibility</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.4.3</version>
         <note>
             <item>Update : 25/11/2024</item>

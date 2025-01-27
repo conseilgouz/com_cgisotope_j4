@@ -1,9 +1,8 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x Component 
-* Version			: 3.2.0
-* Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* CG Isotope Component  - Joomla 4.x/5.x Component 
+* Package			: CG Isotope
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -87,6 +86,7 @@ class PageModel extends AdminModel {
         $data->displayfiltersplitfields = $compl['displayfiltersplitfields'];
 		$data->splitfieldscolumn = $compl['splitfieldscolumn'];
         $data->splitfieldstitle = $compl['splitfieldstitle'];
+        $data->fieldsfiltercount = $compl['fieldsfiltercount'];
         $data->displayfilterfields = $compl['displayfilterfields'];
         $data->tagsmissinghidden = $compl['tagsmissinghidden'];
         $data->tagsfilterorder = $compl['tagsfilterorder'];

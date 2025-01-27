@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 4.2.8
-* Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* Package			: CG Isotope
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -121,6 +120,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['displayfiltersplitfields'] = $compl['displayfiltersplitfields'];
             $page_params['splitfieldscolumn'] = $compl['splitfieldscolumn'];
             $page_params['splitfieldstitle'] = $compl['splitfieldstitle'];
+            $page_params['fieldsfiltercount'] = $compl['fieldsfiltercount'];
             $page_params['displayfilterfields'] = $compl['displayfilterfields'];
             $page_params['tagsmissinghidden'] = $compl['tagsmissinghidden'];
             $page_params['tagsfilterorder'] = $compl['tagsfilterorder'];

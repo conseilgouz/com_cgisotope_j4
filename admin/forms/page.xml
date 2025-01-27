@@ -344,6 +344,13 @@
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
+            <field showon="iso_entree:articles[AND]cat_or_tag:fields,catfields,tagsfields[AND]iso_entree:articles" name="fieldsfiltercount"
+                    type="radio" class="btn-group btn-group-yesno clear half left" default="false" 
+                    label="CG_ISO_FIELDSFILTERCOUNT" 
+                    description="CG_ISO_FIELDSFILTERCOUNTDESC">
+                    <option value="true">JYES</option>
+                    <option value="false">JNO</option>
+                </field>            
 <field	name="noteotherfilterinfo"	type="note" label="CG_ISO_DISPLAYOTHERFILTERNOTE" class="alert-success clear half"/>
    			<field name="language_filter"
 				type="radio" class="btn-group"

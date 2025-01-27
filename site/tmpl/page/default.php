@@ -2,7 +2,7 @@
 /**
 * CG Isotope Component  - Joomla 4.x/5x Component
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 *
 */
@@ -127,6 +127,7 @@ $this->tags_count = array();
 $this->tags_parent = array();
 $this->tags_parent_alias = array();
 $this->fields = array();
+$this->fields_count = array();
 $this->cats_lib = array();
 $this->cats_alias = array();
 $this->cats_params = array();

@@ -2,7 +2,7 @@
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 *
 */
@@ -434,6 +434,10 @@ class CGHelper extends ComponentHelper
                                         if (!in_array($alias, $iso->fields)) {
                                             $iso->fields[$alias] = self::field_info($item, $val, $alias, $alias_sort, $field, $params);
                                         }
+                                        if (!isset($iso->fields_count[$alias])) {
+                                            $iso->fields_count[$alias] = 0;
+                                        }
+                                        $iso->fields_count[$alias]++;
                                     }
                                 }
 
@@ -450,6 +454,10 @@ class CGHelper extends ComponentHelper
                                 if (!in_array($alias, $iso->fields)) {
                                     $iso->fields[$alias] = self::field_info($item, $val, $alias, $alias_sort, $field, $params);
                                 }
+                                if (!isset($iso->fields_count[$alias])) {
+                                    $iso->fields_count[$alias] = 0;
+                                }
+                                $iso->fields_count[$alias]++;
                                 $ix_field += 1;
                             } elseif ($field->type == 'subform') {
                                 $dates = json_decode($field->rawvalue);
@@ -469,6 +477,10 @@ class CGHelper extends ComponentHelper
                                 $iso->article_fields_names[$item->id][$field->name] = $alias;
                                 $iso->fields[$alias] = self::field_info($item, $val, $alias, $alias_sort, $field, $params);
                             }
+                            if (!isset($iso->fields_count[$alias])) {
+                                $iso->fields_count[$alias] = 0;
+                            }
+                            $iso->fields_count[$alias]++;
                         }
                     }
                     if (is_numeric($show_date_field) && ($field->id == $show_date_field)) {
@@ -898,7 +910,7 @@ class CGHelper extends ComponentHelper
         return false;
     }
     //---------------------------------------------------- Create Fields buttons	----------------------------------------------//
-    public static function create_buttons($fields, $group_lib, $onefilter, $params, $col_width, $button_bootstrap, $splitfieldstitle, $group_title, $group_id, $comid = 0)
+    public static function create_buttons($fields, $group_lib, $onefilter, $params, $col_width, $button_bootstrap, $splitfieldstitle, $group_title, $group_id, $comid = 0, $fieldsfiltercount = 'false', $fields_count = [])
     {
 
 
@@ -927,6 +939,10 @@ class CGHelper extends ComponentHelper
             $first_time = true;
             foreach ($onefilter as $key => $filter) {
                 $obj = $fields[$key];
+                $fieldcount = '';
+                if ($fieldsfiltercount == 'true') {
+                    $fieldcount = '<span class="field-count badge bg-info">'.$fields_count[$key].'</span>';
+                }
                 if ($first_time) {
                     $result .=  '<button class="'.$button_bootstrap.'  iso_button_tout isotope_button_first is-checked filter-button-group-'.$group_lib.'" data-sort-value="*" data-parent="'.$obj->parent.'" data-child="'.$obj->child.'" />'.$liball.'</button>';
                     $first_time = false;
@@ -934,7 +950,7 @@ class CGHelper extends ComponentHelper
                 $aff_alias = $obj->alias;
                 $aff = $obj->render;
                 if (!is_null($aff)) {
-                    $result .=  '<button class="'.$button_bootstrap.'  iso_button_'.$group_lib.'_'.$aff_alias.'" data-sort-value="'.$aff_alias.'" data-parent="'.$obj->parent.'" data-child="'.$obj->child.'"/>'. Text::_($aff).'</button>';
+                    $result .=  '<button class="'.$button_bootstrap.'  iso_button_'.$group_lib.'_'.$aff_alias.'" data-sort-value="'.$aff_alias.'" data-parent="'.$obj->parent.'" data-child="'.$obj->child.'"/>'. Text::_($aff).$fieldcount.'</button>';
                 }
             }
             if ($splitfieldstitle == "true") {
@@ -965,6 +981,10 @@ class CGHelper extends ComponentHelper
             $first_time = true;
             foreach ($onefilter as $key => $filter) {
                 $obj = $fields[$key];
+                $fieldcount = '';
+                if ($fieldsfiltercount == 'true') {
+                    $fieldcount = ' ('.$fields_count[$key].')';
+                }
                 if ($first_time) {
                     $options['']['items'][] = ModulesHelper::createOption('', $liball);
                     $first_time = false;
@@ -972,7 +992,7 @@ class CGHelper extends ComponentHelper
                 $aff_alias = $obj->alias;
                 $aff = strip_tags($obj->render);
                 if (!is_null($aff)) {
-                    $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff));
+                    $options['']['items'][] = ModulesHelper::createOption($aff_alias, Text::_($aff).$fieldcount);
                 }
             }
 

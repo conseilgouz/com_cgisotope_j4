@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 2.3.3
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -32,7 +31,7 @@ class SQLnoerrField extends SqlField
 		if ($this->query)
 		{
 			// Get the database object.
-			$db = Factory::getDbo();
+			$db = $this->getDatabase();
 
 			try
 			{

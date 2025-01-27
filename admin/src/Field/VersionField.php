@@ -3,7 +3,7 @@
  * CG Isotope Component for Joomla 4.x
  *
  * @author     ConseilgGouz
- * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -35,8 +35,7 @@ class VersionField extends FormField
 
 		$version = '';
 
-		$jinput = Factory::getApplication()->input;
-		$db = Factory::getDBO();
+		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query
 			->select($db->quoteName('manifest_cache'))
@@ -47,7 +46,7 @@ class VersionField extends FormField
 		$tmp = json_decode($row['manifest_cache']);
 		$version = $tmp->version;
 		
-		$document = Factory::getDocument();
+		$document = Factory::getApplication()->getDocument();
 		$css = '';
 		$css .= ".version {display:block;text-align:right;color:brown;font-size:12px;}";
 		$css .= ".readonly.plg-desc {font-weight:normal;}";

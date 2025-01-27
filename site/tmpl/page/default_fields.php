@@ -2,7 +2,7 @@
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 *
 */
@@ -41,6 +41,7 @@ $catsfilterimg =  $this->iso_params->get('catsfilterimg', 'false');
 $catsfiltercount =  $this->iso_params->get('catsfiltercount', 'false');
 $splitfields = $this->iso_params->get('displayfiltersplitfields', 'false');
 $splitfieldstitle = $this->iso_params->get('splitfieldstitle', 'false');
+$fieldsfiltercount =  $this->iso_params->get('fieldsfiltercount', 'false');
 $blocklink =  $this->iso_params->get('blocklink', 'false');
 $titlelink =  $this->iso_params->get('titlelink', 'true');
 $displayfiltertags =  $this->iso_params->get('displayfiltertags', 'button');
@@ -671,7 +672,7 @@ if ($displayfilterfields != "hide") {
             $group_id = $onegroup[$first]->field_id;
             $filter_div .=  '<div class="'.$col_width.'  isotope_button-group filter-button-group-fields class_fields_'.$group_lib.' '.$layouts["field"]->div_align.'" data-filter-group="'.$group_lib.'" data-group-id="'.$group_id.'" data="'.$com_id.'">';
 
-            $filter_div .= CGHelper::create_buttons($this->fields, $group_lib, $onegroup, $this->iso_params, $col_width, $button_bootstrap, $splitfieldstitle, $group_label[$group_lib], $group_id, $com_id);
+            $filter_div .= CGHelper::create_buttons($this->fields, $group_lib, $onegroup, $this->iso_params, $col_width, $button_bootstrap, $splitfieldstitle, $group_label[$group_lib], $group_id, $com_id, $fieldsfiltercount, $this->fields_count);
             $filter_div .= "</div>";
         }
         if ($this->iso_params->get('splitfieldscolumn', 'false') == "true") {
@@ -682,7 +683,7 @@ if ($displayfilterfields != "hide") {
         $width = $layouts['field']->div_width;
         $col_width = "col-md-".$width." col-12";
         $filter_div .=  '<div class="'.$col_width.'  isotope_button-group filter-button-group-fields class_fields_'.$group_lib.'" data-filter-group="'.$group_lib.'" data="'.$com_id.'">';
-        $filter_div .=  CGHelper::create_buttons($this->fields, 'fields', $this->fields, $this->iso_params, $col_width, $button_bootstrap, 'false', 'fields', 0, $com_id);
+        $filter_div .=  CGHelper::create_buttons($this->fields, 'fields', $this->fields, $this->iso_params, $col_width, $button_bootstrap, 'false', 'fields', 0, $com_id, $fieldsfiltercount, $this->fields_count);
         $filter_div .= "</div>";
     }
 }
@@ -750,7 +751,7 @@ foreach ($this->list as $key => $category) {
                         $afield .= $afield == "" ? $obj->render : ", ".$obj->render;
                     }
                     $field_cust[$key_f] = (string)$afield; // php 8
-                    $field_cust['field '.$obj->field_id] = (string)$afield; // field display value, PHP 8
+                    // $field_cust['field '.$obj->field_id] = (string)$afield; // field display value, PHP 8
                     $field_value .= " ".implode(' ', $tag_f);
                 } else { // one field
                     $obj = $this->fields[$tag_f];
@@ -758,7 +759,7 @@ foreach ($this->list as $key => $category) {
                         $field_value .= " ".$tag_f;
                     }
                     $field_cust[$key_f] = (string)$obj->render; // field display value, php 8
-                    $field_cust['field '.$obj->field_id] = (string)$obj->render; // field display value, PHP 8
+                    // $field_cust['field '.$obj->field_id] = (string)$obj->render; // field display value, PHP 8
                 }
                 if (($displayrange == "true") && ($key_f == $this->rangetitle)) {
                     $data_range = " data-range='".$obj->val."' ";

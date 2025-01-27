@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
-* Version			: 3.0.12
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -89,6 +88,7 @@ class ImportController extends FormController
             $page_params['displayfiltersplitfields'] = $mod_params->displayfiltersplitfields;
             $page_params['splitfieldscolumn'] = $mod_params->splitfieldscolumn;
             $page_params['splitfieldstitle'] = $mod_params->splitfieldstitle;
+            $page_params['fieldsfiltercount'] = $mod_params->fieldsfiltercount;
             $page_params['displayfilterfields'] = $mod_params->displayfilterfields;
             $page_params['tagsfilterorder'] = $mod_params->tagsfilterorder;
             $page_params['tagsfilterimg'] = $mod_params->tagsfilterimg;
