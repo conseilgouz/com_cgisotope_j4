@@ -34,7 +34,7 @@
             <item>Update : 25/11/2024</item>
         </note>
         <addition>
-            <item>Customization : use notnull or ! tags and nofield or !f tags</item>
+            <item>Customization : use notnull or exclamation tags and nofield or exclamationf tags</item>
             <item>Customization : access table subfield by adding comma to db field, for ex. urls,urla</item>
         </addition>
         <fix>
