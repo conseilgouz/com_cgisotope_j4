@@ -12,7 +12,7 @@
         <fix>
             <item>Installation script : missing delete function</item>
             <item>Fields : lost field name</item>
-            <itel>Joomla 6.x compatibility</item>
+            <item>Joomla 6.x compatibility</item>
         </fix>
 	</changelog>
 	<changelog>
