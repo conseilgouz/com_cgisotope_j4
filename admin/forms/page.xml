@@ -487,7 +487,7 @@
 				type="color" default="#eee"
 				label="CG_ISO_BACKGD" description="CG_ISO_BACKGDDESC" class="half left"/>				
    			<field name="introtext_leave_tags" showon="iso_entree:articles,webLinks"
-				type="checkbox" default="0" 
+				type="checkbox" 
 				label="CG_ISO_LEAVE_TAGS" description="CG_ISO_LEAVE_TAGS_DESC" class="half right"/>
    			<field name="introtext_limit" showon="iso_entree:articles,k2"
 				type="number" default="100" min="0" max="500" step="20"
@@ -560,7 +560,7 @@
 				default="d/m/Y" class="half left" />
 			<field name="formatotherdate" type="text" label="CG_ISO_FORMAT_OTHERDATE" description ="CG_ISO_FORMAT_OTHERDATE_DESC" 
 				default="d/m/Y" class="half right" />
-            <field type="checkbox" name="see_notes" label="CG_ISO_SEE_PERSO" default="0" class="clear left" />
+            <field type="checkbox" name="see_notes" label="CG_ISO_SEE_PERSO" class="clear left" />
 		    <field showon="see_notes:1" type="note" name="note1" label="CG_ISO_NOTE1" heading="p" class="clear"/>
 			<field	name="bracket"
 				type="radio" class="btn-group btn-group-yesno clear" default="bracket"
