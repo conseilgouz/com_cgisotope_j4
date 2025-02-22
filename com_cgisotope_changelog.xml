@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.4.6</version>
+        <note>
+            <item>Update : 22/02/2025</item>
+        </note>
+        <fix>
+            <item>Installation : accept PHP 7.4 as lowest compatible version</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.4.5</version>
         <note>
             <item>Update : 21/02/2025</item>
