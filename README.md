@@ -1,4 +1,4 @@
-# com_cgisotope_j4
+# com_cgisotope_j4 :spoon:
 
  Component CG Isotope for Joomla! 4 & Joomla! 5
 
