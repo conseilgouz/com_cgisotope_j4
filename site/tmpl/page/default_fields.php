@@ -735,7 +735,10 @@ foreach ($this->list as $key => $category) {
                 continue;
             } // not in list : ignore it
         }
-        $cat_params = json_decode($this->cats_params[$item->catid]);
+        $cat_params = null;
+        if ($this->cats_params[$item->catid]) {
+            $cat_params = json_decode($this->cats_params[$item->catid]);
+        }
         if (($cat_params) && (isset($cat_params->image)) && ($cat_params->image != "")) {
             $cat_img = "<img src='".URI::root().$cat_params->image."' alt='".$cat_params->image_alt."' class='iso_cat_img_art'/>";
         }

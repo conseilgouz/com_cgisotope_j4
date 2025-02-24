@@ -2,7 +2,7 @@
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 *
 */
@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Model\ListModel;
 
 class PageModel extends ListModel {
 
-	public function __construct($config = array(), MVCFactoryInterface $factory = null)
+	public function __construct($config = array(), ? MVCFactoryInterface $factory = null)
 	{
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(

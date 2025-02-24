@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.4.7</version>
+        <note>
+            <item>Update : 24/02/2025</item>
+        </note>
+        <fix>
+            <item>PHP 8.4 compatibility</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.4.6</version>
         <note>
             <item>Update : 22/02/2025</item>
