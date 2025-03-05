@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.5.0</version>
+        <note>
+            <item>Update : 05/03/2025</item>
+        </note>
+        <fix>
+            <item>Joomla 5.3 : getQuery to createQuery</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.4.7</version>
         <note>
             <item>Update : 24/02/2025</item>

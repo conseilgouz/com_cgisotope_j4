@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 
@@ -105,14 +106,14 @@ class com_cgisotopeInstallerScript
 		
 		
 		// remove obsolete update sites
-		$db = Factory::getDbo();
-		$query = $db->getQuery(true)
+		$db	= Factory::getContainer()->get(DatabaseInterface::class);
+		$query = $db->createQuery()
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
 		$db->setQuery($query);
 		$db->execute();
 		// Simple Isotope is now on Github
-		$query = $db->getQuery(true)
+		$query = $db->createQuery()
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%conseilgouz.com/updates/com_cgisotope%"');
 		$db->setQuery($query);
@@ -160,8 +161,8 @@ class com_cgisotopeInstallerScript
 			JPATH_PLUGINS . '/system/' . $this->installerName . '/language',
 			JPATH_PLUGINS . '/system/' . $this->installerName,
 		]);
-		$db = Factory::getDbo();
-		$query = $db->getQuery(true)
+		$db	= Factory::getContainer()->get(DatabaseInterface::class);
+		$query = $db->createQuery()
 			->delete('#__extensions')
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))
 			->where($db->quoteName('folder') . ' = ' . $db->quote('system'))
@@ -170,5 +171,17 @@ class com_cgisotopeInstallerScript
 		$db->execute();
 		Factory::getCache()->clean('_system');
 	}
+    public function delete($files = [])
+    {
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                Folder::delete($file);
+            }
+
+            if (is_file($file)) {
+                File::delete($file);
+            }
+        }
+    }
 	
 }

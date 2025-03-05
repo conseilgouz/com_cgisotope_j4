@@ -2,18 +2,19 @@
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\Controller;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\Router\Route;
+use Joomla\Database\DatabaseInterface;
 use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
@@ -45,10 +46,10 @@ class PagesController extends AdminController
         $app = Factory::getApplication();
         $input = $app->input;
 		$pks = $input->post->get('cid', array(), 'array');
-        $db    = Factory::getDbo();
+        $db	= Factory::getContainer()->get(DatabaseInterface::class);
 		foreach ($pks as $id)	{
             $result = $db->setQuery(
-                $db->getQuery(true)
+                $db->createQuery()
                 ->select('*')
                 ->from($db->quoteName('#__cgisotope_page'))
                 ->where($db->quoteName('id') . ' = ' . (int)$id)
@@ -228,10 +229,10 @@ class PagesController extends AdminController
 		return true;
 	}
 	function check_title($title) {
-        $db    = Factory::getDbo();
+        $db	= Factory::getContainer()->get(DatabaseInterface::class);
         do {
 			$result = $db->setQuery(
-                $db->getQuery(true)
+                $db->createQuery()
                 ->select('count("*")')
                 ->from($db->quoteName('#__cgisotope_page'))
                 ->where($db->quoteName('title') . ' like ' . $db->quote($title) .' AND state in (0,1)')

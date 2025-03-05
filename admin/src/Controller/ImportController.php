@@ -10,12 +10,13 @@ namespace ConseilGouz\Component\CGIsotope\Administrator\Controller;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Session\Session;
 use Joomla\CMS\Language\Text;
-use Joomla\String\StringHelper;
+use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+use Joomla\Database\DatabaseInterface;
+use Joomla\String\StringHelper;
 
 class ImportController extends FormController
 {
@@ -32,10 +33,10 @@ class ImportController extends FormController
         $app = Factory::getApplication();
         $input = $app->input;
 		$pks = $input->post->get('cid', array(), 'array');
-        $db    = Factory::getDbo();
+        $db	= Factory::getContainer()->get(DatabaseInterface::class);
 		foreach ($pks as $id)	{
             $result = $db->setQuery(
-                $db->getQuery(true)
+                $db->createQuery()
                 ->select('*')
                 ->from($db->quoteName('#__modules'))
                 ->where($db->quoteName('id') . ' = ' . (int)$id)
@@ -131,10 +132,10 @@ class ImportController extends FormController
         return false;
         }
 	function check_title($title) {
-        $db    = Factory::getDbo();
+        $db	= Factory::getContainer()->get(DatabaseInterface::class);
         do {
 			$result = $db->setQuery(
-                $db->getQuery(true)
+                $db->createQuery()
                 ->select('count(*)')
                 ->from($db->quoteName('#__cgisotope_page'))
                 ->where($db->quoteName('title') . ' like ' . $db->quote($title) .' AND state in (0,1)')

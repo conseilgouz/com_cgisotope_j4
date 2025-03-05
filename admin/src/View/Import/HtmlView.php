@@ -2,7 +2,7 @@
 /**
 * CG Isotope Component  - Joomla 4.x/5.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 namespace ConseilGouz\Component\CGIsotope\Administrator\View\Import;
@@ -17,6 +17,7 @@ use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\Database\DatabaseInterface;
 
 class HtmlView extends BaseHtmlView
 {
@@ -66,8 +67,8 @@ class HtmlView extends BaseHtmlView
 		}
 	}
         protected function getModules() {
-            $db    = Factory::getDBo();
-            $result = $db->setQuery(
+            $db	= Factory::getContainer()->get(DatabaseInterface::class);
+            $result = $db->createQuery()(
                 $db->getQuery(true)
                 ->select('*')
                 ->from($db->quoteName('#__modules'))

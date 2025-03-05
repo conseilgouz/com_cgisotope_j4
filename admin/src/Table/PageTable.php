@@ -9,12 +9,13 @@
 namespace ConseilGouz\Component\CGIsotope\Administrator\Table;
 
 \defined('_JEXEC') or die;
-use Joomla\CMS\Table\Table;
-use Joomla\CMS\Language\Text;
-use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
 use Joomla\CMS\Versioning\VersionableTableInterface;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Utilities\ArrayHelper;
 
 class PageTable extends Table implements VersionableTableInterface
 {
@@ -53,13 +54,13 @@ class PageTable extends Table implements VersionableTableInterface
 	}
 	function store($updateNulls = true)
 	{
-        $db    = Factory::getDBo();
+        $db	= Factory::getContainer()->get(DatabaseInterface::class);
         $table = $this->_tbl;
         $key   = empty($this->id) ? $key : $this->id;
 
         // Check if key exists
         $result = $db->setQuery(
-            $db->getQuery(true)
+            $db->createQuery()
                 ->select('COUNT(*)')
                 ->from($db->quoteName($this->_tbl))
                 ->where($db->quoteName('id') . ' = ' . $db->quote($key))
