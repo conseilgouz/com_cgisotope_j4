@@ -38,7 +38,7 @@ class PagesModel extends ListModel
 	{
 		// Initialise variables.
 		$db		= $this->getDbo();
-		$query	= $db->createQuery();
+		$query	= $db->getQuery(true);
 
 		// Select the required fields from the table.
 		$query->select('t.id, t.title, t.state,t.page_params, t.sections, t.language,t.checked_out,t.checked_out_time');
@@ -111,7 +111,7 @@ class PagesModel extends ListModel
 	private function getDataQuery($pks = null)
 	{
 	    $db    = $this->getDbo();
-	    $query = $db->createQuery();
+	    $query = $db->getQuery(true);
 	    $query->select('a.*');
 	    $query->from('#__cgisotope_page as a');
 	    if (is_array($pks) && count($pks) > 0)

@@ -60,7 +60,7 @@ class PageTable extends Table implements VersionableTableInterface
 
         // Check if key exists
         $result = $db->setQuery(
-            $db->createQuery()
+            $db->getQuery(true)
                 ->select('COUNT(*)')
                 ->from($db->quoteName($this->_tbl))
                 ->where($db->quoteName('id') . ' = ' . $db->quote($key))

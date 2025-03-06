@@ -36,7 +36,7 @@ class ImportController extends FormController
         $db	= Factory::getContainer()->get(DatabaseInterface::class);
 		foreach ($pks as $id)	{
             $result = $db->setQuery(
-                $db->createQuery()
+                $db->getQuery(true)
                 ->select('*')
                 ->from($db->quoteName('#__modules'))
                 ->where($db->quoteName('id') . ' = ' . (int)$id)
@@ -135,7 +135,7 @@ class ImportController extends FormController
         $db	= Factory::getContainer()->get(DatabaseInterface::class);
         do {
 			$result = $db->setQuery(
-                $db->createQuery()
+                $db->getQuery(true)
                 ->select('count(*)')
                 ->from($db->quoteName('#__cgisotope_page'))
                 ->where($db->quoteName('title') . ' like ' . $db->quote($title) .' AND state in (0,1)')

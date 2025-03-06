@@ -68,7 +68,7 @@ class HtmlView extends BaseHtmlView
 	}
         protected function getModules() {
             $db	= Factory::getContainer()->get(DatabaseInterface::class);
-            $result = $db->createQuery()(
+            $result = $db->getQuery(true)(
                 $db->getQuery(true)
                 ->select('*')
                 ->from($db->quoteName('#__modules'))

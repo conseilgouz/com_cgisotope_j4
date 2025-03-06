@@ -107,13 +107,13 @@ class com_cgisotopeInstallerScript
 		
 		// remove obsolete update sites
 		$db	= Factory::getContainer()->get(DatabaseInterface::class);
-		$query = $db->createQuery()
+		$query = $db->getQuery(true)
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
 		$db->setQuery($query);
 		$db->execute();
 		// Simple Isotope is now on Github
-		$query = $db->createQuery()
+		$query = $db->getQuery(true)
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%conseilgouz.com/updates/com_cgisotope%"');
 		$db->setQuery($query);
@@ -162,7 +162,7 @@ class com_cgisotopeInstallerScript
 			JPATH_PLUGINS . '/system/' . $this->installerName,
 		]);
 		$db	= Factory::getContainer()->get(DatabaseInterface::class);
-		$query = $db->createQuery()
+		$query = $db->getQuery(true)
 			->delete('#__extensions')
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))
 			->where($db->quoteName('folder') . ' = ' . $db->quote('system'))
