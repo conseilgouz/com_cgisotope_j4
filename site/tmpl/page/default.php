@@ -266,6 +266,16 @@ if ($this->iso_entree == "webLinks") {
     }
 }
 
+$moddef = $app->input->get('moddef', 'none');
+if ($moddef == 'cat') {
+    $this->default_cat = $this->cats_alias[$app->input->get('default_cat', 1)];
+}
+if ($moddef == 'tag') {
+    $this->default_tag = $app->input->get('default_tag', 1);
+    $onetag = CGHelper::getTagTitle($this->default_tag);
+    $this->default_tag = $onetag[0]->alias;
+}
+
 if (($this->displayrange == "true") && ($this->rangestep == "auto")) {
     $step = ((int)$this->maxrange - (int)$this->minrange) / 5 ; // PHP 8
     if ($step < 1) {
