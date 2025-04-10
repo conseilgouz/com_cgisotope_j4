@@ -10,7 +10,7 @@
             <item>CG Isotope menu : allow default category/tag change</item>
         </change>
         <fix>
-            <item>Suppress CGHelper Notices on tag counters</item>
+            <item>Suppress Notices on tag counters</item>
         </fix>
 	</changelog>
 	<changelog>

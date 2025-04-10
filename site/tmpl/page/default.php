@@ -181,6 +181,9 @@ if (sizeof($this->tags_list) && ($this->iso_params->get("pagination", "false") !
             $this->tags_parent[$tag->alias] = $tag->parent_title;
             $this->tags_parent_alias[$tag->alias] = $tag->parent_alias;
         }
+        if (!isset($this->tags_count[$tag->alias])) {
+            $this->tags_count[$tag->alias] = 0;
+        }
         $this->tags_count[$tag->alias]++;
     }
 }
