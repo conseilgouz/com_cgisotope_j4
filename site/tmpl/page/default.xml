@@ -14,7 +14,26 @@
 				name="id" type="pages" label="COM_CGISOTOPE_SELECT_PAGE"
 				description="COM_CGISOTOPE_SELECT_PAGE_DESC"
 				required="true"	select="true" new="true" edit="true" clear="true"
+                onchange="loadfilters(this)"
 			/>
+			<field	name="moddef" type="radio"	default=""	class="btn-group"
+				label="COM_CGISOTOPE_MODDEFAULT" description="COM_CGISOTOPE_MODDEFAULT_DESC" 
+                >
+				<option value="" onclick="changefilters(this)">JNO</option> 
+				<option value="cat" onclick="changefilters(this)">CG_ISO_DEFAULT_CAT</option> 
+				<option value="tag" onclick="changefilters(this)">CG_ISO_DEFAULT_TAG</option> 
+			</field>
+			<field name="default_cat" showon="moddef:cat[AND]id!:"
+					type="catdefault" multiple="false" extension="com_content" 
+					label="CG_ISO_DEFAULT_CAT" description="CG_ISO_DEFAULT_CATDESC" 
+					default="">
+					<option value="">CG_ISO_LIBNONE</option>
+			</field>
+			<field name="default_tag"	showon="moddef:tag[AND]id!:"
+				type="tag" default="" published="true"
+				label="CG_ISO_DEFAULT_TAG" 	description="CG_ISO_DEFAULT_TAGDESC" layout="joomla.form.field.list">
+					<option value="">CG_ISO_LIBNONE</option>
+			</field>
 		</fieldset>
 	</fields>
 	

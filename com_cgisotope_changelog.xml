@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.5.2</version>
+        <note>
+            <item>Update : 10/04/2025</item>
+        </note>
+        <change>
+            <item>CG Isotope menu : allow default category/tag change</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.5.1</version>
         <note>
             <item>Update : 06/03/2025</item>
