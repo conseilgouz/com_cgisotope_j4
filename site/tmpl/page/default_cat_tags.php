@@ -783,7 +783,7 @@ foreach ($this->list as $key => $category) {
             $item_cls->id = $item->id;
             $item_cls->text = $perso;
             $item_cls->params = $this->iso_params;
-            $app->triggerEvent('onCGIsotopeRender', array('com_cgisotope.article', &$item_cls,&$item_cls->params, 0));
+            $app->triggerEvent('onCGIsotopeRender', array('com_cgisotope.article', &$item_cls,&$item_cls->params, $item));
             $perso = 	$item_cls->text;
 
             $isotope_grid_div .= $perso;
@@ -843,7 +843,7 @@ foreach ($this->list as $key => $category) {
             $item_cls->id = $item->id;
             $item_cls->text = $perso;
             $item_cls->params = $this->iso_params;
-            $app->triggerEvent('onCGIsotopeRender', array('com_cgisotope.article', &$item_cls,&$item_cls->params, 0));
+            $app->triggerEvent('onCGIsotopeRender', array('com_cgisotope.article', &$item_cls,&$item_cls->params, $item));
             $perso = 	$item_cls->text;
 
             $isotope_grid_div .= $perso;
