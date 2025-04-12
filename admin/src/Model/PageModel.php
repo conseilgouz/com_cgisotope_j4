@@ -57,6 +57,7 @@ class PageModel extends AdminModel {
         $data->introtext_img_link = $compl['introtext_img_link'];
         $data->titlelink = $compl['titlelink'];
         $data->readmore = $compl['readmore'];
+        $data->readmoretext = $compl['readmoretext'];
         $data->introimg_maxwidth = $compl['introimg_maxwidth'];
         $data->introimg_maxheight = $compl['introimg_maxheight'];
         $data->iso_count = $compl['iso_count'];

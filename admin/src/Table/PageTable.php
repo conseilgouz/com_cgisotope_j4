@@ -91,6 +91,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['introtext_img_link'] = $compl['introtext_img_link'];
             $page_params['titlelink'] = $compl['titlelink'];
             $page_params['readmore'] = $compl['readmore'];
+            $page_params['readmoretext'] = $compl['readmoretext'];
             $page_params['introimg_maxwidth'] = $compl['introimg_maxwidth'];
             $page_params['introimg_maxheight'] = $compl['introimg_maxheight'];
             $page_params['iso_count'] = $compl['iso_count'];

@@ -536,7 +536,9 @@
 				<option value="ajax">AJAX</option>
 				<option value="false">JNO</option>
 			</field>
-			
+   			<field name="readmoretext"
+				type="text" default=""
+				label="CG_ISO_READMORETEXT" description="CG_ISO_READMORETEXTDESC"	class="clear" />
 	</fieldset>
 	 <fieldset name="perso_tab" label="CG_ISO_PERSO_TAB">
 		    <field type="note" name="note0" label="CG_ISO_NOTE0" heading="p"/>

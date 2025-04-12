@@ -2,6 +2,23 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.5.4</version>
+        <note>
+            <item>Update : 12/04/2025</item>
+        </note>
+        <addition>
+            <item>New parameter : Read More Text</item>
+        </addition>
+        <fix>
+            <item>Admin : unlock page causes an error</item>
+        </fix>
+        <change>
+            <item>add iso_3points class around ... when required</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.5.3</version>
         <note>
             <item>Update : 11/04/2025</item>

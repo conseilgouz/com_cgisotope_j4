@@ -852,7 +852,11 @@ foreach ($this->list as $key => $category) {
             if ($this->iso_params->get('readmore', 'false') != 'false') {
                 $isotope_grid_div .= '<p class="isotope-readmore">';
                 $isotope_grid_div .= '<a class="isotope-readmore-title"  data-articleid="'.$item->id.'" data-href="'.$item->link.'" href="'.$item->link.'">';
-                $isotope_grid_div .= Text::_('CG_ISO_READMORE');
+                if ($this->iso_params->get('readmoretext', '')) {
+                    $isotope_grid_div .= $this->iso_params->get('readmoretext', '');
+                } else {
+                    $isotope_grid_div .= Text::_('CG_ISO_READMORE');
+                }
                 $isotope_grid_div .= '</a></p>';
             }
         }

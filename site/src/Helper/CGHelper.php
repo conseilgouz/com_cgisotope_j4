@@ -336,8 +336,15 @@ class CGHelper extends ComponentHelper
                     $item->displayIntrotext = $show_introtext ? self::truncate($item->introtext, 0) : '';
                 } else {
                     $item->displayIntrotext = $show_introtext ? self::truncate($item->introtext, $introtext_limit) : '';
-                    if (($params->get('hide_more', 'false') == 'true') && (substr($item->displayIntrotext, -3, 3) == '...')) { // suppress ... if present
-                        $item->displayIntrotext = substr($item->displayIntrotext, 0, -3);
+                    if ($params->get('hide_more', 'false') == 'true') {
+                        if (substr($item->displayIntrotext, -3, 3) == '...') { // suppress ... if present
+                            $item->displayIntrotext = substr($item->displayIntrotext, 0, -3);
+                        }
+                    } else {
+                        if (substr($item->displayIntrotext, -3, 3) == '...') { // ... are present, add a class
+                            $item->displayIntrotext = substr($item->displayIntrotext, 0, -3);
+                            $item->displayIntrotext .= '<span class="iso_3points">...</span>';
+                        }
                     }
                 }
                 $item->displayReadmore  = $item->alternative_readmore;

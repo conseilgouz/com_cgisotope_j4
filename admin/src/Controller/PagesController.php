@@ -69,7 +69,7 @@ class PagesController extends AdminController
             $data->fieldslinks = $result->fieldslinks;
             $ret = $db->insertObject('#__cgisotope_page', $data,'id');
             if (!$ret) {
-                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_CREATE'), 'warning')
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_CREATE'), 'warning');
                 return false;
             }
 		}
@@ -201,13 +201,13 @@ class PagesController extends AdminController
         $db    = Factory::getDbo();
 		foreach ($files as &$file) {
 		    if ($file[type] != "application/json") {
-                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_FILE_TYPE'), 'warning')
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_FILE_TYPE'), 'warning');
 		        return false;
 		    }
             $strJsonFileContents = file_get_contents($file[tmp_name]);
             $result = json_decode($strJsonFileContents, true);
             if (!$result['cgisotope']) {
-                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_NOT_ISOTOPE'), 'warning')
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_NOT_ISOTOPE'), 'warning');
                 return false;
             }
             $version = $result['cgisotope']; // version CG Isotope
@@ -221,7 +221,7 @@ class PagesController extends AdminController
             $data->fieldslinks = $result['fieldslinks'];
             $ret = $db->insertObject('#__cgisotope_page', $data,'id');
             if (!$ret) {
-                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_CREATE'), 'warning')                
+                Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_CREATE'), 'warning');
                 return false;
             }
 
