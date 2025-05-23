@@ -444,7 +444,10 @@ if ($displayfilterfields != "hide") {
             $filter_tag_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
             $name = 'isotope-select-tags';
             $options = array();
-            $options['']['items'][] = ModulesHelper::createOption('', $liball);
+            if ( ($this->iso_params->get('tagsshowall', 'true') == 'true')  || 
+                 ($this->iso_params->get('tagsshowall', 'true') == 'false' && ($this->default_tag == '' || $this->default_tag == 'none')) ){{
+                $options['']['items'][] = ModulesHelper::createOption('', $liball);
+            }
             foreach ($sortFilter as $aval) {
                 $res = explode("&", $aval);
                 $filter = $res[1];
@@ -564,7 +567,10 @@ if ($displayfilterfields != "hide") {
             $filter_cat_div .= '<p class="hidden-phone" >'.$libfilter.' : </p>';
             $name = 'isotope-select-cat';
             $options = array();
-            $options['']['items'][] = ModulesHelper::createOption('', $liball);
+            if ( ($this->iso_params->get('catsshowall', 'true') == 'true')  || 
+                ($this->iso_params->get('catsshowall', 'true') == 'false' && ($this->default_cat == '' || $this->default_cat == 'none')) ){{
+                $options['']['items'][] = ModulesHelper::createOption('', $liball);
+            }
             foreach ($sortFilter as $key => $filter) {
                 $aff = $this->cats_lib[$key];
                 $aff_alias = $this->cats_alias[$key];

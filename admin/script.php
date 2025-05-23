@@ -17,7 +17,7 @@ use Joomla\Filesystem\Folder;
 class com_cgisotopeInstallerScript
 {
 	private $min_joomla_version      = '4.0';
-	private $min_php_version         = '8.0';
+	private $min_php_version         = '7.4';
 	private $name                    = 'CG Isotope';
 	private $exttype                 = 'component';
 	private $extname                 = 'cgisotope';
@@ -33,15 +33,18 @@ class com_cgisotopeInstallerScript
 	}
     function preflight($type, $parent)
     {
+
 		if ( ! $this->passMinimumJoomlaVersion())
 		{
 			$this->uninstallInstaller();
+
 			return false;
 		}
 
 		if ( ! $this->passMinimumPHPVersion())
 		{
 			$this->uninstallInstaller();
+
 			return false;
 		}
 		// To prevent installer from running twice if installing multiple extensions
@@ -51,6 +54,19 @@ class com_cgisotopeInstallerScript
 		}
 		$xml = simplexml_load_file(JPATH_ADMIN . '/components/com_'.$this->extname.'/'.$this->extname.'.xml');
 		$this->previous_version = $xml->version;
+		
+    }
+    
+    function install($parent)
+    {
+    }
+    
+    function uninstall($parent)
+    {
+    }
+    
+    function update($parent)
+    {
     }
     
     function postflight($type, $parent)
@@ -86,8 +102,11 @@ class com_cgisotopeInstallerScript
 				File::delete($file);
 			}
 		}
+		
+		
+		
 		// remove obsolete update sites
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$db	= Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
@@ -142,7 +161,7 @@ class com_cgisotopeInstallerScript
 			JPATH_PLUGINS . '/system/' . $this->installerName . '/language',
 			JPATH_PLUGINS . '/system/' . $this->installerName,
 		]);
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$db	= Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__extensions')
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))
@@ -163,5 +182,6 @@ class com_cgisotopeInstallerScript
                 File::delete($file);
             }
         }
-    }	
+    }
+	
 }

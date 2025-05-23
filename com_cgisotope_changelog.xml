@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.5.5</version>
+        <note>
+            <item>Update : 23/05/2025</item>
+        </note>
+        <addition>
+            <item>List : show/hide 'all' option for tags/categories</item>
+        </addition>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.5.4</version>
         <note>
             <item>Update : 12/04/2025</item>

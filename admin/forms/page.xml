@@ -221,6 +221,21 @@
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
+			<field showon="cat_or_tag:cattags,cat,catfields,cattagsfields" name="catsfiltercount"
+				type="radio" class="btn-group btn-group-yesno clear half left" default="false" 
+				label="CG_ISO_CATSFILTERCOUNT" 
+				description="CG_ISO_CATSFILTERCOUNTDESC">
+				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+                <field showon="cat_or_tag:cattags,cat,catfields,cattagsfields[AND]displayfiltercat:list,listmulti" name="catsshowall"
+                    type="radio" class="btn-group btn-group-yesno half right" default="true" 
+                    label="CG_ISO_CATSSHOWALL" 
+                    description="CG_ISO_CATSSHOWALLDESC">
+                    <option value="true">JYES</option>
+                    <option value="false">JNO</option>
+                </field>
+            
 <field	name="notefiltertagsinfo"	type="note" label="CG_ISO_FILTERTAGSINFONOTE" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks" class="alert-success clear half"/>
 			<field name="tags" showon="cat_or_tag:tags,cattags,tagsfields,cattagsfields[AND]iso_entree:articles,webLinks"
 					type="tag" label="CG_ISO_TAGS" description="CG_ISO_TAGSDESC" class="clear half left"
@@ -304,6 +319,13 @@
 				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
+                <field showon="cat_or_tag:cattags,tags,tagsfields,cattagsfields[AND]displayfiltertags:list,listmulti" name="tagsshowall"
+                    type="radio" class="btn-group btn-group-yesno half right" default="true" 
+                    label="CG_ISO_TAGSSHOWALL" 
+                    description="CG_ISO_TAGSSHOWALLDESC">
+                    <option value="true">JYES</option>
+                    <option value="false">JNO</option>
+                </field>
 <field	name="notefilterfieldsinfo"	type="note" label="CG_ISO_FILTERFIELDSINFONOTE" showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles" class="alert-success clear half"/>
 
 			<field showon="cat_or_tag:fields,catfields,cattagsfields,tagsfields[AND]iso_entree:articles"

@@ -128,6 +128,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['tagsfilterorder'] = $compl['tagsfilterorder'];
             $page_params['tagsfilterimg'] = $compl['tagsfilterimg'];
             $page_params['tagsfiltercount'] = $compl['tagsfiltercount'];
+            $page_params['tagsshowall'] = $compl['tagsshowall'];
             $page_params['tagsfilterlink'] = $compl['tagsfilterlink'];
             $page_params['tagsfilterlinkcls'] = $compl['tagsfilterlinkcls'];
             $page_params['tagsfilterparent'] = $compl['tagsfilterparent'];
@@ -135,6 +136,7 @@ class PageTable extends Table implements VersionableTableInterface
             $page_params['catfilteralias'] = $compl['catfilteralias'];
             $page_params['catsfilterimg'] = $compl['catsfilterimg'];
             $page_params['catsfiltercount'] = $compl['catsfiltercount'];
+            $page_params['catsshowall'] = $compl['catsshowall'];
             $page_params['bootstrapbutton'] = $compl['bootstrapbutton'];
             $page_params['displaysearch'] = $compl['displaysearch'];
             $page_params['displayrange'] = $compl['displayrange'];
