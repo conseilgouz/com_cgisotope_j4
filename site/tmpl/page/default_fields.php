@@ -445,7 +445,7 @@ if ($displayfilterfields != "hide") {
             $name = 'isotope-select-tags';
             $options = array();
             if ( ($this->iso_params->get('tagsshowall', 'true') == 'true')  || 
-                 ($this->iso_params->get('tagsshowall', 'true') == 'false' && ($this->default_tag == '' || $this->default_tag == 'none')) ){{
+                 ($this->iso_params->get('tagsshowall', 'true') == 'false' && ($this->default_tag == '' || $this->default_tag == 'none')) ) {
                 $options['']['items'][] = ModulesHelper::createOption('', $liball);
             }
             foreach ($sortFilter as $aval) {
@@ -568,7 +568,7 @@ if ($displayfilterfields != "hide") {
             $name = 'isotope-select-cat';
             $options = array();
             if ( ($this->iso_params->get('catsshowall', 'true') == 'true')  || 
-                ($this->iso_params->get('catsshowall', 'true') == 'false' && ($this->default_cat == '' || $this->default_cat == 'none')) ){{
+                ($this->iso_params->get('catsshowall', 'true') == 'false' && ($this->default_cat == '' || $this->default_cat == 'none')) ) {
                 $options['']['items'][] = ModulesHelper::createOption('', $liball);
             }
             foreach ($sortFilter as $key => $filter) {
