@@ -1,8 +1,8 @@
 /**
 * CG Isotope Component/ Simple Isotope module for Joomla 4.x/5.x
-* Version			: 4.3.5 CG Isotope / 4.4.2 Simple Isotope
+* Version			: 4.6.2 CG Isotope / 4.6.2 Simple Isotope
 * Package			: CG ISotope/Simple Isotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -55,10 +55,10 @@ function CGIsotope(isoid,options) {
 	this.empty_message = (this.options.empty == "true");
 	this.asc = (this.options.ascending == "true");
 	this.sort_by = this.options.sortby;
-	this.grid_toggle = document.querySelector('.isotope_grid');
-	this.iso_article = document.querySelector('.isotope_an_article');
-	this.iso_div = document.querySelector('.isotope-main .isotope-div');
-	this.article_frame=document.querySelector('iframe#isotope_article_frame');
+	this.grid_toggle = document.querySelector('.isotope_grid')
+	this.iso_article = document.querySelector('.isotope_an_article')
+	this.iso_div = document.querySelector('.isotope-main .isotope-div')
+	this.article_frame=document.querySelector('iframe#isotope_article_frame')
 	this.article_modal=document.querySelector('#modalsrc_'+this.isoid+'_id');
 
 	if (this.article_frame) {
@@ -102,11 +102,10 @@ function CGIsotope(isoid,options) {
 		this.iso_width = this.grid_toggle.offsetWidth;
 		readmoretitles =  document.querySelectorAll('.isotope-readmore-title');
 		for (var t=0;t < readmoretitles.length;t++ ) {
-
+            
             if ($myiso.options.readmore == 'modal') {
                 readmoretitles[t].setAttribute('data-bs-toggle','modal');
                 readmoretitles[t].setAttribute('data-bs-target','#modalsrc_'+this.isoid+'_id');
-                //data-bs-toggle="modal"
             }
             
 			['click', 'touchstart'].forEach(type => {
@@ -114,7 +113,7 @@ function CGIsotope(isoid,options) {
 					$pos = $myiso.iso_div.offsetTop;
 					document.querySelector("body").scrollTo($pos,1000)
 					e.stopPropagation();
-					e.preventDefault();
+					e.preventDefault();	
                     if ($myiso.options.readmore != 'modal') {
                         $myiso.addClass($myiso.grid_toggle,'isotope-hide');
                         $myiso.addClass($myiso.iso_article,'isotope-open');
@@ -170,9 +169,10 @@ function CGIsotope(isoid,options) {
 									$myiso.resetToggle();
 							});
 						})
-                    } if ($myiso.options.readmore == 'modal') {
+                    } else if ($myiso.options.readmore == 'modal') {
                         mymodal = $myiso.article_modal;
                         myiframe = mymodal.querySelector('iframe');
+                        myiframe.init = myiframe.src; // save initial value
                         $url= "index.php?option=com_content&amp;view=article&amp;id="+this.dataset['articleid']+"&amp;layout=modal&amp;tmpl=component";
                         myiframe.src = $url;
                     }
@@ -193,7 +193,7 @@ function CGIsotope(isoid,options) {
                 console.log('closing');
                 mymodal = $myiso.article_modal;
                 myiframe = mymodal.querySelector('iframe');
-                myiframe.src = 'index.php?option=com_cgisotope&view=page&layout=wait&amp;tmpl=component';
+                myiframe.src = myiframe.init; // restore initial value
             });
         }
 	}
