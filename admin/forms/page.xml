@@ -556,6 +556,7 @@
 				<option value="true">JYES</option>
 				<option value="iframe">IFrame</option>
 				<option value="ajax">AJAX</option>
+				<option value="modal">Modal</option>
 				<option value="false">JNO</option>
 			</field>
    			<field name="readmoretext"

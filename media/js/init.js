@@ -55,10 +55,11 @@ function CGIsotope(isoid,options) {
 	this.empty_message = (this.options.empty == "true");
 	this.asc = (this.options.ascending == "true");
 	this.sort_by = this.options.sortby;
-	this.grid_toggle = document.querySelector('.isotope_grid')
-	this.iso_article = document.querySelector('.isotope_an_article')
-	this.iso_div = document.querySelector('.isotope-main .isotope-div')
-	this.article_frame=document.querySelector('iframe#isotope_article_frame')
+	this.grid_toggle = document.querySelector('.isotope_grid');
+	this.iso_article = document.querySelector('.isotope_an_article');
+	this.iso_div = document.querySelector('.isotope-main .isotope-div');
+	this.article_frame=document.querySelector('iframe#isotope_article_frame');
+	this.article_modal=document.querySelector('#modalsrc_'+this.isoid+'_id');
 
 	if (this.article_frame) {
 		this.article_frame.addEventListener('load',function(){ // Joomla 4.0
@@ -96,22 +97,31 @@ function CGIsotope(isoid,options) {
 	this.filters['lang'] = ['*'];
 	this.filters['alpha'] = ['*'];
 
-	if ((this.options.readmore == 'ajax') || (this.options.readmore == 'iframe'))  {
+	if ((this.options.readmore == 'ajax') || (this.options.readmore == 'iframe') || (this.options.readmore == 'modal'))  {
 		this.iso_height = this.grid_toggle.offsetHeight;
 		this.iso_width = this.grid_toggle.offsetWidth;
 		readmoretitles =  document.querySelectorAll('.isotope-readmore-title');
 		for (var t=0;t < readmoretitles.length;t++ ) {
+
+            if ($myiso.options.readmore == 'modal') {
+                readmoretitles[t].setAttribute('data-bs-toggle','modal');
+                readmoretitles[t].setAttribute('data-bs-target','#modalsrc_'+this.isoid+'_id');
+                //data-bs-toggle="modal"
+            }
+            
 			['click', 'touchstart'].forEach(type => {
 				readmoretitles[t].addEventListener(type,function(e) {	
 					$pos = $myiso.iso_div.offsetTop;
 					document.querySelector("body").scrollTo($pos,1000)
 					e.stopPropagation();
-					e.preventDefault();		
-					$myiso.addClass($myiso.grid_toggle,'isotope-hide');
-					$myiso.addClass($myiso.iso_article,'isotope-open');
-					$myiso.removeClass($myiso.iso_article,'isotope-hide');
-					$myiso.iso_article.offsetHeight ='auto';
-					$myiso.addClass($myiso.iso_article,'article-loading');
+					e.preventDefault();
+                    if ($myiso.options.readmore != 'modal') {
+                        $myiso.addClass($myiso.grid_toggle,'isotope-hide');
+                        $myiso.addClass($myiso.iso_article,'isotope-open');
+                        $myiso.removeClass($myiso.iso_article,'isotope-hide');
+                        $myiso.iso_article.offsetHeight ='auto';
+                        $myiso.addClass($myiso.iso_article,'article-loading');
+                    }
 					if ($myiso.options.readmore == 'ajax') {
 						document.querySelector("#isotope_an_article").innerHTML = '';
 						var mytoken = document.getElementById("token");
@@ -160,7 +170,12 @@ function CGIsotope(isoid,options) {
 									$myiso.resetToggle();
 							});
 						})
-				}
+                    } if ($myiso.options.readmore == 'modal') {
+                        mymodal = $myiso.article_modal;
+                        myiframe = mymodal.querySelector('iframe');
+                        $url= "index.php?option=com_content&amp;view=article&amp;id="+this.dataset['articleid']+"&amp;layout=modal&amp;tmpl=component";
+                        myiframe.src = $url;
+                    }
 	// listen to exit event
 				['click', 'touchstart'].forEach(type => {
 					$myiso.grid_toggle.addEventListener(type, function(e) {
@@ -172,6 +187,15 @@ function CGIsotope(isoid,options) {
 			})
 		});
 		}
+        if (this.options.readmore == 'modal') {
+            mymodal = this.article_modal;
+            mymodal.addEventListener('hide.bs.modal', function (event) {
+                console.log('closing');
+                mymodal = $myiso.article_modal;
+                myiframe = mymodal.querySelector('iframe');
+                myiframe.src = 'index.php?option=com_cgisotope&view=page&layout=wait&amp;tmpl=component';
+            });
+        }
 	}
 	['click', 'touchstart'].forEach(type => {
 		$myiso.iso_div.addEventListener(type, function(e) {

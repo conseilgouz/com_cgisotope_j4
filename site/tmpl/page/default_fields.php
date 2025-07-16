@@ -1050,6 +1050,21 @@ if ($this->iso_params->get('readmore', 'false') == 'iframe') {
 } elseif ($this->iso_params->get('readmore', 'false') == 'ajax') {
     echo '<input id="token" type="hidden" name="' . Session::getFormToken() . '" value="1" />';
     echo '<div id="isotope_an_article" class="isotope_an_article col-md-'.$width.' col-12 isotope-hide" ></div>';
+} elseif ($this->iso_params->get('readmore', 'false') == 'modal') {
+    HTMLHelper::_('bootstrap.modal', '.modal_iso');
+    $link = ''.URI::base(true).'/index.php?option=com_cgisotope&view=page&layout=wait&tmpl=component';
+    echo ' <div class="modal_iso modal modal-xl"  id="modalsrc_'.$com_id.'_id"  aria-labelledby="iframemodalsrc_'.$com_id.'_id" aria-hidden="true">
+            <div class="modal-dialog" style="height:90vh">
+                <div class="modal-content h-100 ">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body h-100 w-100">
+                        <iframe id="iframemodalsrc_'.$com_id.'_id" height="100%" width="100%" src="'.$link.'" name="iframe_modal"></iframe>
+                    </div>
+                </div>
+            </div>
+            </div>';
 }
 ?>
 <div class="iso_div_empty iso_hide_elem">

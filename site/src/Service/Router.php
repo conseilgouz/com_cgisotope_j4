@@ -39,6 +39,10 @@ class Router extends RouterView
 		$page->setKey('id');
 		$this->registerView($page);
 
+		$wait = new RouterViewConfiguration('page');
+		$wait->addLayout('wait');
+		$this->registerView($wait);
+
 		parent::__construct($app, $menu);
 
 		$this->attachRule(new MenuRules($this));
