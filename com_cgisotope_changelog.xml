@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.6.4</version>
+        <note>
+            <item>Update : 21/07/2025</item>
+        </note>
+        <fix>
+            <item>Readmore modal : touchscreen fix after closing modal</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.6.3</version>
         <note>
             <item>Update : 20/07/2025</item>
