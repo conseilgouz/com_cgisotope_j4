@@ -195,7 +195,7 @@ class PagesController extends AdminController
 	    $this->checkToken();
 	    $task = $this->getTask();
 		$files        = $this->input->files->get('Filedata', array(), 'array');
-		$return       = Factory::getSession()->get('com_cgisotope.return_url');
+		$return       = Factory::getApplication()->getSession()->get('com_cgisotope.return_url');
 		$this->folder = $this->input->get('folder', '', 'path');
 		$this->setRedirect($return);
         $db    = Factory::getDbo();
