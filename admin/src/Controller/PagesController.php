@@ -90,7 +90,7 @@ class PagesController extends AdminController
 	    $pks = array();
 	    if ($task == 'export') {
 	        // Get selected files
-	        $pks = $this->getInput()->post->get('cid');
+	        $pks = $this->input->post->get('cid');
 	    }
 	    $model = $this->getModel('Pages');
 	    // Get the isotope data
@@ -194,9 +194,9 @@ class PagesController extends AdminController
 	    // Check for request forgeries.
 	    $this->checkToken();
 	    $task = $this->getTask();
-		$files        = $this->getInput()->files->get('Filedata', array(), 'array');
+		$files        = $this->input->files->get('Filedata', array(), 'array');
 		$return       = Factory::getApplication()->getSession()->get('com_cgisotope.return_url');
-		$this->folder = $this->getInput()->get('folder', '', 'path');
+		$this->folder = $this->input->get('folder', '', 'path');
 		$this->setRedirect($return);
         $db    = Factory::getContainer()->get(DatabaseInterface::class);
 		foreach ($files as &$file) {
