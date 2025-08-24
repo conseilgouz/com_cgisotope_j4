@@ -74,7 +74,7 @@ class PageTable extends Table implements VersionableTableInterface
         $data->title = $this->title;
         $data->sections = $this->sections;
 		$data->fieldslinks = $this->fieldslinks;
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $task = $input->get('task');
         if ( ($task == "save") || ($task == 'apply') ){
             $compl = $input->getVar('jform', array(), 'post', 'array');

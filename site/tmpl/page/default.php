@@ -21,7 +21,7 @@ use Joomla\CMS\Language\LanguageHelper;
 $comfield	= 'media/com_cgisotope/';
 $app = Factory::getApplication();
 
-$com_id = $app->input->getInt('Itemid');
+$com_id = $app->getInput()->getInt('Itemid');
 $document = $app->getDocument();
 
 $this->iso_params = CGHelper::getParams($this->page, $this->getModel());
@@ -75,7 +75,7 @@ $userId = $user->id;
 
 $this->start = 0;
 if ($this->iso_params->get("pagination", "false") != 'false') {
-    $this->start = $app->input->getInt('limitstart', 0);
+    $this->start = $app->getInput()->getInt('limitstart', 0);
 }
 $this->language_filter = $this->iso_params->get('language_filter', 'false');
 if ($this->language_filter != 'false') { // language filter
@@ -269,12 +269,12 @@ if ($this->iso_entree == "webLinks") {
     }
 }
 
-$moddef = $app->input->get('moddef', 'none');
+$moddef = $app->getInput()->get('moddef', 'none');
 if ($moddef == 'cat') {
-    $this->default_cat = $this->cats_alias[$app->input->get('default_cat', 1)];
+    $this->default_cat = $this->cats_alias[$app->getInput()->get('default_cat', 1)];
 }
 if ($moddef == 'tag') {
-    $this->default_tag = $app->input->get('default_tag', 1);
+    $this->default_tag = $app->getInput()->get('default_tag', 1);
     $onetag = CGHelper::getTagTitle($this->default_tag);
     $this->default_tag = $onetag[0]->alias;
 }

@@ -75,10 +75,10 @@ class PageController extends FormController
         // Initialise variables.
         $app = Factory::getApplication();
         $model= $this->getModel('page'); 
-        $data = $app->input->getVar('jform', array(), 'post', 'array');
+        $data = $app->getInput()->getVar('jform', array(), 'post', 'array');
         $task = $this->getTask();
         $context = 'com_cgisotope.edit.page';
-        $recordId = $app->input->getInt('id');
+        $recordId = $app->getInput()->getInt('id');
         
         if (!$this->checkEditId($context, $recordId))
         {

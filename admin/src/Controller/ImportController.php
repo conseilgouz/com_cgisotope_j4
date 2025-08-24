@@ -31,7 +31,7 @@ class ImportController extends FormController
         // Check for request forgeries.
         Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
         $app = Factory::getApplication();
-        $input = $app->input;
+        $input = $app->getInput();
 		$pks = $input->post->get('cid', array(), 'array');
         $db	= Factory::getContainer()->get(DatabaseInterface::class);
 		foreach ($pks as $id)	{

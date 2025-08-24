@@ -29,7 +29,7 @@ class HtmlView extends BaseHtmlView {
         $this->pagination = false; // php 8.0
 		$model = $this->getModel();
         $this->params = $app->getParams('cgisotope',$model);
-        $this->page= $app->input->getInt('id'); 
+        $this->page= $app->getInput()->getInt('id'); 
         $this->_prepareDocument();
         parent::display($tpl);
     }

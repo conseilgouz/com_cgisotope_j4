@@ -33,7 +33,7 @@ class HtmlView extends BaseHtmlView
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
 
 		if (!\count($this->items) && $this->isEmptyState = $this->get('IsEmptyState'))
 		{

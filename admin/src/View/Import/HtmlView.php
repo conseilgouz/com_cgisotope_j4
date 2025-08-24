@@ -35,7 +35,7 @@ class HtmlView extends BaseHtmlView
         $this->modules      = $this->getModules();
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
 
 		// CGHelper::addSubmenu($input->getCmd('view', 'import'));
 		// Check for errors.
@@ -68,12 +68,12 @@ class HtmlView extends BaseHtmlView
 	}
         protected function getModules() {
             $db	= Factory::getContainer()->get(DatabaseInterface::class);
-            $result = $db->getQuery(true)(
-                $db->getQuery(true)
-                ->select('*')
+            $query = $db->getQuery(true);
+            $query->select('*')
                 ->from($db->quoteName('#__modules'))
-                ->where($db->quoteName('module') . ' like ' . $db->quote('mod_simple_isotope'))
-            )->loadAssocList();
+                ->where($db->quoteName('module') . ' like ' . $db->quote('mod_simple_isotope'));
+            $db->setQuery($query);
+            $result = $db->loadAssocList();
             return $result;   
         }
 }

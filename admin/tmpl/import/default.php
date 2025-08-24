@@ -18,6 +18,9 @@ use Joomla\CMS\Router\Route;
 
 // HTMLHelper::_('behavior.tooltip');
 HTMLHelper::_('behavior.multiselect');
+// Joomla 6.0 : list-view.js might not be loaded 
+$wa = $this->getDocument()->getWebAssetManager();
+$wa->useScript('list-view');
 
 $user		= Factory::getApplication()->getIdentity();
 $userId		= $user->id;

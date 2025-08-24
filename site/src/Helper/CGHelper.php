@@ -291,8 +291,8 @@ class CGHelper extends ComponentHelper
                     $menuitems = $menu->getItems('link', 'index.php?option=com_users&view=login');
                     if (isset($menuitems[0])) {
                         $Itemid = $menuitems[0]->id;
-                    } elseif ($app->input->getInt('Itemid') > 0) {
-                        $Itemid = $app->input->getInt('Itemid');
+                    } elseif ($app->getInput()->getInt('Itemid') > 0) {
+                        $Itemid = $app->getInput()->getInt('Itemid');
                     }
                     $item->link = Route::_('index.php?option=com_users&view=login&Itemid=' . $Itemid);
                 }

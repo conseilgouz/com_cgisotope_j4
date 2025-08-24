@@ -14,8 +14,8 @@ use Joomla\CMS\Language\Text;
 use ConseilGouz\Component\CGIsotope\Site\Helper\CGHelper;
 class DisplayController extends BaseController {
     public function display($cachable = false, $urlparams = false) {
-        $view = Factory::getApplication()->input->getCmd('view', 'page');
-        Factory::getApplication()->input->set('view', $view);
+        $view = Factory::getApplication()->getInput()->getCmd('view', 'page');
+        Factory::getApplication()->getInput()->set('view', $view);
         parent::display($cachable, $urlparams);
         return $this;
     }

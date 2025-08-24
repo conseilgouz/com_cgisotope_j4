@@ -26,7 +26,7 @@ class JsonView extends BaseHtmlView
             echo new JsonResponse(null, Text::_('JINVALID_TOKEN'), true);
             exit;
         }
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $pageid = (int)$input->get('page');
         if (!is_numeric($pageid)) {
             return;

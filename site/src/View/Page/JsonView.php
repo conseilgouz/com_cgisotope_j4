@@ -24,7 +24,7 @@ class JsonView extends BaseHtmlView {
 
 	function display($tpl = null)
 	{
-		$input = Factory::getApplication()->input;
+		$input = Factory::getApplication()->getInput();
 		$articleId = $input->get('article');
 		echo json_encode(self::getArticle((int)$articleId)); 
 	}
