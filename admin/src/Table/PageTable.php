@@ -198,7 +198,7 @@ class PageTable extends Table implements VersionableTableInterface
 		ArrayHelper::toInteger($pks);
 		$userId = (int) $userId;
 		$state  = (int) $state;
-		$db = $this->getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		if (empty($pks))
 		{
 			if ($this->$k) {

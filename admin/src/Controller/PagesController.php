@@ -198,7 +198,7 @@ class PagesController extends AdminController
 		$return       = Factory::getApplication()->getSession()->get('com_cgisotope.return_url');
 		$this->folder = $this->getInput()->get('folder', '', 'path');
 		$this->setRedirect($return);
-        $db    = Factory::getDbo();
+        $db    = Factory::getContainer()->get(DatabaseInterface::class);
 		foreach ($files as &$file) {
 		    if ($file[type] != "application/json") {
                 Factory::getApplication()->enqueueMessage('100 : ' . Text::_('COM_CGISOTOPE_ERROR_FILE_TYPE'), 'warning');

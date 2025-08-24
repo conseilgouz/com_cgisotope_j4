@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\Database\DatabaseInterface;
 
 class PagesModel extends ListModel
 {
@@ -37,7 +38,7 @@ class PagesModel extends ListModel
 	protected function getListQuery()
 	{
 		// Initialise variables.
-		$db		= $this->getDbo();
+		$db		= Factory::getContainer()->get(DatabaseInterface::class);
 		$query	= $db->getQuery(true);
 
 		// Select the required fields from the table.
@@ -91,7 +92,7 @@ class PagesModel extends ListModel
 	 */
 	public function getDataAsIterator($pks = null)
 	{
-	    $db    = $this->getDbo();
+	    $db    = Factory::getContainer()->get(DatabaseInterface::class);
 	    $query = $this->getDataQuery($pks);
 	    
 	    $db->setQuery($query);
@@ -110,7 +111,7 @@ class PagesModel extends ListModel
 	 */
 	private function getDataQuery($pks = null)
 	{
-	    $db    = $this->getDbo();
+	    $db    = Factory::getContainer()->get(DatabaseInterface::class);
 	    $query = $db->getQuery(true);
 	    $query->select('a.*');
 	    $query->from('#__cgisotope_page as a');

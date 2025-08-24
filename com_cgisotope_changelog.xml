@@ -2,6 +2,31 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.6.7</version>
+        <note>
+            <item>Update : 24/08/2025</item>
+        </note>
+        <fix>
+            <item>Joomla 6 : getDbo() removed</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
+		<version>4.6.6</version>
+        <note>
+            <item>Update : 24/08/2025</item>
+        </note>
+        <fix>
+            <item>Joomla 6 : getApplication()->input removed</item>
+            <item>Joomla 6 : getDbo() removed</item>
+            <item>Joomla 6 : list-view not loaded</item>
+            <item>Field Version : use webassets and remove getDbo</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.6.5</version>
         <note>
             <item>Update : 11/08/2025</item>

@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\DatabaseInterface;
 
 class ImportModel extends ListModel
 {
@@ -33,7 +34,7 @@ class ImportModel extends ListModel
 	protected function getListQuery()
 	{
 		// Initialise variables.
-		$db		= $this->getDbo();
+		$db		= Factory::getContainer()->get(DatabaseInterface::class);
 		$query	= $db->getQuery(true);
 
 		// Select the required fields from the table.
