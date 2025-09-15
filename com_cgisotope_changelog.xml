@@ -4,7 +4,7 @@
 		<type>component</type>
 		<version>4.6.10</version>
         <note>
-            <item>Update : 24/08/2025</item>
+            <item>Update : 15/09/2025</item>
         </note>
         <fix>
             <item>Use ConseilGouz library</item>
