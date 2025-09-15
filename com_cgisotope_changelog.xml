@@ -2,7 +2,7 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
-		<version>4.6.8</version>
+		<version>4.6.9</version>
         <note>
             <item>Update : 24/08/2025</item>
         </note>
