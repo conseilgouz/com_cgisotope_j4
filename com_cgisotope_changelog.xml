@@ -7,6 +7,17 @@
             <item>Update : 24/08/2025</item>
         </note>
         <fix>
+            <item>Use ConseilGouz library</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
+		<version>4.6.8</version>
+        <note>
+            <item>Update : 24/08/2025</item>
+        </note>
+        <fix>
             <item>Joomla 6 : getApplication()->input removed</item>
             <item>Joomla 6 : getDbo() removed</item>
             <item>Joomla 6 : list-view not loaded</item>
