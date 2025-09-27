@@ -372,7 +372,7 @@ if ($displayfilterfields != "hide") {
             }
             if ($tagsfilterparent != "true") {
                 $filter_tag_div .= '<div class="isotope_button-group filter-button-group-tags col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'" data-filter-group="tags" data="'.$com_id.'">';
-                $filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_tout '.$checked.'" data-sort-value="*" />'.$liball.'</button>';
+                $filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_tout '.$checked.'" data-sort-value="*" >'.$liball.'</button>';
             } else {
                 $filter_tag_div .= '<div class="col-md-'.$awidth.' col-12 '.$layouts["tag"]->div_align.'">';
             }
@@ -415,7 +415,7 @@ if ($displayfilterfields != "hide") {
                     if ($tagsfiltercount == 'true') {
                         $tagcount = '<span class="tag-count badge bg-info">'.$this->tags_count[$aff_alias].'</span>';
                     }
-                    $filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->tags_note[$aff_alias].'"/>'.$img.Text::_($aff).$tagcount.'</button>';
+                    $filter_tag_div .= '<button class="'.$button_bootstrap.'  iso_button_tags_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'" title="'.$this->tags_note[$aff_alias].'">'.$img.Text::_($aff).$tagcount.'</button>';
                 }
             }
             if ($tagsfilterparent == "true") {
@@ -510,7 +510,7 @@ if ($displayfilterfields != "hide") {
             if ($this->default_cat == "") {
                 $checked = "is-checked";
             }
-            $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_tout '.$checked.'" data-sort-value="*" />'.$liball.'</button>';
+            $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_tout '.$checked.'" data-sort-value="*" >'.$liball.'</button>';
             foreach ($sortFilter as $key => $filter) {
                 $aff = $this->cats_lib[$key];
                 $aff_alias = $this->cats_alias[$key];
@@ -534,7 +534,7 @@ if ($displayfilterfields != "hide") {
                     if ($catsfiltercount == 'true') {
                         $catcount = '<span class="cat-count badge bg-info">'.$this->cats_count[$key].'</span>';
                     }
-                    $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'"  title="'.$this->cats_note[$key].'"/>'.$img.Text::_($aff).$catcount.'</button>';
+                    $filter_cat_div .= '<button class="'.$button_bootstrap.'  iso_button_cat_'.$aff_alias.' '.$checked.'" data-sort-value="'.$aff_alias.'"  title="'.$this->cats_note[$key].'">'.$img.Text::_($aff).$catcount.'</button>';
                 }
             }
             $filter_cat_div .= '</div>';
