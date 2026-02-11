@@ -88,8 +88,10 @@ class CGHelper extends ComponentHelper
         $query = $db->getQuery(true);
         $query->select('*')
             ->from('#__weblinks AS u')
-            ->where('catid = '.(int)$id.' AND state = 1')
+            ->where('catid = :id AND state = 1')
         ;
+        $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
+
         $db->setQuery($query);
         $items = $db->loadObjectList();
         if ($items) {
@@ -181,8 +183,8 @@ class CGHelper extends ComponentHelper
         $query = $db->getQuery(true);
         $query->select('*')
             ->from('#__categories ')
-            ->where('id = '.(int)$id)
-        ;
+            ->where('id = :id')
+            ->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -376,7 +378,8 @@ class CGHelper extends ComponentHelper
                     unset($items[$itemkey]); // don't show it
                     continue;
                 }
-                $test = FieldsHelper::getFields('com_content.article', $item);
+                $test = [];
+                // $test = FieldsHelper::getFields('com_content.article', $item);
 
                 foreach ($test as $field) {
                     $lang = $params->get('language', '*');
@@ -579,8 +582,8 @@ class CGHelper extends ComponentHelper
         // Construct the query
         $query->select('type')
         ->from('#__fields')
-        ->where('id = '.(int)$id)
-        ;
+        ->where('id = :id');
+        $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
         $db->setQuery($query);
         return $db->loadResult();
 
@@ -599,8 +602,8 @@ class CGHelper extends ComponentHelper
         $query->select('tags.title as tag, tags.alias as alias,tags.note as note,tags.language as language,parent.title as parent_title, parent.alias as parent_alias')
             ->from('#__tags as tags')
             ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
-            ->where('tags.id = '.(int)$id)
-        ;
+            ->where('tags.id = :id');//.(int)$id)
+        $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -611,8 +614,10 @@ class CGHelper extends ComponentHelper
         // Construct the query
         $query->select('tags.title as tag')
             ->from('#__tags as tags')
-            ->where('tags.id = '.(int)$id.' AND tags.access IN ('.implode(',', $authorised).')')
-        ;
+            ->where('tags.id = :id AND tags.access IN (:arr)');
+        $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
+        $aut =  implode(',', $authorised);
+        $query->bind(':arr',$aut, \Joomla\Database\ParameterType::STRING);
         $db->setQuery($query);
         return $db->loadResult();
     }
@@ -625,8 +630,11 @@ class CGHelper extends ComponentHelper
             ->innerJoin('#__content as c on c.id = map.content_item_id')
             ->innerJoin('#__tags as tags on tags.id = map.tag_id')
             ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
-            ->where('c.id = '.(int)$id.' AND map.type_alias like "com_content%" AND tags.access IN ('.implode(',', $authorised).')')
+            ->where('c.id = :id AND map.type_alias like "com_content%" AND tags.access IN (:arr)')
         ;
+        $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
+        $aut = implode(',', $authorised);
+        $query->bind(':arr',$aut , \Joomla\Database\ParameterType::STRING);
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -639,8 +647,11 @@ class CGHelper extends ComponentHelper
         ->from('#__contentitem_tag_map as map ')
         ->innerJoin('#__tags as tags on tags.id = map.tag_id')
         ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
-        ->where('tags.id IN ('.implode(',', $tags_list).') AND map.type_alias like "com_content%" AND tags.access IN ('.implode(',', $authorised).')')
+        ->where('tags.id IN (:taglist) AND map.type_alias like "com_content%" AND tags.access IN (:acc)')
         ;
+        $query->bind(':taglist', implode(',', $tags_list), \Joomla\Database\ParameterType::STRING);
+        $query->bind(':acc', implode(',', $authorised), \Joomla\Database\ParameterType::STRING);
+        
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -652,9 +663,10 @@ class CGHelper extends ComponentHelper
             ->from('#__contentitem_tag_map as map ')
             ->innerJoin('#__weblinks as w on w.id = map.content_item_id')
             ->innerJoin('#__tags as tags on tags.id = map.tag_id')
-            ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
-            ->where('w.id = '.(int)$id.' AND map.type_alias like "com_weblinks%" AND tags.access IN ('.implode(',', $authorised).')')
+            ->innerJoin('#__tags as pare:id'.(int)$id.' AND map.type_alias like "com_weblinks%" AND tags.access IN (:arr)')
         ;
+        $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
+        $query->bind(':arr', implode(',', $authorised), \Joomla\Database\ParameterType::STRING);
         $db->setQuery($query);
         return $db->loadObjectList();
     }
@@ -716,9 +728,11 @@ class CGHelper extends ComponentHelper
             $values = explode("=", $phocacount_parts[2], 2);
             $id				= $values[1];
             $db 			= Factory::getContainer()->get(DatabaseInterface::class);
-            $query = 'SELECT a.hits'
-                    . ' FROM #__phocadownload AS a';
-            $query .= ' WHERE a.id = '.(int)$id;
+            $query = $db->getQuery(true);
+            $query->select('a.hits')
+                  ->from('#__phocadownload AS a')
+                   ->where('a.id = :id ');
+            $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
             $db->setQuery($query);
             $item = $db->loadResult();
             if (!empty($item)) {

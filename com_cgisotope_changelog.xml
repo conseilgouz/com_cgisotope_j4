@@ -2,6 +2,20 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.7.0</version>
+        <note>
+            <item>Update : 12/02/2026</item>
+        </note>
+        <change>
+            <item>Database : use prepared statements</item>
+        </change>
+        <addition>
+            <item>New parameter : apply content plugins to articles</item>
+        </addition>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.6.12</version>
         <note>
             <item>Update : 06/02/2026</item>

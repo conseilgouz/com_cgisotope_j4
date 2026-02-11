@@ -777,13 +777,14 @@ foreach ($this->list as $key => $category) {
 
             $perso = CGHelper::checkDBFields($item, $perso, $deb, $end); // check if any field from db definition is left
 
-            // apply content plugins on weblinks
-            $item_cls = new \stdClass();
-            $item_cls->id = $item->id;
-            $item_cls->text = $perso;
-            $item_cls->params = $this->iso_params;
-            $app->triggerEvent('onContentPrepare', array('com_content.article', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
-            $perso = 	$item_cls->text;
+            if ($this->iso_params->get('applyplugins','true') == 'true') { // apply content plugins on weblinks
+                $item_cls = new \stdClass();
+                $item_cls->id = $item->id;
+                $item_cls->text = $perso;
+                $item_cls->params = $this->iso_params;
+                $app->triggerEvent('onContentPrepare', array('com_content.article', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
+                $perso = 	$item_cls->text; 
+            }
             // additionnal perso in isotope plugin
             $item_cls = new stdClass();
             $item_cls->id = $item->id;
@@ -837,13 +838,14 @@ foreach ($this->list as $key => $category) {
 
             $perso = CGHelper::checkDBFields($item, $perso, $deb, $end); // check if any field from db definition is left
 
-            // apply content plugins
-            $item_cls = new \stdClass();
-            $item_cls->id = $item->id;
-            $item_cls->text = $perso;
-            $item_cls->params = $this->iso_params;
-            $app->triggerEvent('onContentPrepare', array('com_content.article', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
-            $perso = 	$item_cls->text;
+            if ($this->iso_params->get('applyplugins','true') == 'true') { // apply content plugins
+                $item_cls = new \stdClass();
+                $item_cls->id = $item->id;
+                $item_cls->text = $perso;
+                $item_cls->params = $this->iso_params;
+                $app->triggerEvent('onContentPrepare', array('com_content.article', &$item_cls, &$item_cls->params, 0)); // Joomla 4.0
+                $perso = 	$item_cls->text;
+            }
             // additionnal perso in isotope plugin
             $item_cls = new \stdClass();
             $item_cls->id = $item->id;

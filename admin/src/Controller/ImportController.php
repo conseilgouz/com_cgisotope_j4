@@ -62,6 +62,7 @@ class ImportController extends FormController
             $page_params['introtext_img_link'] = $mod_params->introtext_img_link;
             $page_params['titlelink'] = $mod_params->titlelink;
             $page_params['readmore'] = $mod_params->readmore;
+            $page_params['applyplugins'] = $mod_params->applyplugins;
             $page_params['introimg_maxwidth'] = $mod_params->introimg_maxwidth;
             $page_params['introimg_maxheight'] = $mod_params->introimg_maxheight;
             $page_params['iso_count'] = $mod_params->iso_count;
