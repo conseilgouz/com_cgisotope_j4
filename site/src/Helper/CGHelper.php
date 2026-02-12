@@ -648,8 +648,10 @@ class CGHelper extends ComponentHelper
         ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
         ->where('tags.id IN (:taglist) AND map.type_alias like "com_content%" AND tags.access IN (:acc)')
         ;
-        $query->bind(':taglist', implode(',', $tags_list), \Joomla\Database\ParameterType::STRING);
-        $query->bind(':acc', implode(',', $authorised), \Joomla\Database\ParameterType::STRING);
+        $tagslist = implode(',', $tags_list);
+        $query->bind(':taglist', $tagslist, \Joomla\Database\ParameterType::STRING);
+        $aut = implode(',', $authorised);
+        $query->bind(':acc', $aut, \Joomla\Database\ParameterType::STRING);
         
         $db->setQuery($query);
         return $db->loadObjectList();
@@ -662,10 +664,12 @@ class CGHelper extends ComponentHelper
             ->from('#__contentitem_tag_map as map ')
             ->innerJoin('#__weblinks as w on w.id = map.content_item_id')
             ->innerJoin('#__tags as tags on tags.id = map.tag_id')
-            ->innerJoin('#__tags as pare:id'.(int)$id.' AND map.type_alias like "com_weblinks%" AND tags.access IN (:arr)')
+            ->innerJoin('#__tags as parent on parent.id = tags.parent_id')
+            ->where('w.id = :id AND map.type_alias like "com_weblinks%" AND tags.access IN (:arr)')
         ;
         $query->bind(':id', $id, \Joomla\Database\ParameterType::INTEGER);
-        $query->bind(':arr', implode(',', $authorised), \Joomla\Database\ParameterType::STRING);
+        $aut = implode(',', $authorised);
+        $query->bind(':arr', $aut, \Joomla\Database\ParameterType::STRING);
         $db->setQuery($query);
         return $db->loadObjectList();
     }

@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.7.2</version>
+        <note>
+            <item>Update : 12/02/2026</item>
+        </note>
+        <fix>
+            <item>Weblinks display error</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.7.1</version>
         <note>
             <item>Update : 12/02/2026</item>
