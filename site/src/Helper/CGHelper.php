@@ -378,8 +378,7 @@ class CGHelper extends ComponentHelper
                     unset($items[$itemkey]); // don't show it
                     continue;
                 }
-                $test = [];
-                // $test = FieldsHelper::getFields('com_content.article', $item);
+                $test = FieldsHelper::getFields('com_content.article', $item);
 
                 foreach ($test as $field) {
                     $lang = $params->get('language', '*');

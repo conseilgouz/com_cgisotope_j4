@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.7.1</version>
+        <note>
+            <item>Update : 12/02/2026</item>
+        </note>
+        <fix>
+            <item>Custom fields are not loaded anymore due to an error in helper</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.7.0</version>
         <note>
             <item>Update : 12/02/2026</item>
