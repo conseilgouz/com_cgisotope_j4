@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.7.3</version>
+        <note>
+            <item>Update : 14/02/2026</item>
+        </note>
+        <addition>
+            <item>New parameter : load custom fields only if required</item>
+        </addition>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.7.2</version>
         <note>
             <item>Update : 12/02/2026</item>

@@ -1,8 +1,8 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x/5.x Component
+* CG Isotope Component  - Joomla 4.x/5.x/6.x Component
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2026 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 *
 */
@@ -378,8 +378,10 @@ class CGHelper extends ComponentHelper
                     unset($items[$itemkey]); // don't show it
                     continue;
                 }
-                $test = FieldsHelper::getFields('com_content.article', $item);
-
+                $test = [];
+                if ($params->get('needfields', 'true') == 'true') {
+                    $test = FieldsHelper::getFields('com_content.article', $item);
+                }
                 foreach ($test as $field) {
                     $lang = $params->get('language', '*');
                     if (($lang != '*') && ($field->language != '*') && ($lang != $field->language)) {

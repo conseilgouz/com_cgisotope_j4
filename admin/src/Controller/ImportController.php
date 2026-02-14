@@ -1,8 +1,8 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x/5.x Component 
+* CG Isotope Component  - Joomla 4.x/5.x/6.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2026 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -63,6 +63,7 @@ class ImportController extends FormController
             $page_params['titlelink'] = $mod_params->titlelink;
             $page_params['readmore'] = $mod_params->readmore;
             $page_params['applyplugins'] = $mod_params->applyplugins;
+            $page_params['needfields'] = $mod_params->needfields;
             $page_params['introimg_maxwidth'] = $mod_params->introimg_maxwidth;
             $page_params['introimg_maxheight'] = $mod_params->introimg_maxheight;
             $page_params['iso_count'] = $mod_params->iso_count;

@@ -1,8 +1,8 @@
 <?php
 /**
-* CG Isotope Component  - Joomla 4.x/5.x Component 
+* CG Isotope Component  - Joomla 4.x/5.x/6.x Component 
 * Package			: CG Isotope
-* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2026 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 * From              : isotope.metafizzy.co
 */
@@ -59,6 +59,7 @@ class PageModel extends AdminModel {
         $data->readmore = $compl['readmore'];
         $data->readmoretext = $compl['readmoretext'];
         $data->applyplugins = $compl['applyplugins'];
+        $data->needfields = $compl['needfields'];
         $data->introimg_maxwidth = $compl['introimg_maxwidth'];
         $data->introimg_maxheight = $compl['introimg_maxheight'];
         $data->iso_count = $compl['iso_count'];

@@ -541,8 +541,14 @@
    			<field name="readmoretext" showon="readmore!:false"
 				type="text" default=""
 				label="CG_ISO_READMORETEXT" description="CG_ISO_READMORETEXTDESC"	class="clear" />
+<field	name="noteoptimize"	type="note" label="CG_ISO_OPTIMIZENOTE" class="alert-success clear half"/>
    			<field name="applyplugins"  type="radio" class="btn-group btn-group-yesno clear" default="true"
 				label="CG_ISO_APPLYPLUGINS" description="CG_ISO_APPLYPLUGINSDESC">
+   				<option value="true">JYES</option>
+				<option value="false">JNO</option>
+			</field>
+   			<field name="needfields"  type="radio" class="btn-group btn-group-yesno clear" default="true"
+				label="CG_ISO_NEEDFIELDS" description="CG_ISO_NEEDFIELDSDESC">
    				<option value="true">JYES</option>
 				<option value="false">JNO</option>
 			</field>
