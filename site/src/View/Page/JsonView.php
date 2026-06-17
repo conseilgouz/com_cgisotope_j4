@@ -9,21 +9,23 @@
 namespace ConseilGouz\Component\CGIsotope\Site\View\Page;
 
 defined('_JEXEC') or die;
+use Joomla\CMS\Access\Access;
 use Joomla\CMS\Factory;
-use Joomla\Registry\Registry;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Access\Access;
+use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
 use Joomla\Component\Content\Site\Model\ArticleModel;
-use Joomla\CMS\MVC\View\JsonView as BaseHtmlView;
+use Joomla\Registry\Registry;
 
 class JsonView extends BaseHtmlView {
 
 	function display($tpl = null)
 	{
+        Session::checkToken('get') or die(Text::_('JINVALID_TOKEN'));
 		$input = Factory::getApplication()->getInput();
 		$articleId = $input->get('article');
 		echo json_encode(self::getArticle((int)$articleId)); 
