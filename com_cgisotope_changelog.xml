@@ -4,10 +4,11 @@
 		<type>component</type>
 		<version>4.7.4</version>
         <note>
-            <item>Update : 17/06/2026</item>
+            <item>Update : 21/06/2026</item>
         </note>
         <fix>
             <item>Check session in article ajax call</item>
+            <item>Check access in pages view menu</item>
         </fix>
     </changelog>
 	<changelog>

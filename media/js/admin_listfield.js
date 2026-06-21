@@ -1,7 +1,7 @@
 /**
-* CG Isotope Component  - Joomla 4.x/5.x Component 
+* CG Isotope Component  - Joomla 4.x/5.x/6.x Component 
 * Package			: CG ISotope
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2026 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 *
 */
@@ -44,6 +44,10 @@ function loadfilters(element) {
 		url : url,
 		onSuccess: function(data, xhr) {
             var result = JSON.parse(data);
+            if (!result.success) {
+                alert(result.message);
+                return false;
+            }
             listbox = document.getElementById('jform_request_default_'+val);
             selectedValue = "";
             if (listbox.selectedOptions[0]) {

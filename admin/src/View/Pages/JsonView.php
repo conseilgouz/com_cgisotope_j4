@@ -26,6 +26,10 @@ class JsonView extends BaseHtmlView
             echo new JsonResponse(null, Text::_('JINVALID_TOKEN'), true);
             exit;
         }
+        if (Factory::getApplication()->getIdentity()->guest || !Factory::getApplication()->isClient('administrator')) {
+            echo new JsonResponse(null, Text::_('JGLOBAL_AUTH_UNKNOWN_ACCESS_DENIED'), true);
+            exit;
+        }
         $input = Factory::getApplication()->getInput();
         $pageid = (int)$input->get('page');
         if (!is_numeric($pageid)) {
