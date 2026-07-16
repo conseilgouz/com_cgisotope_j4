@@ -2,6 +2,17 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.7.5</version>
+        <note>
+            <item>Update : 16/07/2026</item>
+        </note>
+        <fix>
+            <item>mysql update : must be in sqm/updates/mysql folder</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.7.4</version>
         <note>
             <item>Update : 21/06/2026</item>
