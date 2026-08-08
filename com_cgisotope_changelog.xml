@@ -2,12 +2,23 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
+		<version>4.7.6</version>
+        <note>
+            <item>Update : 08/08/2026</item>
+        </note>
+        <fix>
+            <item>mysql update : fix 2.0.13.sql (causing DB check)</item>
+        </fix>
+    </changelog>
+	<changelog>
+		<element>com_cgisotope</element>
+		<type>component</type>
 		<version>4.7.5</version>
         <note>
             <item>Update : 16/07/2026</item>
         </note>
         <fix>
-            <item>mysql update : must be in sqm/updates/mysql folder</item>
+            <item>mysql update : must be in sql/updates/mysql folder</item>
         </fix>
     </changelog>
 	<changelog>
