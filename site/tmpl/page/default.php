@@ -26,6 +26,10 @@ $document = $app->getDocument();
 
 $this->iso_params = CGHelper::getParams($this->page, $this->getModel());
 
+if (!$this->iso_params) { // params not found : invalid id => exit
+    die('No params');
+}
+
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $app->getDocument()->getWebAssetManager();
 

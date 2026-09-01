@@ -46,11 +46,14 @@ class CGHelper extends ComponentHelper
         $manifest = json_decode($db->loadResult(), true);
         return $manifest['version'];
     }
-    public static function getParams($id, $model = null)
+    public static function getParams($id, $model = null): bool | Registry
     {
         // Table::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_cgisotope/src/Table');
         $table = $model->getTable();
         $table->load((int)$id);
+        if (!$table->id) {
+            return false;
+        }
         $lesparams = json_decode($table->page_params, true);
         $lesparams['layouts'] = $table->sections;
         $lesparams['fieldslinks'] = $table->fieldslinks;
