@@ -27,7 +27,7 @@ $document = $app->getDocument();
 $this->iso_params = CGHelper::getParams($this->page, $this->getModel());
 
 if (!$this->iso_params) { // params not found : invalid id => exit
-    die('No params');
+    throw new \RuntimeException(Text::_('JERROR_PAGE_NOT_FOUND'), 404);;
 }
 
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */

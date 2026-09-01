@@ -2,12 +2,12 @@
 	<changelog>
 		<element>com_cgisotope</element>
 		<type>component</type>
-		<version>4.7.8</version>
+		<version>4.7.9</version>
         <note>
             <item>Update : 01/09/2026</item>
         </note>
         <fix>
-            <item>Enforce page id check</item>
+            <item>Enforce page id check (merci Xaxier, alias Chabi01)</item>
         </fix>
     </changelog>
 	<changelog>
